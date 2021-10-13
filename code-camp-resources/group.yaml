@@ -1,0 +1,15 @@
+kind: Group
+apiVersion: user.openshift.io/v1
+metadata:
+  name: code-camp
+users:
+  - CookieMonster70
+  - danielgrob
+  - joachimprinzbach
+  - mbobzin
+  - leubedane
+  - luechtdiode
+  - patrit
+  - yannickholzenkamp
+  - mikevader
+  - tiliavir

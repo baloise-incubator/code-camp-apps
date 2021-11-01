@@ -13,5 +13,5 @@ public class API extends RouteBuilder {
     }
 }
 
-// kamel run API.java --property file:api.properties --open-api openapi.yaml --trait route.tls-termination=edge
+// kamel run API.java --open-api openapi.yaml --trait route.tls-termination=edge
 // https://api-camel-k-resources.apps.okd.baloise.dev/v1/dave

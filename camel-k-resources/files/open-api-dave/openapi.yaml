@@ -1,0 +1,23 @@
+---
+openapi: 3.0.2
+info:
+  title: Camel K Object API
+  version: 1.0.0
+  description: A API for geetings
+paths:
+  /v1/{name}:
+    get:
+      responses:
+        "200":
+          content:
+            text/html: {}
+          description: The object content
+      operationId: greeting-id
+      summary: Get the content of an object
+    parameters:
+      - name: name
+        description: Name of the person
+        schema:
+          type: string
+        in: path
+        required: true

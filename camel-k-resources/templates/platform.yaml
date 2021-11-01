@@ -1,0 +1,15 @@
+apiVersion: camel.apache.org/v1
+kind: IntegrationPlatform
+metadata:
+  labels:
+    app: "camel-k"
+    helm.sh/chart: camel-k-0.7.1
+    app.kubernetes.io/name: camel-k
+    app.kubernetes.io/instance: baloise-camel-k
+    app.kubernetes.io/version: "1.6.1"
+    app.kubernetes.io/managed-by: Helm
+  name: camel-k
+spec:
+  build:
+    registry: {}
+  cluster: OpenShift

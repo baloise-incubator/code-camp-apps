@@ -1,9 +1,9 @@
 ---
 openapi: 3.0.2
 info:
-  title: Camel K Object API
+  title: Camel K - OpenAPI example
   version: 1.0.0
-  description: A API for geetings
+  description: An OpenAPI greeting example with Camel K on OpenShift.
 paths:
   /v1/{name}:
     get:
@@ -11,9 +11,9 @@ paths:
         "200":
           content:
             text/html: {}
-          description: The object content
+          description: Returns the greeting
       operationId: greeting-id
-      summary: Get the content of an object
+      summary: Greet a name
     parameters:
       - name: name
         description: Name of the person

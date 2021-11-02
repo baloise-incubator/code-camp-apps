@@ -15,7 +15,10 @@ You can find other examples here https://camel.apache.org/camel-k/next/languages
 
 # Topics
 ## OpenAPI
-
+You can find an example of a OpenAPI usage in `files/open-api`. You can use OpenAPI v3.  
+Over the `operation-id` you can connect operations form the OpenAPI YAML to the Camel DSL.  
+To run the integration you have to do `kamel run OpenApi.java --open-api openapi.yaml --trait route.tls-termination=edge`. 
+The `tls-termination=edge` is for OpenShift to enable HTTPS.
 
 ## Gitops
 You can use a YAML file like `templates/gitops-integration.yaml`. You may se that the source code is in the YAML

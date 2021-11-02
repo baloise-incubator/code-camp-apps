@@ -1,7 +1,7 @@
 import org.apache.camel.builder.AggregationStrategies;
 import org.apache.camel.builder.RouteBuilder;
 
-public class API extends RouteBuilder {
+public class OpenApi extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         // Get
@@ -12,6 +12,3 @@ public class API extends RouteBuilder {
 
     }
 }
-
-// kamel run API.java --open-api openapi.yaml --trait route.tls-termination=edge
-// https://api-camel-k-resources.apps.okd.baloise.dev/v1/dave

@@ -12,3 +12,23 @@ Run them with `kamel run <file-name>`.
 To remove it run `kamel delete <integration-name>`.  
 
 You can find other examples here https://camel.apache.org/camel-k/next/languages/languages.html.
+
+# Topics
+## OpenAPI
+
+
+## Gitops
+You can use a YAML file like `templates/gitops-integration.yaml`. You may se that the source code is in the YAML
+file. As this is not wanted, mixing deployment code with source code. It's recommended to setup a CI process
+where you produce the YAML with `kamel run <your-options> -o yaml` and replace the `spec` in the YAML.
+
+In Baloise we have our YAML patch tool in Jenkins and on Github we could use https://github.com/fjogeleit/yaml-update-action.
+
+## Transformations
+## SOAP request
+## Connected services
+## Testing
+## Monitoring
+
+## Notes
+- If you change you source code the image depolyed to OpenShift doesn't change. The source coded is mounted via volume into the container and not part of the container build.

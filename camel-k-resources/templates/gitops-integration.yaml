@@ -1,7 +1,7 @@
 apiVersion: camel.apache.org/v1
 kind: Integration
 metadata:
-  name: api-over-git
+  name: api-gitops
   namespace: camel-k-resources
 spec:
   resources:
@@ -49,14 +49,8 @@ spec:
 
             }
         }
-
-
-        // kamel run API.java --property file:api.properties --open-api
-        openapi.yaml --trait route.tls-termination=edge
-
-        // https://api-camel-k-resources.apps.okd.baloise.dev/v1/dave
       name: API.java
   traits:
     route:
       configuration:
-        tlsTermination: edge
+        tlsTermination: edge # Required for HTTPS

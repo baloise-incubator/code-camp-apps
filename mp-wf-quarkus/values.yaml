@@ -19,7 +19,7 @@ quarkus-starter:
       value: jdbc:postgresql:quickstart
   resources:
     requests:
-      memory: 1mMi
+      memory: 1Mi
     limits:
       memory: 100Mi
 

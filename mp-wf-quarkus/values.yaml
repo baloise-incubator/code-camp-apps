@@ -16,7 +16,7 @@ quarkus-starter:
     - name: QUARKUS_DATASOURCE_USERNAME
       value: postgres
     - name: QUARKUS_DATASOURCE_JDBC_URL
-      value: jdbc:postgresql:quickstart
+      value: jdbc:postgresql:postgres:5432/quickstart
   resources:
     requests:
       memory: 1Mi

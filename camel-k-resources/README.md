@@ -31,6 +31,10 @@ where you produce the YAML with `kamel run <your-options> -o yaml` and replace t
 
 In Baloise we have our YAML patch tool in Jenkins and on Github we could use https://github.com/fjogeleit/yaml-update-action.
 
+## Camel examples
+- Camel in Action source code: https://github.com/camelinaction/camelinaction2
+- Small Camel examples: https://github.com/harry08/CamelTutorial
+
 ## Transformations
 ## SOAP request
 ## Connected services

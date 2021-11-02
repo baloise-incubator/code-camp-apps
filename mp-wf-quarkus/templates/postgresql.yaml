@@ -29,7 +29,7 @@ spec:
             limits:
               memory: 100Mi
             requests:
-              cpu: 2.00
+              cpu: 0.2
               memory: 10Mi
           readinessProbe:
             exec:
@@ -52,6 +52,8 @@ spec:
               value: /var/lib/pgsql/data
             - name: POSTGRES_USER
               value: postgres
+            - name: POSTGRES_DB
+              value: quickstart
             - name: POSTGRES_PASSWORD
               value: mysecretpassword
           ports:

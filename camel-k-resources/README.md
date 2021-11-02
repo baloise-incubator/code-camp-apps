@@ -20,7 +20,11 @@ Over the `operation-id` you can connect operations form the OpenAPI YAML to the 
 To run the integration you have to do `kamel run OpenApi.java --open-api openapi.yaml --trait route.tls-termination=edge`. 
 The `tls-termination=edge` is for OpenShift to enable HTTPS.
 
-## Gitops
+### Open questions
+- Validation
+- Security enforcement
+
+## GitOps
 You can use a YAML file like `templates/gitops-integration.yaml`. You may se that the source code is in the YAML
 file. As this is not wanted, mixing deployment code with source code. It's recommended to setup a CI process
 where you produce the YAML with `kamel run <your-options> -o yaml` and replace the `spec` in the YAML.

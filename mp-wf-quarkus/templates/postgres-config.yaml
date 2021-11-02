@@ -1,0 +1,23 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: postgres-config
+  namespace: mp-wf-quarkus
+
+data:
+  init.sql: |-
+    CREATE TABLE IF NOT EXISTS book (
+      id serial PRIMARY KEY,
+      title varchar(50) not null,
+      author varchar(50) not null
+    );
+    CREATE TABLE IF NOT EXISTS author (
+      id serial PRIMARY KEY,
+      name varchar(50) not null,
+      surname varchar(50) not null
+    );
+    CREATE TABLE IF NOT EXISTS publications (
+      book_id integer not null references book,
+      author_id integer not null references author,
+      publication_date date default current_date
+    );

@@ -12,6 +12,24 @@ quarkus-starter:
     type: ClusterIP        
   resources:
     requests:
+      memory: 1mMi
+    limits:
+      memory: 100Mi
+
+wf-starter:
+  replicaCount: 1
+  image:
+    repository: ghcr.io/bcc2021-team-jee-to-mp-quarkus-etc/wf-starter
+    tag: 5c7a33f016ce7633ebb505b121a8eed465af7bdb
+  network:
+    http:
+      servicePort: 8080
+      ingress:
+        host: wf-starter.apps.okd.baloise.dev
+  service:
+    type: ClusterIP
+  resources:
+    requests:
       memory: 1Gi
     limits:
-      memory: 2Gi
+      memory: 1Gi

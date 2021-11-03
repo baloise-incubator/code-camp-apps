@@ -35,6 +35,9 @@ wf-starter:
         host: wf-starter.apps.okd.baloise.dev
   service:
     type: ClusterIP
+  env:
+    - name: DS_HOST
+      value: postgres    
   resources:
     requests:
       memory: 1Gi

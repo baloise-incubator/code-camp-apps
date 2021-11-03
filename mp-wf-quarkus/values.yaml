@@ -2,7 +2,7 @@ quarkus-starter:
   replicaCount: 1
   image:
     repository: ghcr.io/bcc2021-team-jee-to-mp-quarkus-etc/quarkus-starter
-    tag: 88ff9a742bd23e28e3e5be0f0ff8ce2ad56e882f
+    tag: ebd82c7fc3f537831ce00c8febe05b9f51ad9177
   network:
     http:
       servicePort: 8080

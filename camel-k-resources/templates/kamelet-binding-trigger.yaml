@@ -7,7 +7,9 @@ spec:
     ref:
       kind: Kamelet
       apiVersion: camel.apache.org/v1alpha1
-      name: kamelet-trigger
+      name: timer-source
+    properties:
+      period: 3000
   sink:
     ref:
       kind: Kamelet

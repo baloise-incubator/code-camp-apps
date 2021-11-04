@@ -27,7 +27,7 @@ wf-starter:
   replicaCount: 1
   image:
     repository: ghcr.io/bcc2021-team-jee-to-mp-quarkus-etc/wf-starter
-    tag: da363759f570bc6a3e0ffe983c8717e19a615591
+    tag: 6a92ced25e25a27199cf699eb5d032f811eafadc
   network:
     http:
       servicePort: 8080

@@ -10,6 +10,7 @@ spec:
       name: timer-source
     properties:
       period: 3000
+      message: "Entry"
   sink:
     ref:
       kind: Kamelet

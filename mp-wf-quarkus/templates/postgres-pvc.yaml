@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: codecamp-db-data
+  name: codecamp-db-data2
 spec:
   accessModes:
     - ReadWriteOnce

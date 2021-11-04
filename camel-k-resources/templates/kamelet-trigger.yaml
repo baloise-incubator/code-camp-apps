@@ -20,7 +20,7 @@ spec:
       parameters:
         period: 30000
       steps:
-        - setBody:
+        - set-body:
             constant: "Entry"
         - log: "${body}"
         - to: "kamelet:sink"

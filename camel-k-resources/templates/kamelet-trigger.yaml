@@ -1,14 +1,14 @@
 apiVersion: camel.apache.org/v1alpha1
 kind: Kamelet
 metadata:
-  name: kamelet-trigger
+  name: trigger-source
   annotations:
     camel.apache.org/kamelet.icon: "data:image/svg+xml;base64,PD94bW..."
   labels:
     camel.apache.org/kamelet.type: "source"
 spec:
   definition:
-    title: "Kamelet trigger"
+    title: "Kamelet trigger source"
     description: |-
       Writes a entry every 3s.
   types:

@@ -1,13 +1,16 @@
 apiVersion: camel.apache.org/v1alpha1
 kind: KameletBinding
 metadata:
-  name: trigger-to-log
+  name: timer-to-log
 spec:
   source:
     ref:
       kind: Kamelet
       apiVersion: camel.apache.org/v1alpha1
-      name: trigger-source
+      name: timer-source
+    properties:
+      period: 3000
+      message: "Entry"
   sink:
     ref:
       kind: Kamelet

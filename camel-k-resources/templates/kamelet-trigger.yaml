@@ -1,0 +1,26 @@
+apiVersion: camel.apache.org/v1alpha1
+kind: Kamelet
+metadata:
+  name: kamelet-tigger
+  annotations:
+    camel.apache.org/kamelet.icon: "data:image/svg+xml;base64,PD94bW..."
+  labels:
+    camel.apache.org/kamelet.type: "source"
+spec:
+  definition:
+    title: "Kamelet trigger"
+    description: |-
+      Writes a entry every 3s.
+  types:
+    out:
+      mediaType: text/plain
+  flow:
+    from:
+      uri: timer:kamelet-trigger
+      parameters:
+        period: 30000
+      steps:
+        - setBody:
+            constant: "Entry"
+        - log: "${body}"
+        - to: "kamelet:sink"

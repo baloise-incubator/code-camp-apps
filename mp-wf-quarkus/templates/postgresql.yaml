@@ -20,7 +20,7 @@ spec:
       volumes:
         - name: postgres-data
           persistentVolumeClaim:
-            claimName: codecamp-db-data2
+            claimName: codecamp-db-data
         - name: postgres-config
           configMap:
             name: postgres-config

@@ -1,7 +1,7 @@
 apiVersion: camel.apache.org/v1alpha1
 kind: Kamelet
 metadata:
-  name: kamelet-tigger
+  name: kamelet-trigger
   annotations:
     camel.apache.org/kamelet.icon: "data:image/svg+xml;base64,PD94bW..."
   labels:

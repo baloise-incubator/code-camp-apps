@@ -7,7 +7,7 @@ spec:
     ref:
       kind: Kamelet
       apiVersion: camel.apache.org/v1alpha1
-      name: kamelet-tigger
+      name: kamelet-trigger
   sink:
     ref:
       kind: Kamelet

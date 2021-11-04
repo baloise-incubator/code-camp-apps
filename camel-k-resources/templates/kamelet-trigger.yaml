@@ -21,6 +21,6 @@ spec:
         period: 30000
       steps:
         - set-body:
-            constant: "Entry"
+            constant: "Entry from Kamelet"
         - log: "${body}"
         - to: "kamelet:sink"

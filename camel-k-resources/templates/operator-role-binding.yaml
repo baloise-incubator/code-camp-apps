@@ -1,0 +1,19 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: camel-k-operator
+  labels:
+    app: "camel-k"
+    helm.sh/chart: camel-k-0.7.1
+    app.kubernetes.io/name: camel-k
+    app.kubernetes.io/instance: baloise-camel-k
+    app.kubernetes.io/version: "1.6.1"
+    app.kubernetes.io/managed-by: Helm
+subjects:
+  - kind: ServiceAccount
+    name: camel-k-operator
+    namespace: camel-k-operator
+roleRef:
+  kind: Role
+  name: camel-k-operator
+  apiGroup: rbac.authorization.k8s.io

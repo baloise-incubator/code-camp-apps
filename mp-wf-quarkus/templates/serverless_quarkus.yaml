@@ -7,4 +7,7 @@ spec:
   template:
     spec:
       containers:
-        - image: ghcr.io/bcc2021-team-jee-to-mp-quarkus-etc/quarkus-starter:90284e6b3508a8dd7eff8da423f47793a28aaa46
+        - image: quay.io/openshift-knative/knative-eventing-sources-event-display:latest
+          env:
+            - name: RESPONSE
+              value: "Hello Serverless!"6

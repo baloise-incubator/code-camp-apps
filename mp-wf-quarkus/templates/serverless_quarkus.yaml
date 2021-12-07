@@ -8,10 +8,3 @@ spec:
     spec:
       containers:
         - image: ghcr.io/bcc2021-team-jee-to-mp-quarkus-etc/quarkus-starter:0e1e3d9adaf36ca62d566893c76c4da1957c7ce9
-          env:
-            - name: QUARKUS_DATASOURCE_PASSWORD
-              value: mysecretpassword
-            - name: QUARKUS_DATASOURCE_USERNAME
-              value: postgres
-            - name: QUARKUS_DATASOURCE_JDBC_URL
-              value: jdbc:postgresql://postgres:5432/quickstart

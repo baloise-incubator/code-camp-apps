@@ -7,4 +7,5 @@ spec:
   template:
     spec:
       containers:
-        - image: ghcr.io/bcc2021-team-jee-to-mp-quarkus-etc/quarkus-starter:1d2de7bc02f422e034673934281c01e20306762
+        - image: ghcr.io/bcc2021-team-jee-to-mp-quarkus-etc/quarkus-starter:11d2de7bc02f422e034673934281c01e20306762
+        

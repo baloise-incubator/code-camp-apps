@@ -1,0 +1,12 @@
+service:
+  type: "ClusterIP"
+
+ingress:
+  enabled: true
+  hostname: codimd.baloise.dev
+
+codimd:
+  connection:
+    domain: codimd.baloise.dev
+  imageStorePersistentVolume:
+    enabled: true

@@ -6,6 +6,6 @@ clojure-game-api:
     pullPolicy: IfNotPresent
   network:
     http:
-      servicePort: 8080
+      servicePort: 3000
       ingress:
         host: clojure-game-api.baloise.dev

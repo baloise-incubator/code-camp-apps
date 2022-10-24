@@ -1,7 +1,0 @@
-service:
-  type: "ClusterIP"
-
-codimd:
-  imageStorePersistentVolume:
-    storageClass: "ceph-block"
-    enabled: true

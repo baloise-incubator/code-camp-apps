@@ -1,0 +1,7 @@
+apiVersion: v2
+name: clojure-game-api
+version: 0.1.0
+dependencies:
+  - name: generic-chart
+    version: 2.3.0
+    repository: https://registry.baloise.dev/chartrepo/library

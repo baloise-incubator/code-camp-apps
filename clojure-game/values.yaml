@@ -8,4 +8,4 @@ clojure-game-api:
     http:
       servicePort: 3000
       ingress:
-        host: clojure-game-api.baloise.dev
+        host: clojure-game-api.apps.okd.baloise.dev

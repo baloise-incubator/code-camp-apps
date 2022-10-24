@@ -3,4 +3,5 @@ service:
 
 codimd:
   imageStorePersistentVolume:
+    storageClass: "ceph-block"
     enabled: true

@@ -1,10 +1,11 @@
-replicaCount: 1
-image:
-  repository: ghcr.io/baloise-codecamp-2022/clojure-game-api
-  tag: latest
-  pullPolicy: IfNotPresent
-network:
-  http:
-    servicePort: 8080
-    ingress:
-      host: clojure-game-api.baloise.dev
+clojure-game-api:
+  replicaCount: 1
+  image:
+    repository: ghcr.io/baloise-codecamp-2022/clojure-game-api
+    tag: latest
+    pullPolicy: IfNotPresent
+  network:
+    http:
+      servicePort: 8080
+      ingress:
+        host: clojure-game-api.baloise.dev

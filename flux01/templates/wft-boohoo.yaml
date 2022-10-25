@@ -21,15 +21,15 @@ spec:
             template: send-email
           - name: celebrate
             template: celebrate
-            when: '{{workflow.status}} == Succeeded'
+            when: '{{`{{workflow.status}}`}} == Succeeded'
           - name: cry
             template: cry
-            when: '{{workflow.status}} != Succeeded'
+            when: '{{`{{workflow.status}}`}} != Succeeded'
     - container:
         args:
           - >-
-            echo send e-mail: {{workflow.name}} {{workflow.status}}
-            {{workflow.duration}}. Failed steps {{workflow.failures}}
+            echo send e-mail: {{`{{workflow.name}}`}} {{`{{workflow.status}}`}}
+            {{`{{workflow.duration}}`}}. Failed steps {{`{{workflow.failures}}`}}
         command:
           - sh
           - '-c'

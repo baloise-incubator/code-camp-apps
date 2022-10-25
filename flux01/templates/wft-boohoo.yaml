@@ -7,15 +7,11 @@ spec:
   onExit: exit-handler
   templates:
     - container:
-        args:
-          - echo intentional failure; exit 1
-        command:
-          - sh
-          - '-c'
-        image: 'alpine:latest'
-        name: ''
+        image: alpine:latest
+        command: [sh, -c]
+        args: ["echo intentional failure; exit 1"]
       name: intentional-fail
-      name: exit-handler
+    - name: exit-handler
       steps:
         - - name: notify
             template: send-email
@@ -30,27 +26,18 @@ spec:
           - >-
             echo send e-mail: {{`{{workflow.name}}`}} {{`{{workflow.status}}`}}
             {{`{{workflow.duration}}`}}. Failed steps {{`{{workflow.failures}}`}}
-        command:
-          - sh
-          - '-c'
+        command: [sh, -c]
         image: 'alpine:latest'
-        name: ''
       name: send-email
     - container:
         args:
           - echo hooray!
-        command:
-          - sh
-          - '-c'
+        command: [sh, -c]
         image: 'alpine:latest'
-        name: ''
       name: celebrate
     - container:
         args:
           - echo boohoo!
-        command:
-          - sh
-          - '-c'
+        command: [sh, -c]
         image: 'alpine:latest'
-        name: ''
       name: cry

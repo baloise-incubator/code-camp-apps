@@ -41,10 +41,14 @@ spec:
         volumeMounts:
         - mountPath: /tmp/nginx_upload/
           name: datadir
+        - mountPath: /var/cache/nginx
+          name: dummy
       volumes:
       - name: datadir
         persistentVolumeClaim:
           claimName: pvc-crumbs
+      - name: dummy
+        emptyDir: {}
       restartPolicy: Always
 ---
 apiVersion: v1

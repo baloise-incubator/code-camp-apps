@@ -4,7 +4,13 @@ metadata:
   name: webdav
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: webdav
   template:
+    metadata:
+      labels:
+        app: webdav
     spec:
       containers:
       - name: webdav

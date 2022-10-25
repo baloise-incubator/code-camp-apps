@@ -1,1 +1,7 @@
-singleNamespace: true
+argoworkflows:
+  crds:
+    install: false  
+  singleNamespace: true
+  workflow:
+    rbac:
+      create: false

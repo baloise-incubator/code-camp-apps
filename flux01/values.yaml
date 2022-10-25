@@ -22,6 +22,9 @@ minio:
       # nginx.ingress.kubernetes.io/secure-backends: "true"
       # nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
       # nginx.ingress.kubernetes.io/whitelist-source-range: 0.0.0.0/0
+    tls:
+      insecureEdgeTerminationPolicy: "Redirect"
+      termination: "edge" 
     path: /
     hosts:
       - flux01-minio.apps.okd.baloise.dev

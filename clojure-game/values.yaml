@@ -2,7 +2,7 @@ clojure-game-api:
   replicaCount: 1
   image:
     repository: ghcr.io/baloise-codecamp-2022/clojure-game-api
-    tag: cbeab3823ba1cc519cb8d78ebb83603d8eff4e3a
+    tag: 21b556cacf290e9e836e1bd132c1fa6ca862ef8a
     pullPolicy: IfNotPresent
   network:
     http:

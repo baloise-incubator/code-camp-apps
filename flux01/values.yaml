@@ -1,0 +1,8 @@
+minio:
+  fullnameOverride: argo-artifacts
+  mode: standalone
+  persistence:
+    size: 2Gi
+  resources:
+    requests:
+      memory: 1Gi

@@ -1,0 +1,7 @@
+apiVersion: v2
+version: v0.0.0
+name: flux01
+dependencies:
+  - name: minio
+    version: 4.1.0
+    repository: https://charts.min.io

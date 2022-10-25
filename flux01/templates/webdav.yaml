@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: webdav
-        image: bytemark/webdav:2.4
+        image: tapxxor/webdav:alpine-3.7
         ports:
         - containerPort: 80
         livenessProbe:
@@ -39,11 +39,13 @@ spec:
             memory: "200Mi"
             cpu: "200m"
         volumeMounts:
-        - mountPath: /var/lib/dav
+        - mountPath: /uploads
           name: datadir
         env:
-          - name: AUTH_TYPE
-            value: "Digest"
+          - name: BASIC_AUTH
+            value: "True"
+          - name: WEBDAV_LOGGIN
+            value: "info"
           - name: WEBDAV_USERNAME
             value: "user"
           - name: WEBDAV_PASSWORD

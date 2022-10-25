@@ -1,7 +1,5 @@
 apiVersion: argoproj.io/v1alpha1
 kind: WorkflowTemplate
-metadata:
-  generateName: exit-handlers-
 spec:
   entrypoint: intentional-fail
   onExit: exit-handler

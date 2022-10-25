@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: webdav
-        image: tapxxor/webdav:3.7.0-alpine
+        image: andarius/nginx-upload:1.1.0
         ports:
         - containerPort: 80
         livenessProbe:
@@ -39,17 +39,8 @@ spec:
             memory: "200Mi"
             cpu: "200m"
         volumeMounts:
-        - mountPath: /uploads
+        - mountPath: /tmp/nginx_upload/
           name: datadir
-        env:
-          - name: BASIC_AUTH
-            value: "True"
-          - name: WEBDAV_LOGGIN
-            value: "info"
-          - name: WEBDAV_USERNAME
-            value: "user"
-          - name: WEBDAV_PASSWORD
-            value: "verysecret"
       volumes:
       - name: datadir
         persistentVolumeClaim:

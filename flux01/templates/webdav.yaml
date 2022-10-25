@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: webdav
-        image: tapxxor/webdav:alpine-3.7
+        image: tapxxor/webdav:3.7.0-alpine
         ports:
         - containerPort: 80
         livenessProbe:

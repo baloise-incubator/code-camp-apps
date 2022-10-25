@@ -7,6 +7,7 @@ spec:
     parameters:
       - name: message
         value: hello world
+  entrypoint: whalesay-template
   templates:
     - name: whalesay-template
       inputs:

@@ -1,0 +1,17 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: argo-artifacts-console
+spec:
+  host: flux01-minio.apps.okd.baloise.dev
+  path: /
+  to:
+    kind: Service
+    name: argo-artifacts-console
+    weight: 100
+  port:
+    targetPort: http
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None

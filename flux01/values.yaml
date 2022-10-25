@@ -8,23 +8,3 @@ minio:
       memory: 1Gi
   securityContext:
     enabled: false
-  ingress:
-    enabled: true
-    # ingressClassName: ""
-    labels: {}
-      # node-role.kubernetes.io/ingress: platform
-
-    annotations:
-      # kubernetes.io/ingress.class: nginx
-      kubernetes.io/tls-acme: "true"
-      kubernetes.io/ingress.allow-http: "false"
-      # kubernetes.io/ingress.global-static-ip-name: ""
-      # nginx.ingress.kubernetes.io/secure-backends: "true"
-      # nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-      # nginx.ingress.kubernetes.io/whitelist-source-range: 0.0.0.0/0
-    tls:
-      insecureEdgeTerminationPolicy: "Redirect"
-      termination: "edge" 
-    path: /
-    hosts:
-      - flux01-minio.apps.okd.baloise.dev

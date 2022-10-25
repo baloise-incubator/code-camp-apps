@@ -9,6 +9,13 @@ minio:
   securityContext:
     enabled: false
 
+  makeUserJob:
+    extraVolumes:
+      - name: minio-mc
+    extraVolumeMounts:
+      - mountPath: /etc/minio
+        name: minio-mc
+  
   buckets:
    # Name of the bucket
     - name: artifacts

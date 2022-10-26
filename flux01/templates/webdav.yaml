@@ -53,13 +53,13 @@ spec:
         - name: SFTPGO_DEFAULT_ADMIN_PASSWORD
           value: hahaha
         - name: SFTPGO_USERS__0__ID
-        - value: "1"
+          value: "1"
         - name: SFTPGO_USERS__0__USERNAME
-        - value: ""workflow"
+          value: ""workflow"
         - name: SFTPGO_USERS__0__PASSWORD
-        - value: "$2a$10$zk7IwHVfYjtfGYn32ILml.BXXyS2xUyKWkHmQQqN4QzB4N36nBhtO"
+          value: "$2a$10$zk7IwHVfYjtfGYn32ILml.BXXyS2xUyKWkHmQQqN4QzB4N36nBhtO"
         - name: SFTPGO_USERS__0__HOME_DIR
-        - value: "/srv/sftpgo/"
+          value: "/srv/sftpgo/"
       volumes:
       - name: datadir
         persistentVolumeClaim:

@@ -46,6 +46,12 @@ spec:
         env:
         - name: SFTPGO_WEBDAVD__BINDINGS__0__PORT
           value: "10080"
+        - name: SFTPGO_DATA_PROVIDER__CREATE_DEFAULT_ADMIN
+          value: 'true'
+        - name: SFTPGO_DEFAULT_ADMIN_USERNAME
+          value: admin
+        - name: SFTPGO_DEFAULT_ADMIN_PASSWORD
+          value: hahaha
       volumes:
       - name: datadir
         persistentVolumeClaim:

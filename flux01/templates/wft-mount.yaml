@@ -16,7 +16,7 @@ spec:
   - name: artifact-mounting
     steps:
     - - name: generate-artifact
-        inputs:
+        arguments:
           parameters:
             - name: message
               value: "{{`{{workflow.parameters.message}}`}}"

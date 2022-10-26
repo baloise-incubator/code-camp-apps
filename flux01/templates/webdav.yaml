@@ -87,7 +87,7 @@ spec:
     name: webdav
     weight: 100
   port:
-    targetPort: web
+    targetPort: 10080
   tls:
     termination: edge
     insecureEdgeTerminationPolicy: Redirect
@@ -101,7 +101,7 @@ spec:
   host: flux01web.apps.okd.baloise.dev
   to:
     kind: Service
-    name: web
+    name: 8080
     weight: 100
   port:
     targetPort: web

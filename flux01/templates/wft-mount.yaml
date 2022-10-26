@@ -16,6 +16,10 @@ spec:
   - name: artifact-mounting
     steps:
     - - name: generate-artifact
+        inputs:
+          parameters:
+            - name: message
+              value: "{{`{{workflow.parameters.message}}`}}"
         template: whalesay
     - - name: consume-artifact
         template: print-message

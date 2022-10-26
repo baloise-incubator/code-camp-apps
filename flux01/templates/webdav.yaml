@@ -74,7 +74,7 @@ spec:
   - port: 8080
     protocol: TCP
   selector:
-    app: web
+    app: webdav
 ---
 kind: Route
 apiVersion: route.openshift.io/v1
@@ -101,7 +101,7 @@ spec:
   host: flux01web.apps.okd.baloise.dev
   to:
     kind: Service
-    name: webdwebav
+    name: web
     weight: 100
   port:
     targetPort: web

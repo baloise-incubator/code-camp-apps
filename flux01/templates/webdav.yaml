@@ -44,8 +44,7 @@ spec:
         - mountPath: /var/lib/sftpgo
           name: dummy
         - name: user-config
-          mountPath: /etc/sftpgo/users.json
-          subPath: users.json
+          mountPath: /etc/sftpgo/
         env:
         - name: SFTPGO_LOG_LEVEL
           value: warn
@@ -75,6 +74,9 @@ spec:
       - name: datadir
         persistentVolumeClaim:
           claimName: pvc-crumbs
+      - name: user-config
+        configMap:
+          name: user-config
       - name: dummy
         emptyDir: {}
       restartPolicy: Always

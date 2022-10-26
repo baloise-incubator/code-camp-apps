@@ -19,14 +19,14 @@ spec:
         - containerPort: 80
         livenessProbe:
           httpGet:
-            path: /
+            path: /healthz
             port: 8080
           initialDelaySeconds: 10
           periodSeconds: 10
           failureThreshold: 3
         readinessProbe:
           httpGet:
-            path: /
+            path: /healthz
             port: 8080
           initialDelaySeconds: 10
           periodSeconds: 10
@@ -41,7 +41,7 @@ spec:
         volumeMounts:
         - mountPath: /srv/sftpgo
           name: datadir
-        - mountPath: /var/cache/nginx__
+        - mountPath: /var/lib/sftpgo
           name: dummy
         env:
         - name: SFTPGO_WEBDAVD__BINDINGS__0__PORT

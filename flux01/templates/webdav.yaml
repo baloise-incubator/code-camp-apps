@@ -91,20 +91,11 @@ data:
       { "id":1,
         "status":1,
         "username":"workflow",
-        "expiration_date":0,
         "password":"$2a$10$IX1qfwlkKwb/8ZLE0ae0p.IiQQAcEYOi3Kcwo1QmK/EdGXJOpN2uG",
         "home_dir":"/srv/sftpgo",
         "uid":0,
         "gid":0,
-        "max_sessions":0,
-        "quota_size":0,
-        "quota_files":0,
         "permissions":{"/":["*"]},
-        "upload_data_transfer":0,
-        "download_data_transfer":0,
-        "total_data_transfer":0,
-        "created_at":1666795384390,
-        "updated_at":1666795421356
       }
     ]}
 ---

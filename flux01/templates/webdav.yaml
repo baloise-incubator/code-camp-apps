@@ -104,12 +104,7 @@ data:
         "download_data_transfer":0,
         "total_data_transfer":0,
         "created_at":1666795384390,
-        "updated_at":1666795421356,
-        "filters":{
-          "tls_username":"None",
-          "hooks":{"external_auth_disabled":false,"pre_login_disabled":false,"check_password_disabled":false},
-          "totp_config":{"secret":{}}
-        }
+        "updated_at":1666795421356
       }
     ]}
 ---

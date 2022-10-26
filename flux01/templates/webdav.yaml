@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: webdav
-        image: mwader/webdav
+        image: drakkan/sftpgo:v2.4.0-alpine-slim
         ports:
         - containerPort: 80
         livenessProbe:
@@ -39,10 +39,13 @@ spec:
             memory: "200Mi"
             cpu: "200m"
         volumeMounts:
-        - mountPath: /webdav
+        - mountPath: /srv/sftpgo
           name: datadir
         - mountPath: /var/cache/nginx__
           name: dummy
+        encironment:
+        - name: SFTPGO_WEBDAVD__BINDINGS__0__PORT
+          value: "10080"
       volumes:
       - name: datadir
         persistentVolumeClaim:
@@ -57,10 +60,21 @@ metadata:
   name: webdav
 spec:
   ports:
-  - port: 80
+  - port: 10080
     protocol: TCP
   selector:
     app: webdav
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+  selector:
+    app: web
 ---
 kind: Route
 apiVersion: route.openshift.io/v1
@@ -71,6 +85,23 @@ spec:
   to:
     kind: Service
     name: webdav
+    weight: 100
+  port:
+    targetPort: web
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: web
+spec:
+  host: flux01web.apps.okd.baloise.dev
+  to:
+    kind: Service
+    name: webdwebav
     weight: 100
   port:
     targetPort: web

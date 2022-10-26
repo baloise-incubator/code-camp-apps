@@ -95,7 +95,7 @@ data:
         "home_dir":"/srv/sftpgo",
         "uid":0,
         "gid":0,
-        "permissions":{"/":["*"]},
+        "permissions":{"/":["*"]}
       }
     ]}
 ---

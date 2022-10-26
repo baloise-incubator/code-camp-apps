@@ -101,10 +101,10 @@ spec:
   host: flux01web.apps.okd.baloise.dev
   to:
     kind: Service
-    name: 8080
+    name: web
     weight: 100
   port:
-    targetPort: web
+    targetPort: 8080
   tls:
     termination: edge
     insecureEdgeTerminationPolicy: Redirect

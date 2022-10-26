@@ -67,7 +67,7 @@ apiVersion: route.openshift.io/v1
 metadata:
   name: webdav
 spec:
-  host: flux01webdav.baloise.dev
+  host: flux01webdav.apps.okd.baloise.dev
   to:
     kind: Service
     name: webdav

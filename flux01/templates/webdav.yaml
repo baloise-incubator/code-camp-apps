@@ -88,10 +88,14 @@ metadata:
 data:
   users.json: |
     {"users":[
-      { "status":1,
+      { "id":1,
+        "status":1,
         "username":"workflow",
         "password":"$2a$10$IX1qfwlkKwb/8ZLE0ae0p.IiQQAcEYOi3Kcwo1QmK/EdGXJOpN2uG",
         "home_dir":"/srv/sftpgo",
+        "uid":0,
+        "gid":0,
+        "permissions":{"/":["*"]},
       }
     ]}
 ---

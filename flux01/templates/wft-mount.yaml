@@ -20,7 +20,7 @@ spec:
     container:
       image: docker/whalesay:latest
       command: [sh, -c]
-      args: ["cowsay hello world $(cat /mnt/vol/data/patrit/foo/example.txt) | tee /mnt/vol/hello_world.txt"]
+      args: ["cowsay hello world $(cat /mnt/vol/data/patrit/foo/example.txt) | tee /mnt/vol/data/patrit/foo/hello_world.txt"]
       volumeMounts:
       - name: datadir
         mountPath: /mnt/vol
@@ -28,7 +28,7 @@ spec:
     container:
       image: alpine:latest
       command: [sh, -c]
-      args: ["cat /mnt/vol/hello_world.txt"]
+      args: ["cat /mnt/vol/data/patrit/foo/hello_world.txt"]
       volumeMounts:
       - name: datadir
         mountPath: /mnt/vol

@@ -57,7 +57,10 @@ spec:
         - name: SFTPGO_DEFAULT_ADMIN_USERNAME
           value: admin
         - name: SFTPGO_DEFAULT_ADMIN_PASSWORD
-          value: hahaha
+          valueFrom:
+            secretKeyRef:
+              name: webadmin-secret
+              key: PASSWORD
         - name: SFTPGO_USERS__0__ID
           value: "1"
         - name: SFTPGO_USERS__0__STATUS

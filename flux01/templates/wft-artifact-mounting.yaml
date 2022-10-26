@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: WorkflowTemplate
 metadata:
-  name: artifact-mounting
+  name: wft-artifact-mounting
 spec:
   arguments:
     parameters:

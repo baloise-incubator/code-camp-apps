@@ -61,16 +61,6 @@ spec:
             secretKeyRef:
               name: webadmin-secret
               key: PASSWORD
-        - name: SFTPGO_USERS__0__ID
-          value: "1"
-        - name: SFTPGO_USERS__0__STATUS
-          value: "1"
-        - name: SFTPGO_USERS__0__USERNAME
-          value: "workflow"
-        - name: SFTPGO_USERS__0__PASSWORD
-          value: "$2a$10$zk7IwHVfYjtfGYn32ILml.BXXyS2xUyKWkHmQQqN4QzB4N36nBhtO"
-        - name: SFTPGO_USERS__0__HOME_DIR
-          value: "/srv/sftpgo/"
         - name: SFTPGO_LOADDATA_FROM
           value: "/etc/sftpgo/users.json"
       volumes:

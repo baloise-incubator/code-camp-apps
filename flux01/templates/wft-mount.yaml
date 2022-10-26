@@ -20,7 +20,7 @@ spec:
     container:
       image: docker/whalesay:latest
       command: [sh, -c]
-      args: ["cowsay hello world | tee /mnt/vol/hello_world.txt"]
+      args: ["cowsay hello world $(cat /mnt/vol/foo/example.txt) | tee /mnt/vol/hello_world.txt"]
       volumeMounts:
       - name: datadir
         mountPath: /mnt/vol

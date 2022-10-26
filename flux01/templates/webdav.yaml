@@ -43,7 +43,12 @@ spec:
           name: datadir
         - mountPath: /var/lib/sftpgo
           name: dummy
+        - name: user-config
+          mountPath: /etc/sftpgo/users.json
+          subPath: users.json
         env:
+        - name: SFTPGO_LOG_LEVEL
+          value: warn
         - name: SFTPGO_DATA_PROVIDER__DRIVER
           value: memory
         - name: SFTPGO_WEBDAVD__BINDINGS__0__PORT
@@ -64,6 +69,8 @@ spec:
           value: "$2a$10$zk7IwHVfYjtfGYn32ILml.BXXyS2xUyKWkHmQQqN4QzB4N36nBhtO"
         - name: SFTPGO_USERS__0__HOME_DIR
           value: "/srv/sftpgo/"
+        - name: SFTPGO_LOADDATA_FROM
+          value: "/etc/sftpgo/users.json"
       volumes:
       - name: datadir
         persistentVolumeClaim:
@@ -71,6 +78,38 @@ spec:
       - name: dummy
         emptyDir: {}
       restartPolicy: Always
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: user-config
+data:
+  users.json: |
+    {"users":[
+      { "id":1,
+        "status":1,
+        "username":"workflow",
+        "expiration_date":0,
+        "password":"$2a$10$IX1qfwlkKwb/8ZLE0ae0p.IiQQAcEYOi3Kcwo1QmK/EdGXJOpN2uG",
+        "home_dir":"/srv/sftpgo",
+        "uid":0,
+        "gid":0,
+        "max_sessions":0,
+        "quota_size":0,
+        "quota_files":0,
+        "permissions":{"/":["*"]},
+        "upload_data_transfer":0,
+        "download_data_transfer":0,
+        "total_data_transfer":0,
+        "created_at":1666795384390,
+        "updated_at":1666795421356,
+        "filters":{
+          "tls_username":"None",
+          "hooks":{"external_auth_disabled":false,"pre_login_disabled":false,"check_password_disabled":false},
+          "totp_config":{"secret":{}}
+        }
+      }
+    ]}
 ---
 apiVersion: v1
 kind: Service

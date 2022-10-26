@@ -44,6 +44,8 @@ spec:
         - mountPath: /var/lib/sftpgo
           name: dummy
         env:
+        - name: SFTPGO_DATA_PROVIDER__DRIVER
+          value: memory
         - name: SFTPGO_WEBDAVD__BINDINGS__0__PORT
           value: "10080"
         - name: SFTPGO_DATA_PROVIDER__CREATE_DEFAULT_ADMIN

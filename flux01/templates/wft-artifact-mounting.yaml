@@ -31,17 +31,17 @@ spec:
     container:
       image: docker/whalesay:latest
       command: [sh, -c]
-      args: ["cowsay {{`{{inputs.parameters.message}}`}} $(cat /mnt/vol/example.txt) | tee /mnt/vol/hello_world.txt"]
+      args: ["cowsay {{`{{inputs.parameters.message}}`}} $(cat /mnt/vol/input/message.txt) | tee /mnt/vol/ouput/stdout.txt"]
       volumeMounts:
       - name: datadir
         mountPath: /mnt/vol
-        subPath: data/patrit/foo
+        subPath: wft-artifact-mounting
   - name: print-message
     container:
       image: alpine:latest
       command: [sh, -c]
-      args: ["cat /mnt/vol/hello_world.txt"]
+      args: ["cat /mnt/vol/ouput/stdout.txt"]
       volumeMounts:
       - name: datadir
         mountPath: /mnt/vol
-        subPath: data/patrit/foo
+        subPath: wft-artifact-mounting

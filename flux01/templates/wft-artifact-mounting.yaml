@@ -31,7 +31,7 @@ spec:
     container:
       image: docker/whalesay:latest
       command: [sh, -c]
-      args: ["cowsay {{`{{inputs.parameters.message}}`}} $(cat /mnt/vol/input/message.txt) | tee /mnt/vol/ouput/stdout.txt"]
+      args: ["cowsay {{`{{inputs.parameters.message}}`}} $(cat /mnt/vol/input/message.txt) | tee /mnt/vol/output/stdout.txt"]
       volumeMounts:
       - name: datadir
         mountPath: /mnt/vol
@@ -40,7 +40,7 @@ spec:
     container:
       image: alpine:latest
       command: [sh, -c]
-      args: ["cat /mnt/vol/ouput/stdout.txt"]
+      args: ["cat /mnt/vol/output/stdout.txt"]
       volumeMounts:
       - name: datadir
         mountPath: /mnt/vol

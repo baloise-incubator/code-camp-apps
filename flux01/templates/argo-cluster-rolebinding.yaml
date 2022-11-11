@@ -4,7 +4,7 @@ metadata:
   name: argo-cluster-rolebinding
 subjects:
   - kind: ServiceAccount
-    name: default
+    name: batch-sa-token
     namespace: flux01
 roleRef:
   apiGroup: rbac.authorization.k8s.io

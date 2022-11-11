@@ -1,3 +1,30 @@
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: workflow-monitor-role
+rules:
+  - verbs:
+      - get
+      - watch
+    apiGroups:
+      - ''
+    resources:
+      - pods
+      - logs
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: workflow-monitor-role-binding
+subjects:
+  - kind: ServiceAccount
+    name: batch-sa-token
+    namespace: flux01
+roleRef:
+  kind: Role
+  name: workflow-monitor-role
+  apiGroup: rbac.authorization.k8s.io
+---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:

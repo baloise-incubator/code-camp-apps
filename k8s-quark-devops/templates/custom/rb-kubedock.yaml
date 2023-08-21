@@ -4,7 +4,7 @@ metadata:
   name: kubedock
 subjects:
   - kind: ServiceAccount
-    name: default
+    name: kubedock
 roleRef:
   kind: Role
   name: kubedock

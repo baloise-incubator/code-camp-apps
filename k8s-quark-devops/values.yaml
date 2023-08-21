@@ -989,7 +989,6 @@ additionalAgents:
     sideContainerName:
     image: docker.io/joyrex2001/kubedock
     tag: "0.12.0"
-    workingDir: "/home/jenkins/agent"
     command: "/bin/sh -c"
     args: "cat"
     TTYEnabled: true
@@ -1018,9 +1017,6 @@ additionalAgents:
           args:
             - cat
           image: 'jenkins/jnlp-agent-maven:latest'
-          volumeMounts:
-            - name: workspace
-              mountPath: /home/jenkins/agent
           securityContext:
             runAsUser: 1000
           workingDir: /home/jenkins/agent

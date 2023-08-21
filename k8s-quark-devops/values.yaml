@@ -962,7 +962,6 @@ additionalAgents:
     sideContainerName: bdop-cli
     image: docker.io/niiku/bdop-cli
     tag: "0.1.0"
-    workingDir: "/home/jenkins/agent"
     command: "/bin/sh -c"
     args: "cat"
     TTYEnabled: true

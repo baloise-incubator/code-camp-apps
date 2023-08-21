@@ -784,7 +784,7 @@ agent:
   componentName: "jenkins-agent"
   websocket: false
   privileged: false
-  runAsUser:
+  runAsUser: 1000
   runAsGroup:
   hostNetworking: false
   resources:

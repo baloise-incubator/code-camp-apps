@@ -972,16 +972,6 @@ additionalAgents:
       limits:
         cpu: "200m"
         memory: "512Mi"
-    yamlTemplate: |
-      kind: Pod
-      spec:
-        containers:
-        - name: jnlp
-          securityContext:
-            runAsUser: 1000
-        - name: bdop-cli
-          securityContext:
-            runAsUser: 1000
   mavenkubedock:
     podName: mavenkubedock
     customJenkinsLabels: mavenkubedock
@@ -1016,8 +1006,6 @@ additionalAgents:
           args:
             - cat
           image: 'jenkins/jnlp-agent-maven:latest'
-          securityContext:
-            runAsUser: 1000
           workingDir: /home/jenkins/agent
 persistence:
   enabled: true

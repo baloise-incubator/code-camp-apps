@@ -837,24 +837,9 @@ agent:
   # Configure the attributes as they appear in the corresponding Java class for that type
   # https://github.com/jenkinsci/kubernetes-plugin/tree/master/src/main/java/org/csanchez/jenkins/plugins/kubernetes/volumes/workspace
   workspaceVolume:
-  ## DynamicPVC example
-  # type: DynamicPVC
-  # configMapName: myconfigmap
-  ## EmptyDir example
-  # type: EmptyDir
-  # memory: false
-  ## HostPath example
-  # type: HostPath
-  # hostPath: /var/lib/containers
-  ## NFS example
-  # type: Nfs
-  # readOnly: false
-  # serverAddress: "192.0.2.0"
-  # serverPath: /var/lib/containers
-  ## PVC example
-  type: PVC
-   claimName: workspace
-   readOnly: false
+    type: PVC
+    claimName: workspace
+    readOnly: false
   #
   # Pod-wide environment, these vars are visible to any container in the agent pod
   envVars: []
@@ -1042,9 +1027,9 @@ additionalAgents:
         - name: bdop-cli
           securityContext:
             runAsUser: 1000
-  mavenKubedock:
-    podName: mavenKubedock
-    customJenkinsLabels: mavenKubedock
+  mavenkubedock:
+    podName: mavenkubedock
+    customJenkinsLabels: mavenkubedock
     sideContainerName:
     image: docker.io/joyrex2001/kubedock
     tag: "0.12.0"
@@ -1066,7 +1051,7 @@ additionalAgents:
         - name: jnlp
           securityContext:
             runAsUser: 1000
-        - name: mavenKubedock
+        - name: mavenkubedock
           securityContext:
             runAsUser: 1000
         - name: maven

@@ -1066,6 +1066,23 @@ additionalAgents:
         - name: jnlp
           securityContext:
             runAsUser: 1000
+        - name: mavenKubedock
+          securityContext:
+            runAsUser: 1000
+        - name: maven
+          tty: true
+          command:
+            - /bin/sh
+            - '-c'
+          args:
+            - cat
+          image: 'jenkins/jnlp-agent-maven:latest'
+          volumeMounts:
+            - name: workspace-volume
+              mountPath: /home/jenkins/agent
+          securityContext:
+            runAsUser: 1000
+          workingDir: /home/jenkins/agent
 persistence:
   enabled: true
   ## A manually managed Persistent Volume and Claim

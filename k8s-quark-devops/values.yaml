@@ -807,7 +807,7 @@ agent:
   # Allowed types are: ConfigMap, EmptyDir, HostPath, Nfs, PVC, Secret
   # Configure the attributes as they appear in the corresponding Java class for that type
   # https://github.com/jenkinsci/kubernetes-plugin/tree/master/src/main/java/org/csanchez/jenkins/plugins/kubernetes/volumes
-  volumes: []
+  volumes:
   # - type: ConfigMap
   #   configMapName: myconfigmap
   #   mountPath: /var/myapp/myconfigmap
@@ -822,9 +822,9 @@ agent:
   #   readOnly: false
   #   serverAddress: "192.0.2.0"
   #   serverPath: /var/lib/containers
-  # - type: PVC
-  #   claimName: mypvc
-  #   mountPath: /var/myapp/mypvc
+   - type: PVC
+     claimName: workspace
+     mountPath: /home/jenkins/agent
   #   readOnly: false
   # - type: Secret
   #   defaultMode: "600"
@@ -836,7 +836,7 @@ agent:
   # Allowed types are: DynamicPVC, EmptyDir, HostPath, Nfs, PVC
   # Configure the attributes as they appear in the corresponding Java class for that type
   # https://github.com/jenkinsci/kubernetes-plugin/tree/master/src/main/java/org/csanchez/jenkins/plugins/kubernetes/volumes/workspace
-  workspaceVolume: {}
+  workspaceVolume:
   ## DynamicPVC example
   # type: DynamicPVC
   # configMapName: myconfigmap
@@ -852,9 +852,9 @@ agent:
   # serverAddress: "192.0.2.0"
   # serverPath: /var/lib/containers
   ## PVC example
-  # type: PVC
-  # claimName: mypvc
-  # readOnly: false
+  type: PVC
+   claimName: workspace
+   readOnly: false
   #
   # Pod-wide environment, these vars are visible to any container in the agent pod
   envVars: []
@@ -991,7 +991,7 @@ additionalAgents:
           securityContext:
             runAsUser: 1000
           volumeMounts:
-            - name: workspace-volume
+            - name: workspace
               mountPath: /home/jenkins/agent
           image: 'registry.baloise.dev/library/gitopscli:5.5.1-rc1'
           workingDir: /home/jenkins/agent
@@ -1078,7 +1078,7 @@ additionalAgents:
             - cat
           image: 'jenkins/jnlp-agent-maven:latest'
           volumeMounts:
-            - name: workspace-volume
+            - name: workspace
               mountPath: /home/jenkins/agent
           securityContext:
             runAsUser: 1000

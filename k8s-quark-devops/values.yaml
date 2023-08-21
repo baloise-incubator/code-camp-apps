@@ -767,7 +767,7 @@ agent:
   enabled: true
   defaultsProviderTemplate: ""
   # URL for connecting to the Jenkins contoller
-  jenkinsUrl: http://devops-stack-jenkins:8080
+  jenkinsUrl: http://k8s-quark-devops-jenkins:8080
   # connect to the specified host and port, instead of connecting directly to the Jenkins controller
   jenkinsTunnel:
   kubernetesConnectTimeout: 5
@@ -1042,7 +1042,30 @@ additionalAgents:
         - name: bdop-cli
           securityContext:
             runAsUser: 1000
-
+  mavenKubedock:
+    podName: mavenKubedock
+    customJenkinsLabels: mavenKubedock
+    sideContainerName:
+    image: docker.io/joyrex2001/kubedock
+    tag: "0.12.0"
+    workingDir: "/home/jenkins/agent"
+    command: "/bin/sh -c"
+    args: "cat"
+    TTYEnabled: true
+    resources:
+      requests:
+        cpu: "50m"
+        memory: "256Mi"
+      limits:
+        cpu: "200m"
+        memory: "512Mi"
+    yamlTemplate: |
+      kind: Pod
+      spec:
+        containers:
+        - name: jnlp
+          securityContext:
+            runAsUser: 1000
 persistence:
   enabled: true
   ## A manually managed Persistent Volume and Claim

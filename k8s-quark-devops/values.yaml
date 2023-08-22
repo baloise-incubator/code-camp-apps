@@ -783,7 +783,6 @@ agent:
   privileged: false
   runAsUser: 1000
   runAsGroup:
-  serviceAccount: "agent"
   hostNetworking: false
   resources:
     requests:
@@ -1002,6 +1001,7 @@ additionalAgents:
     yamlTemplate: |
       kind: Pod
       spec:
+        serviceAccount: agent
         containers:
         - name: jnlp
           securityContext:

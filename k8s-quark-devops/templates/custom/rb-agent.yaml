@@ -7,5 +7,5 @@ subjects:
     name: agent
 roleRef:
   kind: Role
-  name: agent-create-pod
+  name: kubedock
   apiGroup: rbac.authorization.k8s.io

@@ -975,6 +975,7 @@ additionalAgents:
     yamlTemplate: |
       kind: Pod
       spec:
+        serviceAccount: agent
         containers:
         - name: jnlp
           securityContext:

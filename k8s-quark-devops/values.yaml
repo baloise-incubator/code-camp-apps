@@ -783,6 +783,7 @@ agent:
   privileged: false
   runAsUser: 1000
   runAsGroup:
+  serviceAccount: "agent"
   hostNetworking: false
   resources:
     requests:

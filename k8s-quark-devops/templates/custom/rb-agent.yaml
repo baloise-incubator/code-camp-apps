@@ -1,11 +1,11 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: default-kubedock
+  name: kubedock
 subjects:
   - kind: ServiceAccount
-    name: default
+    name: agent
 roleRef:
   kind: Role
-  name: kubedock
+  name: agent-create-pod
   apiGroup: rbac.authorization.k8s.io

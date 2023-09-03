@@ -3,7 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: pvc-crumbs
 spec:
-  storageClassName: ocs-storagecluster-cephfs
+  storageClassName: px-nfs
   accessModes:
   - ReadWriteMany
   resources:

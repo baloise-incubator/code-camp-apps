@@ -1,7 +1,7 @@
 # cluster
 clusterName: incubator
 responsible: codecamp@baloise.dev
-routeDomain: apps.okd.baloise.dev
+routeDomain: apps.baloise.dev
 clusterEnvironment: nonprod
 appEnvironment: nonprod
 infraCluster: true

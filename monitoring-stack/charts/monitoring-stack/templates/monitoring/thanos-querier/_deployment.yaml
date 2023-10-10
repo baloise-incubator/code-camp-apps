@@ -1,0 +1,252 @@
+{{- define "monitoring.thanosQuerier.deployment" -}}
+  {{- $top := .top -}}
+  {{- $namespace := .namespace -}}
+  {{- $infraCluster := .infraCluster -}}
+  {{- $globalViewConsumer := .globalViewConsumer -}}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    {{- include "monitoring.thanosQuerier.labels" . | nindent 4 }}
+  name: thanos-querier-1 # increment in case of immutable changes
+  namespace: {{ $namespace }}
+spec:
+  progressDeadlineSeconds: 600
+  replicas: {{ $top.Values.thanosQuerier.replicas }}
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      {{- include "monitoring.thanosQuerier.labels" . | nindent 6 }}
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        {{- include "monitoring.thanosQuerier.labels" . | nindent 8 }}
+    spec:
+      containers:
+      - name: thanos-query
+        args:
+          - query
+          - --log.level=info
+          - --grpc-address=0.0.0.0:10901
+          - --http-address=0.0.0.0:9090
+          - --query.replica-label=prometheus_replica
+          - --query.replica-label=thanos_ruler_replica
+          # General monitoring
+          {{- if $globalViewConsumer }}
+          - --store.sd-files=/etc/thanos/file_sd/*.yml
+          {{- end }}
+          {{- if $infraCluster }}
+            {{- range $top.Values.thanosQuerier.additionalTargets }}
+          - --endpoint=thanos-querier.{{ . }}-monitoring.svc:10901
+            {{- end }}
+          {{- end }}
+          - --endpoint=prometheus-0.{{ $namespace }}.svc:10901
+          {{- if eq $top.Values.prometheus.replicas 2.0 }}
+          - --endpoint=prometheus-1.{{ $namespace }}.svc:10901
+          {{- end }}
+          # Cluster config monitoring
+          {{- if eq ($top.Values.clusterMonitoringNamespace | toString) ($namespace | toString) }}
+          - --query.max-concurrent-select=10
+          - --query.max-concurrent=40
+            {{- if $infraCluster }}
+          - --endpoint=thanos-ruler-operated.{{ $namespace }}.svc:10901
+              {{- range $top.Values.thanosQuerier.clusterTargets }}
+                {{- if $top.Values.thanosQuerier.enableLocalClusterMonitoring }}
+          - --endpoint=platform-monitoring.apps.{{ . }}.balgroupit.com:443
+                {{- end }}
+              {{- end }}
+            {{- end }}
+          {{- end }}
+          # Team config monitoring
+          {{- if not (eq ($top.Values.clusterMonitoringNamespace | toString) ($namespace | toString)) }}
+            {{- if $top.Values.thanosQuerier.enableLocalClusterMonitoring }}
+          - --endpoint=prometheus-0.{{ $top.Values.clusterMonitoringNamespace }}.svc.cluster.local:10901
+          - --endpoint=prometheus-1.{{ $top.Values.clusterMonitoringNamespace }}.svc.cluster.local:10901
+            {{- end }}
+            {{- if $infraCluster }}
+          - --endpoint=thanos-ruler-operated.{{ $namespace }}.svc:10901
+              {{- if $top.Values.thanosQuerier.enableLocalClusterMonitoring }}
+                {{- range $top.Values.thanosQuerier.clusterTargets }}
+          - --endpoint={{ $namespace }}.apps.{{ . }}.balgroupit.com:443
+                {{- end }}
+              {{- else }}
+                {{- range $top.Values.thanosQuerier.clusterTargets }}
+          - --endpoint=platform-monitoring.apps.{{ . }}.balgroupit.com:443
+                {{- end }}
+              {{- end }}
+            {{- end }}
+          {{- end }}
+          - --query.timeout=5m
+          - --query.lookback-delta=15m
+          - --grpc-client-tls-secure
+          - --store.unhealthy-timeout=3d
+          # Technical limitation. Thanos does not allow per store TLS configuration (e.g. OpenShift | SwissSign )
+          # https://github.com/thanos-io/thanos/issues/977
+          - --grpc-client-tls-skip-verify
+          - --grpc-server-tls-cert=/etc/tls/private/tls.crt
+          - --grpc-server-tls-key=/etc/tls/private/tls.key
+          - --grpc-client-tls-ca=/var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt
+        image: {{ $top.Values.thanosQuerier.images.thanos }}
+        livenessProbe:
+          failureThreshold: 4
+          httpGet:
+            path: /-/healthy
+            port: 9090
+            scheme: HTTP
+          periodSeconds: 30
+        ports:
+          - containerPort: 10901
+            name: grpc
+          - containerPort: 9090
+            name: http
+        resources: {{- toYaml $top.Values.thanosQuerier.resources | nindent 10 }}
+        readinessProbe:
+          failureThreshold: 20
+          httpGet:
+            path: /-/ready
+            port: 9090
+            scheme: HTTP
+          periodSeconds: 5
+        volumeMounts:
+        - mountPath: /etc/tls/private
+          name: secret-thanos-querier-tls
+        {{- if $globalViewConsumer }}
+        - mountPath: /etc/thanos/file_sd/
+          name: filesd
+        {{- end }}
+      {{- if $top.Values.thanosFrontendQuerier.enable }}
+      - name: thanos-query-frontend
+        image: {{ $top.Values.thanosQuerier.images.thanos }}
+        args:
+        - query-frontend
+        - --log.level=info
+        - --log.format=logfmt
+        - --query-frontend.compress-responses
+        - --http-address=0.0.0.0:9099
+        - --query-frontend.downstream-url=http://localhost:9090
+        - --query-range.split-interval=12h
+        - --labels.split-interval=12h
+        - --query-range.max-retries-per-request=10
+        - --labels.max-retries-per-request=10
+        - --query-frontend.log-queries-longer-than=10s
+        - |-
+          --query-range.response-cache-config="config":
+            "max_size": "0"
+            "max_size_items": 2048
+            "validity": "6h"
+          "type": "in-memory"
+        - |-
+          --labels.response-cache-config="config":
+            "max_size": "0"
+            "max_size_items": 2048
+            "validity": "6h"
+          "type": "in-memory"
+        - |-
+          --query-frontend.downstream-tripper-config=
+          "max_idle_conns_per_host": 100
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 4
+          httpGet:
+            path: /-/healthy
+            port: 9099
+            scheme: HTTP
+          periodSeconds: 30
+        ports:
+        - containerPort: 9099
+          name: cache
+        readinessProbe:
+          failureThreshold: 20
+          httpGet:
+            path: /-/ready
+            port: 9099
+            scheme: HTTP
+          periodSeconds: 5
+        resources: {{- toYaml $top.Values.thanosFrontendQuerier.resources | nindent 10 }}
+      {{- end }}
+      - name: thanos-querier-proxy
+        args:
+          - -provider=openshift
+          - -https-address=:9093
+          - -http-address=
+          - -email-domain=*
+          {{- if $top.Values.thanosFrontendQuerier.enable }}
+          - -upstream=http://localhost:9099
+          {{- else }}
+          - -upstream=http://localhost:9090
+          {{- end }}
+          - '-openshift-delegate-urls={"/": {"resource": "services", "verb": "get", "name": "thanos-querier", "namespace": "{{ $namespace }}"}}'
+          - -htpasswd-file=/etc/proxy/htpasswd/auth
+          - -openshift-service-account=thanos-querier
+          - -tls-cert=/etc/tls/private/tls.crt
+          - -tls-key=/etc/tls/private/tls.key
+          - -client-secret-file=/var/run/secrets/kubernetes.io/serviceaccount/token
+          - -cookie-secret-file=/etc/proxy/secrets/session_secret
+          - -openshift-ca=/etc/pki/tls/cert.pem
+          - -openshift-ca=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        image: {{ $top.Values.thanosQuerier.images.oauthProxy }}
+        ports:
+          - containerPort: 9093
+            name: web
+        resources:
+          requests:
+            cpu: 1m
+            memory: 20Mi
+          limits:
+            memory: 64Mi
+            cpu: 250m
+        terminationMessagePolicy: FallbackToLogsOnError
+        volumeMounts:
+          - mountPath: /etc/tls/private
+            name: secret-thanos-querier-tls
+          - mountPath: /etc/proxy/secrets
+            name: secret-cookie-session-secret
+          - mountPath: /etc/proxy/htpasswd
+            name: secret-thanos-querier-htpasswd
+        {{- if $globalViewConsumer }}
+      - name: rules-configmap-reloader
+        env:
+          - name: LABEL
+            value: "stores"
+          - name: LABEL_VALUE
+            value: "global"
+          - name: FOLDER
+            value: /etc/thanos/file_sd/
+          - name: RESOURCE
+            value: configmap
+        image: {{ $top.Values.thanosQuerier.images.sidecar }}
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            cpu: 1
+            memory: 128Mi
+          requests:
+            cpu: 25m
+            memory: 24Mi
+        volumeMounts:
+          - mountPath: /etc/thanos/file_sd/
+            name: filesd
+        {{- end }}
+      serviceAccount: thanos-querier
+      serviceAccountName: thanos-querier
+      volumes:
+        {{- if $globalViewConsumer }}
+        - name: filesd
+          emptyDir: {}
+        {{- end }}
+        - name: secret-thanos-querier-tls
+          secret:
+            secretName: thanos-querier-tls
+        - name: secret-thanos-querier-htpasswd
+          secret:
+            secretName: thanos-querier-htpasswd
+        - name: secret-cookie-session-secret
+          secret:
+            secretName: cookie-session-secret
+{{ end }}

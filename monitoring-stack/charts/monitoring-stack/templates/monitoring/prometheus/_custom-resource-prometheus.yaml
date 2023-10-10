@@ -1,0 +1,220 @@
+{{- define "monitoring.prometheus.customresourcePrometheus" -}}
+  {{- $top := .top -}}
+  {{- $configRepoName := .configRepoName -}}
+  {{- $namespace := .namespace -}}
+  {{- $appEnvironment := .appEnvironment -}}
+  {{- $infraCluster := .infraCluster -}}
+  {{- $monitoringSelector := .monitoringSelector -}}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  annotations:
+    argocd.argoproj.io/skip-health-check: "{{ $top.Values.prometheus.skipArgoHealthCheck }}"
+  labels:
+    {{- include "monitoring.prometheus.labels" . | nindent 4 }}
+  name: prometheus
+  namespace: {{ $namespace }}
+spec:
+  podMetadata:
+    labels:
+      app.kubernetes.io/part-of: bdop
+  externalUrl: https://prometheus-{{ $namespace }}.{{ $top.Values.routeDomain }}/
+  storage:
+    volumeClaimTemplate:
+      metadata:
+        labels:
+          app.kubernetes.io/part-of: bdop
+      spec:
+        storageClassName: {{ $top.Values.prometheus.pvcStorageClassName }}
+        resources:
+          requests:
+            storage: {{ $top.Values.prometheus.pvcSize }}
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+                - key: prometheus
+                  operator: In
+                  values:
+                    - {{ $configRepoName }}
+            namespaces:
+              - {{ $namespace }}
+            topologyKey: kubernetes.io/hostname
+          weight: 100
+  enableAdminAPI: true
+  {{- if $top.Values.prometheus.query }}
+  query: {{ toYaml $top.Values.prometheus.query | nindent 4 }}
+  {{- end }}
+  arbitraryFSAccessThroughSMs:
+    deny: false
+  containers:
+    {{- if $infraCluster }}
+    - name: additional-scrapeconfig-reloader
+      env:
+        - name: LABEL
+          value: monitoring
+        - name: LABEL_VALUE
+          value: "external"
+        - name: FOLDER
+          value: /etc/prometheus/file_sd/
+        - name: RESOURCE
+          value: configmap
+      image: {{ $top.Values.prometheus.images.sidecar }}
+      imagePullPolicy: IfNotPresent
+      resources:
+        limits:
+          cpu: 1
+          memory: 128Mi
+        requests:
+          cpu: 25m
+          memory: 24Mi
+      volumeMounts:
+        - mountPath: /etc/prometheus/file_sd
+          name: additional-scrapeconfig
+    {{- end }}
+    - name: config-reloader
+      resources:
+        limits:
+          cpu: 1
+          memory: 50Mi
+        requests:
+          cpu: 10m
+          memory: 50Mi
+    - args:
+        - -provider=openshift
+        - -https-address=:9093
+        - -http-address=
+        - -email-domain=*
+        - -upstream=http://localhost:9090
+        - -htpasswd-file=/etc/proxy/htpasswd/auth
+        - -openshift-service-account=prometheus
+        - '-openshift-delegate-urls={"/": {"resource": "services", "verb": "get", "name": "prometheus", "namespace": "{{ $namespace }}"}}'
+        - -tls-cert=/etc/tls/private/tls.crt
+        - -tls-key=/etc/tls/private/tls.key
+        - -client-secret-file=/var/run/secrets/kubernetes.io/serviceaccount/token
+        - -cookie-secret-file=/etc/proxy/secrets/session_secret
+        - -openshift-ca=/etc/pki/tls/cert.pem
+        - -openshift-ca=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+      image: {{ $top.Values.prometheus.images.oauthProxy }}
+      name: prometheus-proxy
+      ports:
+        - containerPort: 9093
+          name: web
+      resources:
+        requests:
+          cpu: 1m
+          memory: 20Mi
+        limits:
+          memory: 64Mi
+          cpu: 250m
+      terminationMessagePolicy: FallbackToLogsOnError
+      volumeMounts:
+        - mountPath: /etc/tls/private
+          name: secret-prometheus-tls
+        - mountPath: /etc/proxy/secrets
+          name: secret-cookie-session-secret
+        - mountPath: /etc/proxy/htpasswd
+          name: secret-prometheus-htpasswd
+    - name: thanos-sidecar
+      args:
+        - sidecar
+        - --prometheus.url=http://localhost:9090/
+        - --tsdb.path=/prometheus
+        - --grpc-address=[$(POD_IP)]:10901
+        - --http-address=[$(POD_IP)]:10902
+        - --grpc-server-tls-cert=/etc/tls/private/$(NODE_NAME)/tls.crt
+        - --grpc-server-tls-key=/etc/tls/private/$(NODE_NAME)/tls.key
+      env:
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: status.podIP
+      image: {{ $top.Values.prometheus.images.thanos }}
+      imagePullPolicy: IfNotPresent
+      ports:
+        - containerPort: 10902
+          name: http
+          protocol: TCP
+        - containerPort: 10901
+          name: grpc
+          protocol: TCP
+      resources: {{- toYaml $top.Values.prometheus.resources.thanos | nindent 8 }}
+      volumeMounts:
+        - mountPath: /etc/tls/private/prometheus-prometheus-0
+          name: secret-prometheus-0-tls
+        - mountPath: /etc/tls/private/prometheus-prometheus-1
+          name: secret-prometheus-1-tls
+        - mountPath: /prometheus
+          name: prometheus-prometheus-db
+          subPath: prometheus-db
+  ignoreNamespaceSelectors: false
+  version: {{ $top.Values.prometheus.version }}
+  image: {{ $top.Values.prometheus.images.prometheus }}:{{ $top.Values.prometheus.version }}
+  listenLocal: {{ $top.Values.prometheus.listenLocal }}
+  externalLabels:
+    cluster: {{ $top.Values.clusterName }}
+    monitoringselector: {{ $monitoringSelector }}
+  overrideHonorLabels: false
+  overrideHonorTimestamps: false
+  evaluationInterval: {{ $top.Values.evaluationInterval }}
+  scrapeInterval: {{ $top.Values.prometheus.scrapeInterval }}
+  replicas: {{ $top.Values.prometheus.replicas }}
+  resources: {{- toYaml $top.Values.prometheus.resources.prometheus | nindent 4 }}
+  retention: {{ $top.Values.prometheus.retention }}
+  retentionSize: {{ $top.Values.prometheus.retentionSize }}
+  # https://github.com/prometheus-operator/prometheus-operator/issues/2547#issuecomment-481494167
+  {{- if not ( eq $appEnvironment "preview" ) }}
+  ruleNamespaceSelector:
+    matchLabels:
+      monitoringselector: {{ $monitoringSelector }}
+  serviceMonitorNamespaceSelector:
+    matchLabels:
+      monitoringselector: {{ $monitoringSelector }}
+  podMonitorNamespaceSelector:
+    matchLabels:
+      monitoringselector: {{ $monitoringSelector }}
+  probeNamespaceSelector:
+    matchLabels:
+      monitoringselector: {{ $monitoringSelector }}
+  {{- end }}
+  ruleSelector:
+    matchLabels:
+      eval: cluster-local
+  serviceMonitorSelector: {}
+  podMonitorSelector: {}
+  probeSelector: {}
+  {{- if $infraCluster }}
+  additionalScrapeConfigs:
+    name: external-exporters
+    key: external-exporters.yaml
+  volumeMounts:
+    - mountPath: /etc/prometheus/file_sd
+      name: additional-scrapeconfig
+    - mountPath: /etc/prometheus/auth
+      name: secret-node-exporter-generic
+  volumes:
+    - name: additional-scrapeconfig
+      emptyDir: {}
+  {{- end }}
+  secrets:
+    - prometheus-tls
+    - prometheus-0-tls
+    - prometheus-1-tls
+    - prometheus-htpasswd
+    - cookie-session-secret
+  {{- if $infraCluster }}
+    - node-exporter-generic
+  {{- end }}
+  {{- if $top.Values.prometheus.secrets }}
+    {{- toYaml $top.Values.prometheus.secrets | nindent 4 }}
+  {{- end }}
+  serviceAccountName: prometheus
+{{ end }}

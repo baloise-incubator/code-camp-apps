@@ -1,0 +1,16 @@
+{{ define "monitoring.pushgateway.cmPushgatewayUrl" -}}
+  {{- $top := .top -}}
+  {{- $monNsName := .namespace -}}
+  {{- range $namespaceName, $namespaceConfig := $top.Values.applications }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pushgateway-url
+  namespace: {{ $namespaceName }}
+  labels:
+    {{- include "monitoring.pushgateway.labels" . | nindent 4 }}
+data:
+  PUSHGATEWAY_URL: http://pushgateway.{{ $monNsName }}:9091
+  {{- end }}
+{{ end }}

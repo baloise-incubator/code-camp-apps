@@ -1,0 +1,20 @@
+{{- define "monitoring.pushgateway" -}}
+  {{- $top := .top -}}
+  {{- $namespace := .namespace -}}
+  {{- $enableNetworkPolicyCreation := .enableNetworkPolicyCreation }}
+  {{- $enableNamespaceCreation := .enableNamespaceCreation }}
+  {{- $monitoringSelector := .monitoringSelector -}}
+  {{- $context := dict
+    "top" $top
+    "namespace" $namespace
+    "enableNamespaceCreation" $enableNamespaceCreation
+    "enableNetworkPolicyCreation" $enableNetworkPolicyCreation
+    "monitoringSelector" $monitoringSelector
+  }}
+  {{- template "monitoring.pushgateway.cmPushgatewayUrl" $context }}
+  {{- template "monitoring.pushgateway.deployment" $context }}
+  {{- template "monitoring.pushgateway.svc" $context }}
+  {{- template "monitoring.pushgateway.sa" $context }}
+  {{- template "monitoring.pushgateway.serviceMonitor" $context }}
+  {{- template "monitoring.pushgateway.networkPolicy" $context }}
+{{- end }}

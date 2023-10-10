@@ -1,0 +1,24 @@
+{{- define "monitoring.grafana" -}}
+  {{- $top := .top -}}
+  {{- $configRepoName := .configRepoName -}}
+  {{- $clusterEnvironment := .clusterEnvironment -}}
+  {{- $namespace := .namespace -}}
+  {{- $monitoringSelector := .monitoringSelector -}}
+  {{- $appName := .appName -}}
+  {{- $context := dict
+    "top" $top
+    "configRepoName" $configRepoName
+    "clusterEnvironment" $clusterEnvironment
+    "namespace" $namespace
+    "appName" $appName
+    "monitoringSelector" $monitoringSelector
+  }}
+  {{- template "monitoring.grafana.deployment" $context }}
+  {{- template "monitoring.grafana.secretDatastores" $context }}
+  {{- template "monitoring.grafana.cmDashboardprovider" $context }}
+  {{- template "monitoring.grafana.svc" $context }}
+  {{- template "monitoring.grafana.route" $context }}
+  {{- template "monitoring.grafana.saGrafana" $context }}
+  {{- template "monitoring.grafana.rbConfigMapReloader" $context }}
+  {{- template "monitoring.grafana.rbSecretReloader" $context }}
+{{- end }}

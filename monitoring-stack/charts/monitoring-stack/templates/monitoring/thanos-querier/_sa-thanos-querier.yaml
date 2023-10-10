@@ -1,0 +1,14 @@
+{{- define "monitoring.thanosQuerier.saThanosQuerier" -}}
+  {{- $namespace := .namespace -}}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    serviceaccounts.openshift.io/oauth-redirectreference.thanos-querier: >-
+      {"kind":"OAuthRedirectReference","apiVersion":"v1","reference":{"kind":"Route","name":"thanos-querier"}}
+  name: thanos-querier
+  namespace: {{ $namespace }}
+  labels:
+    {{- include "monitoring.thanosQuerier.labels" . | nindent 4 }}
+{{ end }}

@@ -1,0 +1,17 @@
+{{- define "monitoring.alertmanager" -}}
+  {{- $top := .top -}}
+  {{- $configRepoName := .configRepoName -}}
+  {{- $clusterEnvironment := .clusterEnvironment -}}
+  {{- $namespace := .namespace -}}
+  {{- $context := dict
+    "top" $top
+    "configRepoName" $configRepoName
+    "clusterEnvironment" $clusterEnvironment
+    "namespace" $namespace
+  }}
+  {{- template "monitoring.alertmanager.customresourceAlertmanager" $context }}
+  {{- template "monitoring.alertmanager.routeAlertmanager" $context }}
+  {{- template "monitoring.alertmanager.saAlertmanager" $context }}
+  {{- template "monitoring.alertmanager.secretAlertmanager" $context }}
+  {{- template "monitoring.alertmanager.svcAlertmanager" $context }}
+{{- end }}

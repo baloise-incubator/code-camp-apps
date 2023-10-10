@@ -1,0 +1,43 @@
+{{- define "monitoring.thanosQuerier" -}}
+  {{- $top := .top -}}
+  {{- $namespace := .namespace -}}
+  {{- $appName := .appName -}}
+  {{- $infraCluster := .infraCluster -}}
+  {{- $namespaceConfig := .namespaceConfig -}}
+  {{- $globalViewConsumer := false }}
+  {{- $monitoringSelector := .monitoringSelector -}}
+  {{- $enableNetworkPolicyCreation := .enableNetworkPolicyCreation }}
+  {{- $enableNamespaceCreation := .enableNamespaceCreation }}
+  {{- $enableAccessFromGlobalView := $top.Values.monitoring.enableAccessFromGlobalView }}
+  {{- range $k, $v := $top.Values.monitoring.globalView }}
+    {{- if (eq $v.tenantName $appName )}}
+      {{- $globalViewConsumer = true }}
+    {{- end }}
+  {{- end }}
+  {{- $context := dict
+    "top" $top
+    "namespace" $namespace
+    "infraCluster" $infraCluster
+    "appName" $appName
+    "namespaceConfig" $namespaceConfig
+    "globalViewConsumer" $globalViewConsumer
+    "enableNamespaceCreation" $enableNamespaceCreation
+    "enableNetworkPolicyCreation" $enableNetworkPolicyCreation
+    "monitoringSelector" $monitoringSelector
+  }}
+  {{- template "monitoring.thanosQuerier.deployment" $context }}
+  {{- template "monitoring.thanosQuerier.svcExternal" $context }}
+  {{- template "monitoring.thanosQuerier.svcGrafanaDataSource" $context }}
+  {{- template "monitoring.thanosQuerier.routeWeb" $context }}
+  {{- template "monitoring.thanosQuerier.saThanosQuerier" $context }}
+  {{- template "monitoring.thanosQuerier.networkPolicyUserMonitoring" $context }}
+  {{- if (and ($top.Values.monitoring.globalView) (not (eq $top.Values.clusterMonitoringNamespace $namespace))) }}
+    {{- if $globalViewConsumer }}
+      {{- template "monitoring.thanosQuerier.rbThanosQuerier" $context }}
+    {{- end }}
+    {{- if $enableAccessFromGlobalView }}
+      {{- template "monitoring.thanosQuerier.networkPolicyGlobalView" $context }}
+      {{- template "monitoring.cmGlobalView" $context }}
+    {{- end }}
+  {{- end }}
+{{- end }}

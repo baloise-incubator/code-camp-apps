@@ -1,0 +1,27 @@
+{{- define "monitoring.thanosQuerier.routeWeb" -}}
+  {{- $top := .top -}}
+  {{- $namespace := .namespace -}}
+  {{- $infraCluster := .infraCluster -}}
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    haproxy.router.openshift.io/timeout: 5m
+  name: thanos-querier
+  namespace: {{ $namespace }}
+  labels:
+    {{- include "monitoring.thanosQuerier.labels" . | nindent 4 }}
+spec:
+  host: thanos-querier-{{ $namespace }}.{{ $top.Values.routeDomain }}
+  port:
+    targetPort: web
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: reencrypt
+  to:
+    kind: Service
+    name: thanos-querier
+    weight: 100
+  wildcardPolicy: None
+{{ end }}

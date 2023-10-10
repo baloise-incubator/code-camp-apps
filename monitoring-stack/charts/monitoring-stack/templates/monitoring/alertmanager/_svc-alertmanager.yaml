@@ -1,0 +1,22 @@
+{{- define "monitoring.alertmanager.svcAlertmanager" -}}
+  {{- $namespace := .namespace -}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.alpha.openshift.io/serving-cert-secret-name: alertmanager-tls
+  labels:
+    {{- include "monitoring.alertmanager.labels" . | nindent 4 }}
+  name: alertmanager
+  namespace: {{ $namespace }}
+spec:
+  ports:
+    - name: web
+      port: 9095
+    - name: tenancy
+      port: 9092
+      targetPort: tenancy
+  selector:
+    alertmanager: alertmanager
+{{ end }}

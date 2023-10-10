@@ -1,0 +1,115 @@
+{{- define "monitoring.thanosRuler.customResourceThanosRuler" -}}
+  {{- $top := .top -}}
+  {{- $namespace := .namespace -}}
+  {{- $appEnvironment := .appEnvironment -}}
+  {{- $monitoringSelector := .monitoringSelector -}}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ThanosRuler
+metadata:
+  labels:
+    {{- include "monitoring.thanosRuler.labels" . | nindent 4 }}
+  name: thanos-ruler
+  namespace: {{ $namespace }}
+spec:
+  podMetadata:
+    labels:
+      app.kubernetes.io/part-of: bdop
+  image: {{ $top.Values.thanosRuler.images.thanos }}
+  listenLocal: true
+  replicas: {{ $top.Values.thanosRuler.replicas }}
+  {{- if not ( eq $appEnvironment "preview" ) }}
+  ruleNamespaceSelector:
+    matchLabels:
+      monitoringselector: {{ $monitoringSelector }}
+  {{- end }}
+  ruleSelector:
+    matchExpressions:
+      - key: eval
+        operator: NotIn
+        values:
+          - cluster-local
+  evaluationInterval: {{ $top.Values.evaluationInterval }}
+  serviceAccountName: thanos-ruler
+  resources: {{- toYaml $top.Values.thanosRuler.resources | nindent 10 }}
+  retention: {{ $top.Values.prometheus.retention }}
+  storage:
+    volumeClaimTemplate:
+      metadata:
+        labels:
+          app.kubernetes.io/part-of: bdop
+      spec:
+        storageClassName: {{ $top.Values.thanosRuler.pvcStorageClassName }}
+        resources:
+          requests:
+            storage: {{ $top.Values.thanosRuler.pvcSize }}
+  alertQueryUrl: https://thanos-querier-{{ $namespace }}.{{ $top.Values.routeDomain }}
+  alertmanagersConfig:
+    key: alertmanagers.yml
+    name: thanos-ruler-alertmanager
+  queryConfig:
+    key: query.yml
+    name: thanos-ruler-query
+  grpcServerTlsConfig:
+    certFile: /etc/tls/private/tls.crt
+    keyFile: /etc/tls/private/tls.key
+  containers:
+    - name: thanos-ruler
+      volumeMounts:
+        - mountPath: /etc/tls/private
+          name: secret-thanos-ruler-tls
+    - name: thanos-ruler-proxy
+      args:
+        - -provider=openshift
+        - -https-address=:9091
+        - -http-address=
+        - -email-domain=*
+        - -upstream=http://localhost:10902
+        - -htpasswd-file=/etc/proxy/htpasswd/auth
+        - -openshift-service-account=thanos-ruler
+        - -tls-cert=/etc/tls/private/tls.crt
+        - -tls-key=/etc/tls/private/tls.key
+        - '-openshift-delegate-urls={"/": {"resource": "services", "verb": "get", "name": "thanos-ruler", "namespace": "{{ $namespace }}"}}'
+        - -client-secret-file=/var/run/secrets/kubernetes.io/serviceaccount/token
+        - -cookie-secret-file=/etc/proxy/secrets/session_secret
+        - -openshift-ca=/etc/pki/tls/cert.pem
+        - -openshift-ca=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+      image: {{ $top.Values.thanosRuler.images.oauthProxy }}
+      ports:
+        - containerPort: 9091
+          name: web
+      resources:
+        requests:
+          cpu: 1m
+          memory: 20Mi
+        limits:
+          memory: 64Mi
+          cpu: 250m
+      terminationMessagePolicy: FallbackToLogsOnError
+      volumeMounts:
+        - mountPath: /etc/tls/private
+          name: secret-thanos-ruler-tls
+        - mountPath: /etc/proxy/secrets
+          name: secret-cookie-session-secret
+        - mountPath: /etc/proxy/htpasswd
+          name: secret-thanos-ruler-htpasswd
+    - name: config-reloader
+      image: {{ $top.Values.thanosRuler.images.configReloader }}
+      resources:
+        limits:
+          cpu: 100m
+          memory: 32Mi
+        requests:
+          cpu: 25m
+          memory: 32Mi
+  volumes:
+    - name: secret-thanos-ruler-tls
+      secret:
+        secretName: thanos-ruler-tls
+    - name: secret-thanos-ruler-htpasswd
+      secret:
+        secretName: thanos-ruler-htpasswd
+    - name: secret-cookie-session-secret
+      secret:
+        secretName: cookie-session-secret
+{{ end }}

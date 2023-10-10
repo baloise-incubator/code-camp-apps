@@ -1,0 +1,20 @@
+{{- define "monitoring.grafana.svc" -}}
+  {{- $namespace := .namespace -}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.alpha.openshift.io/serving-cert-secret-name: grafana-tls
+  labels:
+    {{- include "monitoring.grafana.labels" . | nindent 4 }}
+  name: grafana
+  namespace: {{ $namespace }}
+spec:
+  ports:
+    - name: web
+      port: 9093
+      targetPort: web
+  selector:
+    {{- include "monitoring.grafana.labels" . | nindent 4 }}
+{{ end }}

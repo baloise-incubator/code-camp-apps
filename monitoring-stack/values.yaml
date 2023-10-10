@@ -1,0 +1,19 @@
+# cluster
+clusterName: incubator
+responsible: codecamp@baloise.dev
+routeDomain: apps.okd.baloise.dev
+clusterEnvironment: nonprod
+appEnvironment: nonprod
+infraCluster: true
+
+# monitoring
+enableMonitoring: true
+enablespringBootMonitoring: true
+clusterMonitoringNamespace: platform-monitoring
+alertmanager:
+  mailAlerts: false
+  teams:
+    enabled: false
+thanosQuerier:
+  enableLocalClusterMonitoring: true
+  clusterTargets: {}

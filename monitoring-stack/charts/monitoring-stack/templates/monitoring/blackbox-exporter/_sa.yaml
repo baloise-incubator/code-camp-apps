@@ -1,0 +1,11 @@
+{{- define "monitoring.blackboxExporter.sa" -}}
+  {{- $namespace := .namespace -}}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: blackbox-exporter
+  namespace: {{ $namespace }}
+  labels:
+    {{- include "monitoring.blackboxExporter.labels" . | nindent 4 }}
+{{ end }}

@@ -1,0 +1,24 @@
+{{- define "monitoring.alertmanager.routeAlertmanager" -}}
+  {{- $top := .top -}}
+  {{- $namespace := .namespace -}}
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: alertmanager
+  namespace: {{ $namespace }}
+  labels:
+    {{- include "monitoring.alertmanager.labels" . | nindent 4 }}
+spec:
+  host: alertmanager-{{ $namespace }}.{{ $top.Values.routeDomain }}
+  port:
+    targetPort: web
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: reencrypt
+  to:
+    kind: Service
+    name: alertmanager
+    weight: 100
+  wildcardPolicy: None
+{{ end }}

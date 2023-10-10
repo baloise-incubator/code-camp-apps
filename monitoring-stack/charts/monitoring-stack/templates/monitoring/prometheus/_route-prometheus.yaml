@@ -1,0 +1,26 @@
+{{- define "monitoring.prometheus.routePrometheus" -}}
+  {{- $top := .top -}}
+  {{- $namespace := .namespace -}}
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    haproxy.router.openshift.io/timeout: 5m
+  labels:
+    {{- include "monitoring.prometheus.labels" . | nindent 4 }}
+  name: prometheus
+  namespace: {{ $namespace }}
+spec:
+  host: prometheus-{{ $namespace }}.{{ $top.Values.routeDomain }}
+  port:
+    targetPort: web
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: reencrypt
+  to:
+    kind: Service
+    name: prometheus
+    weight: 100
+  wildcardPolicy: None
+{{ end }}

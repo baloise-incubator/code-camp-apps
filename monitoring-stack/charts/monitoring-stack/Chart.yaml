@@ -1,0 +1,4 @@
+apiVersion: v2
+description: Helm chart for deploying monitoring stack
+name: monitoring-stack
+version: 1.0.0-0ff032708f1b9a9d2c8517b8449e5968f8f28b69

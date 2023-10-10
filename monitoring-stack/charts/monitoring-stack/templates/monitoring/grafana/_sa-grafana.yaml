@@ -1,0 +1,14 @@
+{{- define "monitoring.grafana.saGrafana" -}}
+  {{- $namespace := .namespace -}}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    serviceaccounts.openshift.io/oauth-redirectreference.grafana: >-
+      {"kind":"OAuthRedirectReference","apiVersion":"v1","reference":{"kind":"Route","name":"grafana"}}
+  labels:
+    {{- include "monitoring.grafana.labels" . | nindent 4 }}
+  name: grafana
+  namespace: {{ $namespace }}
+{{ end }}

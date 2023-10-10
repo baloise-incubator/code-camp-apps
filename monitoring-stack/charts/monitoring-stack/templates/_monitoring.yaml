@@ -1,0 +1,59 @@
+{{- define "monitoring" -}}
+  {{- $top := .top -}}
+  {{- $configRepoName := .configRepoName -}}
+  {{- $clusterEnvironment := .clusterEnvironment -}}
+  {{- $namespaceConfig := .namespaceConfig -}}
+  {{- $appEnvironment := .appEnvironment -}}
+  {{- $monNsName := .monNsName -}}
+  {{- $infraCluster := .infraCluster -}}
+  {{- $namespaceName := .namespaceName -}}
+  {{- $monitoringSelector := .monitoringSelector -}}
+  {{- $appName := trimSuffix "-infra" $configRepoName }}
+  {{- $appName = trimSuffix "-non-prod" $appName }}
+  {{- $appName = trimSuffix "-prod" $appName }}
+  {{- $enableNamespaceCreation := $top.Values.enableNamespaceCreation -}}
+  {{- if hasKey $namespaceConfig "enableNamespaceCreation" }}
+    {{- $enableNamespaceCreation = $namespaceConfig.enableNamespaceCreation -}}
+  {{- end }}
+  {{- $enableNetworkPolicyCreation := $top.Values.enableNetworkPolicyCreation -}}
+  {{- if hasKey $namespaceConfig "enableNetworkPolicyCreation" }}
+    {{- $enableNetworkPolicyCreation = $namespaceConfig.enableNetworkPolicyCreation -}}
+  {{- end }}
+  {{- $context := dict
+    "top" $top
+    "configRepoName" $configRepoName
+    "namespace" $monNsName
+    "clusterEnvironment" $clusterEnvironment
+    "infraCluster" $infraCluster
+    "monitoringSelector" $monitoringSelector
+    "namespaceConfig" $namespaceConfig
+    "appName" $appName
+    "appEnvironment" $appEnvironment
+    "enableNamespaceCreation" $enableNamespaceCreation
+    "enableNetworkPolicyCreation" $enableNetworkPolicyCreation
+  -}}
+  {{- if eq $clusterEnvironment "nonprod"  }}
+    {{- if eq $appEnvironment "preview"  }}
+      {{- $appEnvironment = "preview" -}}
+    {{- else }}
+      {{- $appEnvironment = "test" -}}
+    {{- end }}
+  {{- end }}
+  {{- if eq $clusterEnvironment "prod"  }}
+    {{- $appEnvironment = "prod" -}}
+  {{- end }}
+  {{- if eq $namespaceName $monNsName }}
+    {{- if $top.Values.enableMonitoring }}
+      {{- template "monitoring.prometheus" $context }}
+      {{- template "monitoring.thanosQuerier" $context }}
+      {{- template "monitoring.pushgateway" $context }}
+      {{- template "monitoring.networkPolicy" $context }}
+      {{- if $infraCluster }}
+        {{- template "monitoring.alertmanager" $context }}
+        {{- template "monitoring.thanosRuler" $context }}
+        {{- template "monitoring.blackboxExporter" $context }}
+        {{- template "monitoring.grafana" $context }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+{{- end }}

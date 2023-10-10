@@ -1,0 +1,41 @@
+{{- define "monitoring.pushgateway.deployment" -}}
+  {{- $top := .top -}}
+  {{- $namespace := .namespace -}}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    {{- include "monitoring.pushgateway.labels" . | nindent 4 }}
+  name: pushgateway-1 # increment in case of immutable changes
+  namespace: {{ $namespace }}
+spec:
+  progressDeadlineSeconds: 600
+  replicas: {{ $top.Values.pushgateway.replicas }}
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      {{- include "monitoring.pushgateway.labels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "monitoring.pushgateway.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: pushgateway
+          image: {{ $top.Values.pushgateway.images.pushgateway }}
+          ports:
+            - containerPort: 9091
+              name: web
+          resources: {{- toYaml $top.Values.pushgateway.resources | nindent 12 }}
+          livenessProbe:
+            httpGet:
+              path: /-/healthy
+              port: web
+          readinessProbe:
+            httpGet:
+              path: /-/ready
+              port: web
+      serviceAccount: pushgateway
+      serviceAccountName: pushgateway
+{{ end }}

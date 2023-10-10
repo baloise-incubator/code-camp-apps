@@ -1,0 +1,26 @@
+{{- define "monitoring.grafana.route" -}}
+  {{- $top := .top -}}
+  {{- $namespace := .namespace -}}
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    haproxy.router.openshift.io/timeout: 5m
+  name: grafana
+  namespace: {{ $namespace }}
+  labels:
+    {{- include "monitoring.grafana.labels" . | nindent 4 }}
+spec:
+  host: grafana-{{ $namespace }}.{{ $top.Values.routeDomain }}
+  port:
+    targetPort: web
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: reencrypt
+  to:
+    kind: Service
+    name: grafana
+    weight: 100
+  wildcardPolicy: None
+{{ end }}

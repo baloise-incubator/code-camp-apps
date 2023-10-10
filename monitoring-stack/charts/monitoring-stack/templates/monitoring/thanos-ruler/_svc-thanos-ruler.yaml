@@ -1,0 +1,20 @@
+{{- define "monitoring.thanosRuler.svcThanosRuler" -}}
+  {{- $namespace := .namespace -}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.alpha.openshift.io/serving-cert-secret-name: thanos-ruler-tls
+  labels:
+    {{- include "monitoring.thanosRuler.labels" . | nindent 4 }}
+  name: thanos-ruler
+  namespace: {{ $namespace }}
+spec:
+  ports:
+    - name: web
+      port: 9091
+      targetPort: web
+  selector:
+    thanos-ruler: thanos-ruler
+{{ end }}

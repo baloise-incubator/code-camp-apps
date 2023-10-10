@@ -1,0 +1,14 @@
+{{- define "monitoring.prometheus.saPrometheus" -}}
+  {{- $namespace := .namespace -}}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    serviceaccounts.openshift.io/oauth-redirectreference.prometheus: >-
+      {"kind":"OAuthRedirectReference","apiVersion":"v1","reference":{"kind":"Route","name":"prometheus"}}
+  name: prometheus
+  namespace: {{ $namespace }}
+  labels:
+    {{- include "monitoring.prometheus.labels" . | nindent 4 }}
+{{ end }}

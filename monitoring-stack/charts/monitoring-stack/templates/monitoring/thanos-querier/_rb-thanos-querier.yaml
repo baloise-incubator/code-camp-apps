@@ -1,0 +1,18 @@
+{{- define "monitoring.thanosQuerier.rbThanosQuerier" -}}
+  {{- $namespace := .namespace -}}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: monitoring-stack-thanos-querier-filesd-reloader
+  namespace: {{ $namespace }}
+  labels:
+    {{- include "monitoring.thanosQuerier.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: grafana-cm-reloader
+subjects:
+  - kind: ServiceAccount
+    name: thanos-querier
+{{ end }}

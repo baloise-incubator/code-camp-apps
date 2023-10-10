@@ -1,0 +1,27 @@
+{{- define "monitoring.thanosRuler.route" -}}
+  {{- $top := .top -}}
+  {{- $namespace := .namespace -}}
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: thanos-ruler
+  namespace: {{ $namespace }}
+  labels:
+    {{- include "monitoring.thanosRuler.labels" . | nindent 4 }}
+spec:
+  host: thanos-ruler-{{ $namespace }}.{{ $top.Values.routeDomain }}
+  port:
+    targetPort: web
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: reencrypt
+  to:
+    kind: Service
+    name: thanos-ruler
+    weight: 100
+  wildcardPolicy: None
+status:
+  ingress:
+    - routerName: router
+{{ end }}

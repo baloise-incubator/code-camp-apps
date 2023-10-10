@@ -1,0 +1,18 @@
+{{- define "monitoring.thanosQuerier.svcGrafanaDataSource" -}}
+  {{- $namespace := .namespace -}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    {{- include "monitoring.thanosQuerier.labels" . | nindent 4 }}
+  name: thanos-querier-grafana
+  namespace: {{ $namespace }}
+spec:
+  ports:
+    - name: http
+      port: 9090
+      targetPort: http
+  selector:
+    {{- include "monitoring.thanosQuerier.labels" . | nindent 4 }}
+{{ end }}

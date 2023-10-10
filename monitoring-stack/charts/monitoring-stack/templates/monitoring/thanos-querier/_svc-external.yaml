@@ -1,0 +1,23 @@
+{{- define "monitoring.thanosQuerier.svcExternal" -}}
+  {{- $namespace := .namespace -}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.alpha.openshift.io/serving-cert-secret-name: thanos-querier-tls
+  labels:
+    {{- include "monitoring.thanosQuerier.labels" . | nindent 4 }}
+  name: thanos-querier
+  namespace: {{ $namespace }}
+spec:
+  ports:
+    - name: web
+      port: 9093
+      targetPort: web
+    - name: grpc
+      port: 10901
+      targetPort: grpc
+  selector:
+    {{- include "monitoring.thanosQuerier.labels" . | nindent 4 }}
+{{ end }}

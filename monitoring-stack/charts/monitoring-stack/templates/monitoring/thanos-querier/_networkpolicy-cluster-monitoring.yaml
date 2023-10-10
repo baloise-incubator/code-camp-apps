@@ -1,0 +1,29 @@
+{{- define "monitoring.thanosQuerier.networkPolicyUserMonitoring" -}}
+  {{- $top := .top -}}
+  {{- $namespace := .namespace -}}
+  {{- $monitoringSelector := .monitoringSelector -}}
+  {{- $namespaceConfig := .namespaceConfig -}}
+  {{- $enableNamespaceCreation := .enableNamespaceCreation -}}
+  {{- $enableNetworkPolicyCreation := .enableNetworkPolicyCreation -}}
+  {{- if and ($enableNetworkPolicyCreation) ($enableNamespaceCreation) }}
+    {{- if $top.Values.clusterMonitoringNetworkpolicy }}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-from-usermonitoring
+  namespace: {{ $namespace }}
+  labels:
+    {{- include "monitoring.thanosQuerier.labels" . | nindent 4 }}
+spec:
+# Allow access to this tenant from other monitoring stacks
+# Needed for https://confluence.baloisenet.com/display/BALMATE/01+-+Deploying+the+Baloise+Monitoring+Stack
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              usermonitoring: "true"
+  podSelector: {} # Matches all pods
+    {{- end }}
+  {{- end }}
+{{ end }}

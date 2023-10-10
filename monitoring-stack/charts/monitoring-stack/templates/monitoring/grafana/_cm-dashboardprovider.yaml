@@ -1,0 +1,24 @@
+{{- define "monitoring.grafana.cmDashboardprovider" -}}
+  {{- $top := .top -}}
+  {{- $configRepoName := .configRepoName -}}
+  {{- $namespace := .namespace -}}
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: grafana-dashboardproviders
+  namespace: {{ $namespace }}
+  labels:
+    {{- include "monitoring.grafana.labels" . | nindent 4 }}
+data:
+  dashboardproviders.yaml: |
+    apiVersion: 1
+    providers:
+    - disableDeletion: false
+      editable: false
+      name: general
+      options:
+        path: /var/lib/grafana/dashboards/general
+      orgId: 1
+      type: file
+{{ end }}

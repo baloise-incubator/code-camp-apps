@@ -1,0 +1,18 @@
+{{- define "monitoring.pushgateway.svc" -}}
+  {{- $namespace := .namespace -}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    {{- include "monitoring.pushgateway.labels" . | nindent 4 }}
+  name: pushgateway
+  namespace: {{ $namespace }}
+spec:
+  ports:
+    - name: web
+      port: 9091
+      targetPort: web
+  selector:
+    {{- include "monitoring.pushgateway.labels" . | nindent 4 }}
+{{ end }}

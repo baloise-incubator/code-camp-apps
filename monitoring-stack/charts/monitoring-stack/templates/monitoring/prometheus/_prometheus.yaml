@@ -1,0 +1,24 @@
+{{- define "monitoring.prometheus" -}}
+  {{- $top := .top -}}
+  {{- $configRepoName := .configRepoName -}}
+  {{- $clusterEnvironment := .clusterEnvironment -}}
+  {{- $namespace := .namespace -}}
+  {{- $appEnvironment := .appEnvironment -}}
+  {{- $infraCluster := .infraCluster -}}
+  {{- $monitoringSelector := .monitoringSelector -}}
+  {{- $context := dict
+    "top" $top
+    "configRepoName" $configRepoName
+    "clusterEnvironment" $clusterEnvironment
+    "namespace" $namespace
+    "appEnvironment" $appEnvironment
+    "infraCluster" $infraCluster
+    "monitoringSelector" $monitoringSelector
+  }}
+  {{- template "monitoring.prometheus.customresourcePrometheus" $context }}
+  {{- template "monitoring.prometheus.svcThanoSidecar" $context }}
+  {{- template "monitoring.prometheus.svcPrometheus" $context }}
+  {{- template "monitoring.prometheus.routePrometheus" $context }}
+  {{- template "monitoring.prometheus.saPrometheus" $context }}
+  {{- template "monitoring.prometheus.rbPrometheus" $context }}
+{{- end }}

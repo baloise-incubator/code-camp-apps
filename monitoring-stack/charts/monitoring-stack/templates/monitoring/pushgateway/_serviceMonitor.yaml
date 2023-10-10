@@ -1,0 +1,23 @@
+{{- define "monitoring.pushgateway.serviceMonitor" -}}
+  {{- $namespace := .namespace -}}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    {{- include "monitoring.pushgateway.labels" . | nindent 4 }}
+  name: pushgateway
+  namespace: {{ $namespace }}
+spec:
+  endpoints:
+    - interval: 30s
+      port: web
+      honorLabels: true
+  namespaceSelector:
+    matchNames:
+      - {{ $namespace }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: pushgateway
+      {{- include "monitoring.common.labels" . | nindent 6 }}
+{{ end }}

@@ -1,0 +1,26 @@
+{{- define "monitoring.thanosRuler" -}}
+  {{- $top := .top -}}
+  {{- $namespace := .namespace -}}
+  {{- $infraCluster := .infraCluster -}}
+  {{- $configRepoName := .configRepoName -}}
+  {{- $monitoringSelector := .monitoringSelector -}}
+  {{- $appEnvironment := .appEnvironment -}}
+  {{- $appName := .appName -}}
+  {{- $context := dict
+    "top" $top
+    "namespace" $namespace
+    "infraCluster" $infraCluster
+    "appEnvironment" $appEnvironment
+    "configRepoName" $configRepoName
+    "monitoringSelector" $monitoringSelector
+    "appName" $appName
+  }}
+  {{- template "monitoring.thanosRuler.customResourceThanosRuler" $context }}
+  {{- template "monitoring.thanosRuler.svcThanosRuler" $context }}
+  {{- template "monitoring.thanosRuler.secretQueryConfig" $context }}
+  {{- template "monitoring.thanosRuler.secretAlertmanagerConfig" $context }}
+  {{- template "monitoring.thanosRuler.route" $context }}
+  {{- template "monitoring.thanosRuler.saThanosRuler" $context }}
+  {{- template "monitoring.thanosRuler.rbThanosRuler" $context }}
+  {{- template "monitoring.thanosRuler.serviceMonitor" $context }}
+{{- end }}

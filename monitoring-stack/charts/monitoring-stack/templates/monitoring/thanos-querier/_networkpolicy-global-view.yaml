@@ -1,0 +1,30 @@
+{{- define "monitoring.thanosQuerier.networkPolicyGlobalView" -}}
+  {{- $top := .top -}}
+  {{- $namespace := .namespace -}}
+  {{- $namespaceConfig := .namespaceConfig -}}
+  {{- $appName := .appName -}}
+  {{- $enableNamespaceCreation := .enableNamespaceCreation -}}
+  {{- $enableNetworkPolicyCreation := .enableNetworkPolicyCreation -}}
+  {{- if and ($enableNetworkPolicyCreation) ($enableNamespaceCreation) ($top.Values.monitoring.globalView) }}
+    {{- range $k, $v := $top.Values.monitoring.globalView }}
+      {{- if not (eq $v.tenantName $appName )}}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-from-global-view-{{ $v.tenantName }}
+  namespace: {{ $namespace }}
+  labels:
+    {{- include "monitoring.thanosQuerier.labels" . | nindent 4 }}
+spec:
+# Allow access to this tenant from other global monitoring stacks
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: {{ $v.tenantName }}-monitoring
+  podSelector: {}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+{{ end }}

@@ -1,0 +1,15 @@
+{{- define "monitoring.blackboxExporter" -}}
+  {{- $top := .top -}}
+  {{- $clusterEnvironment := .clusterEnvironment -}}
+  {{- $namespace := .namespace -}}
+  {{- $context := dict
+    "top" $top
+    "clusterEnvironment"
+    $clusterEnvironment
+    "namespace" $namespace
+  }}
+  {{- template "monitoring.blackboxExporter.deployment" $context }}
+  {{- template "monitoring.blackboxExporter.cm" $context }}
+  {{- template "monitoring.blackboxExporter.svc" $context }}
+  {{- template "monitoring.blackboxExporter.sa" $context }}
+{{- end }}

@@ -1,0 +1,146 @@
+exports:
+  defaults:
+    monitoring:
+      enableDefaultPrometheusRuleSet: true
+      enableAccessFromGlobalView: false
+    # supportGroups have baloise-engineer permissions in all user monitoring-stacks
+
+    evaluationInterval: 60s
+    alertThresholds:
+      logVolumeGi: 0.25
+
+    prometheus:
+      version: v2.44.0
+      scrapeInterval: 60s
+      images:
+        # prometheus.version will be used as tag
+        prometheus: quay.io/prometheus/prometheus
+        oauthProxy: registry.redhat.io/openshift4/ose-oauth-proxy:v4.11.0
+        thanos: quay.io/thanos/thanos:v0.31.0
+        sidecar: quay.io/kiwigrid/k8s-sidecar:1.24.4
+      listenLocal: true
+      replicas: 1
+      resources:
+        prometheus:
+          limits:
+            cpu: 2
+            memory: 4Gi
+          requests:
+            cpu: 25m
+            memory: 512Mi
+        thanos:
+          limits:
+            cpu: 1
+            memory: 512Mi
+          requests:
+            cpu: 25m
+            memory: 32Mi
+      retention: 15d
+      pvcSize: 10Gi
+      pvcStorageClassName: px-nfs
+      retentionSize: 9GB
+      secrets:
+      skipArgoHealthCheck: true
+
+    alertmanager:
+      subject:  "***Prometheus Alert*** Status: {{ .Status }}, Severity: {{ .CommonLabels.severity }}, Env: {{ .CommonLabels.env }}, Alert: {{ .CommonLabels.alertname }}"
+      webhook:
+        zis: false
+      version: v0.25.0
+      additionalInhibitRules: null
+      images:
+        # alertmanager.version will be used as tag
+        alertmanager: quay.io/prometheus/alertmanager
+        oauthProxy: registry.redhat.io/openshift4/ose-oauth-proxy:v4.11.0
+      replicas: 1
+      loglevel: info
+      pvcSize: 1Gi
+      pvcStorageClassName: px-nfs
+      resources:
+        limits:
+          cpu: 1
+          memory: 64Mi
+        requests:
+          cpu: 5m
+          memory: 32Mi
+
+    grafana:
+      replicas: 1
+      images:
+        grafana: docker.io/grafana/grafana:10.0.1
+        oauthProxy: registry.redhat.io/openshift4/ose-oauth-proxy:v4.11.0
+        sidecar: quay.io/kiwigrid/k8s-sidecar:1.24.4
+      resources:
+        limits:
+          cpu: 2
+          memory: 2Gi
+        requests:
+          cpu: 50m
+          memory: 32Mi
+
+    thanosRuler:
+      replicas: 1
+      pvcSize: 10Gi
+      pvcStorageClassName: px-nfs
+      images:
+        thanos: quay.io/thanos/thanos:v0.31.0
+        oauthProxy: registry.redhat.io/openshift4/ose-oauth-proxy:v4.11.0
+        configReloader: quay.io/prometheus-operator/prometheus-config-reloader:v0.63.0
+      resources:
+        limits:
+          memory: 1Gi
+          cpu: 1
+        requests:
+          cpu: 25m
+          memory: 32Mi
+
+    pushgateway:
+      replicas: 1
+      images:
+        pushgateway: quay.io/prometheus/pushgateway:v1.6.0
+      resources:
+        limits:
+          cpu: 1
+          memory: 128Mi
+        requests:
+          cpu: 25m
+          memory: 32Mi
+
+    blackboxExporter:
+      replicas: 1
+      images:
+        configReloader: quay.io/prometheus-operator/prometheus-config-reloader:v0.63.0
+        blackboxExporter: quay.io/prometheus/blackbox-exporter:v0.24.0
+      resources:
+        limits:
+          cpu: 1
+          memory: 128Mi
+        requests:
+          cpu: 25m
+          memory: 32Mi
+
+    thanosFrontendQuerier:
+      resources:
+        limits:
+          memory: 2Gi
+          cpu: 1
+        requests:
+          cpu: 25m
+          memory: 128Mi
+
+    thanosQuerier:
+      replicas: 1
+      additionalTargets: []
+      grpcIPAllowlist: 10.160.65.0/24
+      images:
+        thanos: quay.io/thanos/thanos:v0.31.0
+        oauthProxy:  registry.redhat.io/openshift4/ose-oauth-proxy:v4.11.0
+        sidecar: quay.io/kiwigrid/k8s-sidecar:1.24.4
+      resources:
+        limits:
+          memory: 1Gi
+          cpu: 1
+        requests:
+          cpu: 25m
+          memory: 128Mi
+

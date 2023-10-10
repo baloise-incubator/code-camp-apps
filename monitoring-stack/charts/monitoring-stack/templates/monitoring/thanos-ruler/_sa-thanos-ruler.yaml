@@ -1,0 +1,14 @@
+{{- define "monitoring.thanosRuler.saThanosRuler" -}}
+  {{- $namespace := .namespace -}}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    {{- include "monitoring.thanosRuler.labels" . | nindent 4 }}
+  annotations:
+    serviceaccounts.openshift.io/oauth-redirectreference.thanos-ruler: >-
+      {"kind":"OAuthRedirectReference","apiVersion":"v1","reference":{"kind":"Route","name":"thanos-ruler"}}
+  name: thanos-ruler
+  namespace: {{ $namespace }}
+{{ end }}

@@ -1,0 +1,17 @@
+{{- define "monitoring.thanosRuler.rbThanosRuler" -}}
+  {{- $namespace := .namespace -}}
+---
+apiVersion: authorization.openshift.io/v1
+kind: RoleBinding
+metadata:
+  name: monitoring-stack-thanos-ruler
+  namespace: {{ $namespace }}
+  labels:
+    {{- include "monitoring.thanosRuler.labels" . | nindent 4 }}
+roleRef:
+  name: view
+subjects:
+- kind: ServiceAccount
+  name: thanos-ruler
+  namespace: {{ $namespace }}
+{{ end }}

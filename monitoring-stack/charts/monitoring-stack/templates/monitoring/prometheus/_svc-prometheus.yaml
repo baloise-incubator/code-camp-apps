@@ -1,0 +1,20 @@
+{{- define "monitoring.prometheus.svcPrometheus" -}}
+  {{- $namespace := .namespace -}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.openshift.io/serving-cert-secret-name: prometheus-tls
+  labels:
+    {{- include "monitoring.prometheus.labels" . | nindent 4 }}
+  name: prometheus
+  namespace: {{ $namespace }}
+spec:
+  ports:
+    - name: web
+      port: 9093
+      targetPort: web
+  selector:
+    prometheus: prometheus
+{{ end }}

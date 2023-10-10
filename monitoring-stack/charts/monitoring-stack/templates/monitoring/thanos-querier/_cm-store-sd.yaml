@@ -1,0 +1,22 @@
+{{- define "monitoring.cmGlobalView" -}}
+  {{- $top := .top -}}
+  {{- $namespace := .namespace -}}
+  {{- $appName := .appName -}}
+  {{- range $k, $v := $top.Values.monitoring.globalView }}
+    {{- if not (eq $v.tenantName $appName )}}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: store-{{ $namespace }}
+  namespace: {{ $v.tenantName }}-monitoring
+  labels:
+    {{- include "monitoring.blackboxExporter.labels" . | nindent 4 }}
+    stores: global
+data:
+  {{ $namespace }}.yml: |
+    - targets:
+      - prometheus-0.{{ $namespace }}.svc:10901
+    {{- end }}
+  {{- end }}
+{{ end }}

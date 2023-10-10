@@ -1,0 +1,209 @@
+{{- define "monitoring.alertmanager.customresourceAlertmanager" -}}
+  {{- $top := .top -}}
+  {{- $configRepoName := .configRepoName -}}
+  {{- $namespace := .namespace -}}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: Alertmanager
+metadata:
+  labels:
+    {{- include "monitoring.alertmanager.labels" . | nindent 4 }}
+  annotations:
+    secret.reloader.stakater.com/reload: "prom2teams-config-prod,prom2teams-config-nonprod"
+    {{- if $top.Values.alertmanager.customMailTemplate }}
+    configmap.reloader.stakater.com/reload: "notification-template"
+    {{- end }}
+  name: alertmanager
+  namespace: {{ $namespace }}
+spec:
+  podMetadata:
+    labels:
+      app.kubernetes.io/component: alertmanager
+      app.kubernetes.io/part-of: bdop
+  externalUrl: https://alertmanager-{{ $namespace }}.{{ $top.Values.routeDomain }}/
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+                - key: alertmanager
+                  operator: In
+                  values:
+                    - {{ $configRepoName }}
+            namespaces:
+              - {{ $namespace }}
+            topologyKey: kubernetes.io/hostname
+          weight: 100
+  containers:
+    {{- if $top.Values.alertmanager.teams.prom2teamsEnabled }}
+    - name: prom2teamsprod
+      env:
+        - name: APP_CONFIG_FILE
+          value: /opt/prom2teams/config/config.ini
+        - name: PROM2TEAMS_LOGLEVEL
+          value: DEBUG
+        - name: UWSGI_PORT
+          value: "8089"
+        - name: PROMETHEUS_MULTIPROC_PORT
+          value: "9089"
+        - name: HTTP_PROXY
+          valueFrom:
+            secretKeyRef:
+              key: http_proxy
+              name: baloise-webproxy
+        - name: HTTPS_PROXY
+          valueFrom:
+            secretKeyRef:
+              key: http_proxy
+              name: baloise-webproxy
+      image: {{ $top.Values.alertmanager.images.prom2teams }}
+      imagePullPolicy: IfNotPresent
+      ports:
+        - containerPort: 8089
+          name: http
+          protocol: TCP
+        - containerPort: 9089
+          name: metrics
+          protocol: TCP
+      resources:
+        limits:
+          cpu: 200m
+          memory: 200Mi
+        requests:
+          cpu: 25m
+          memory: 128Mi
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /opt/prom2teams/config/config.ini
+          name: secret-prom2teams-config-prod
+          subPath: config.ini
+        - mountPath: /opt/prom2teams/config/teams.j2
+          name: secret-prom2teams-template
+          subPath: teams.j2
+    - name: prom2teamsnonprod
+      env:
+        - name: APP_CONFIG_FILE
+          value: /opt/prom2teams/config/config.ini
+        - name: PROM2TEAMS_LOGLEVEL
+          value: DEBUG
+        - name: UWSGI_PORT
+          value: "8090"
+        - name: PROMETHEUS_MULTIPROC_PORT
+          value: "9090"
+        - name: HTTP_PROXY
+          valueFrom:
+            secretKeyRef:
+              key: http_proxy
+              name: baloise-webproxy
+        - name: HTTPS_PROXY
+          valueFrom:
+            secretKeyRef:
+              key: http_proxy
+              name: baloise-webproxy
+      image: {{ $top.Values.alertmanager.images.prom2teams }}
+      imagePullPolicy: IfNotPresent
+      ports:
+        - containerPort: 8090
+          name: http
+          protocol: TCP
+        - containerPort: 9090
+          name: metrics
+          protocol: TCP
+      resources:
+        limits:
+          cpu: 200m
+          memory: 200Mi
+        requests:
+          cpu: 25m
+          memory: 128Mi
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /opt/prom2teams/config/config.ini
+          name: secret-prom2teams-config-nonprod
+          subPath: config.ini
+        - mountPath: /opt/prom2teams/config/teams.j2
+          name: secret-prom2teams-template
+          subPath: teams.j2
+    {{- end }}
+    - args:
+        - -provider=openshift
+        - -https-address=:9095
+        - -http-address=
+        - -email-domain=*
+        - -upstream=http://localhost:9093
+        - '-openshift-sar={"resource": "services", "verb": "get", "name": "thanos-querier", "namespace": "{{ $namespace }}"}'
+        - '-openshift-delegate-urls={"/": {"resource": "services", "verb": "get", "name": "alertmanager", "namespace": "{{ $namespace }}"}}'
+        - -tls-cert=/etc/tls/private/tls.crt
+        - -tls-key=/etc/tls/private/tls.key
+        - -cookie-secret-file=/etc/proxy/secrets/session_secret
+        - -client-secret-file=/var/run/secrets/kubernetes.io/serviceaccount/token
+        - -openshift-service-account=alertmanager
+        - -openshift-ca=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+      env:
+        - name: HTTP_PROXY
+        - name: HTTPS_PROXY
+        - name: NO_PROXY
+      image: {{ $top.Values.alertmanager.images.oauthProxy }}
+      name: alertmanager-proxy
+      ports:
+        - containerPort: 9095
+          name: web
+      resources:
+        requests:
+          cpu: 25m
+          memory: 20Mi
+        limits:
+          memory: 64Mi
+          cpu: 250m
+      terminationMessagePolicy: FallbackToLogsOnError
+      volumeMounts:
+        - mountPath: /etc/tls/private
+          name: secret-alertmanager-tls
+        - mountPath: /etc/proxy/secrets
+          name: secret-cookie-session-secret
+    - name: config-reloader
+      resources:
+        requests:
+          cpu: 25m
+          memory: 20Mi
+        limits:
+          cpu: 100m
+          memory: 64Mi
+  image: {{ $top.Values.alertmanager.images.alertmanager }}:{{ $top.Values.alertmanager.version }}
+  listenLocal: {{ $top.Values.alertmanager.listenLocal }}
+  replicas: {{ $top.Values.alertmanager.replicas }}
+  logLevel: {{ $top.Values.alertmanager.loglevel }}
+  configSecret: alertmanager
+  resources: {{- toYaml $top.Values.alertmanager.resources | nindent 4 }}
+  secrets:
+    - alertmanager-tls
+    - cookie-session-secret
+    {{- if $top.Values.alertmanager.webhook.zis }}
+    - zisapi-secret
+    {{- end }}
+    {{- if $top.Values.alertmanager.teams.prom2teamsEnabled }}
+    - prom2teams-config-prod
+    - prom2teams-config-nonprod
+    - prom2teams-template
+    {{- end }}
+  configMaps:
+    {{- if $top.Values.alertmanager.customMailTemplate }}
+    - notification-template
+    {{- end }}
+  serviceAccountName: alertmanager
+  storage:
+    volumeClaimTemplate:
+      metadata:
+        name: alertmanager
+        labels:
+          app.kubernetes.io/part-of: bdop
+      spec:
+        resources:
+          requests:
+            storage: {{ $top.Values.alertmanager.pvcSize }}
+        storageClassName: {{ $top.Values.alertmanager.pvcStorageClassName }}
+  version: {{ $top.Values.alertmanager.version }}
+{{ end }}

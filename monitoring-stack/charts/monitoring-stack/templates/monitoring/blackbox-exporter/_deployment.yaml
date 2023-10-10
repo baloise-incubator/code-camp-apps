@@ -1,0 +1,67 @@
+{{- define "monitoring.blackboxExporter.deployment" -}}
+  {{- $top := .top -}}
+  {{- $namespace := .namespace -}}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    {{- include "monitoring.blackboxExporter.labels" . | nindent 4 }}
+  name: blackbox-exporter-1
+  namespace: {{ $namespace }}
+spec:
+  replicas: {{ $top.Values.blackboxExporter.replicas }}
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      {{- include "monitoring.blackboxExporter.labels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "monitoring.blackboxExporter.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: configmap-reloader
+          args:
+            - --reload-url=http://localhost:9115/-/reload
+            - --watched-dir=/etc/blackbox_exporter/
+          image: {{ $top.Values.blackboxExporter.images.configReloader }}
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: 1
+              memory: 32Mi
+            requests:
+              cpu: 25m
+              memory: 32Mi
+          volumeMounts:
+            - mountPath: /etc/blackbox_exporter/
+              name: blackbox-config
+        - name: blackbox-exporter
+          image: {{ $top.Values.blackboxExporter.images.blackboxExporter }}
+          args:
+            - --config.file=/etc/blackbox_exporter/config.yml
+          ports:
+            - containerPort: 9115
+              name: http
+          volumeMounts:
+            - mountPath: /etc/blackbox_exporter/
+              name: blackbox-config
+          resources: {{- toYaml $top.Values.blackboxExporter.resources | nindent 12 }}
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+      serviceAccount: blackbox-exporter
+      serviceAccountName: blackbox-exporter
+      volumes:
+        - name: blackbox-config
+          configMap:
+            defaultMode: 420
+            name: blackbox-exporter-config
+{{ end }}

@@ -1,0 +1,11 @@
+{{- define "monitoring.pushgateway.sa" -}}
+  {{- $namespace := .namespace -}}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: pushgateway
+  namespace: {{ $namespace }}
+  labels:
+    {{- include "monitoring.pushgateway.labels" . | nindent 4 }}
+{{ end }}

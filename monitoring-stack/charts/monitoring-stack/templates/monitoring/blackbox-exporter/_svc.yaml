@@ -1,0 +1,18 @@
+{{- define "monitoring.blackboxExporter.svc" -}}
+  {{- $namespace := .namespace -}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    {{- include "monitoring.blackboxExporter.labels" . | nindent 4 }}
+  name: blackbox
+  namespace: {{ $namespace }}
+spec:
+  ports:
+    - name: http
+      port: 9115
+      targetPort: http
+  selector:
+    {{- include "monitoring.blackboxExporter.labels" . | nindent 4 }}
+{{ end }}

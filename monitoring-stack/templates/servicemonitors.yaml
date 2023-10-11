@@ -1,0 +1,80 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: alertmanager
+spec:
+  endpoints:
+    - interval: 60s
+      bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+      port: web
+      scheme: https
+      tlsConfig:
+        insecureSkipVerify: true
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: alertmanager
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: thanos-querier
+spec:
+  endpoints:
+    - interval: 60s
+      bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+      port: web
+      scheme: https
+      tlsConfig:
+        insecureSkipVerify: true
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: thanos-querier
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: thanos-ruler
+spec:
+  endpoints:
+    - interval: 60s
+      bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+      port: web
+      scheme: https
+      tlsConfig:
+        insecureSkipVerify: true
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: thanos-ruler
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: prometheus
+spec:
+  endpoints:
+    - interval: 60s
+      bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+      port: web
+      scheme: https
+      tlsConfig:
+        insecureSkipVerify: true
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: prometheus
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: grafana
+spec:
+  endpoints:
+    - interval: 60s
+      bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+      port: web
+      scheme: https
+      tlsConfig:
+        insecureSkipVerify: true
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: grafana

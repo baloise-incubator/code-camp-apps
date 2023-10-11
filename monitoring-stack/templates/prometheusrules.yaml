@@ -1,0 +1,21 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: k8s
+spec:
+  groups:
+    - name: targetdown.rules
+      interval: 2m
+      rules:
+        - alert: TargetDown
+          annotations:
+            description: '{{ "{{" }} $value {{ "}}" }}% of {{ "{{" }} $labels.job {{ "}}" }} targets in {{ "{{" }} $labels.namespace {{ "}}" }} on {{ "{{" }} $labels.cluster {{ "}}" }} are down.'
+            runbook_url: "https://confluence.baloisenet.com/display/GITDevOps/TargetDown"
+          expr: |-
+            count by (job, namespace, cluster, env, pod) (up{namespace!="", pod!=""} == 0)
+            /
+            count by (job, namespace, cluster, env, pod) (up{namespace!="", pod!=""})
+          for: 5m
+          labels:
+            severity: critical

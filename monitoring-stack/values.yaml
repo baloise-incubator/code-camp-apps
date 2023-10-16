@@ -42,6 +42,10 @@ loki-distributed:
 
 # Tempo
 tempo-distributed:
+  traces:
+    otlp:
+      grpc:
+        enabled: true
   minio:
     enabled: true
     podSecurityContext:

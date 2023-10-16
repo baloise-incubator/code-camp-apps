@@ -4,4 +4,4 @@ gabelstapler:
     tag: v0.0.2
   env:
     - name: ENDPOINT
-      value: "monitoring-stack-tempo-ingester.monitoring-stack.svc.local:3100"
+      value: "monitoring-stack-tempo-ingester.monitoring-stack.svc:3100"

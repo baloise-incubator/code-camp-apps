@@ -40,4 +40,3 @@ tempo-distributed:
     securityContext:
       runAsUser: 1001050000
       runAsGroup: 1001050000
-

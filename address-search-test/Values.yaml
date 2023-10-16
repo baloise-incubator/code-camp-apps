@@ -7,13 +7,3 @@ address-search-index-test:
       servicePort: 8983
       ingress:
         host: address-search-index-test.apps.baloise.dev
-
-address-search-client-test:
-  image:
-    repository: docker.io/library/my-image-name
-    tag: 1697485037
-  network:
-    http:
-      servicePort: 8080
-      ingress:
-        host: address-search-client-test.apps.baloise.dev

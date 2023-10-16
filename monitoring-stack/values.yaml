@@ -30,3 +30,14 @@ monitoring:
     enabled: true
     grafanaAgent:
       installOperator: false
+
+tempo-distributed:
+  minio:
+    enabled: false
+  tempo:
+    podSecurityContext:
+      fsGroup: 1001050000
+    securityContext:
+      runAsUser: 1001050000
+      runAsGroup: 1001050000
+

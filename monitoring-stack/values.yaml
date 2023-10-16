@@ -20,6 +20,9 @@ thanosQuerier:
 
 # Loki
 loki-distributed:
+  global:
+    dnsService: dns-default
+    dnsNamespace: openshift-dns
   loki:
     podSecurityContext:
       fsGroup: 1001050000

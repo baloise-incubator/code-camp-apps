@@ -1,22 +1,7 @@
 gabelstapler:
   image:
-    repository: bitnami/nginx:1.19.1
-    tag: latest
-  network:
-    http:
-      servicePort: 8080
-      ingress:
-        host: demo.apps.example.tld
-  readinessProbe:
-    httpGet:
-      path: /
-      port: 8080
-    initialDelaySeconds: 5
-    timeoutSeconds: 1
-  resources:
-    requests:
-      cpu: 10m
-      memory: 16Mi
-    limits:
-      cpu: 200m
-      memory: 32Mi
+    repository: ghcr.io/grafana/xk6-client-tracing
+    tag: v0.0.2
+  env:
+    - name: ENDPOINT
+      value: "monitoring-stack-tempo-ingester.monitoring-stack.svc.local:3100"

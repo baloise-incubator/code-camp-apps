@@ -11,7 +11,7 @@ address-search-index-test:
 address-search-client-test:
   image:
     repository: docker.io/library/my-image-name
-    tag: 1697485037
+    tag: "1697485037"
   network:
     http:
       servicePort: 8080

@@ -21,7 +21,4 @@ spec:
     name: thanos-ruler
     weight: 100
   wildcardPolicy: None
-status:
-  ingress:
-    - routerName: router
 {{ end }}

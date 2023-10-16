@@ -17,3 +17,14 @@ alertmanager:
 thanosQuerier:
   enableLocalClusterMonitoring: true
   clusterTargets: {}
+
+tempo-distributed:
+  minio:
+    enabled: true
+    securityContext:
+      runAsUser: 1001050000
+      runAsGroup: 1001050000 
+  tempo:
+    securityContext:
+      runAsUser: 1001050000
+      runAsGroup: 1001050000

@@ -24,10 +24,12 @@ tempo-distributed:
     containerSecurityContext:
       enabled: false
       runAsNonRoot: true
-    podSecurityContext: 
+    podSecurityContext:
       runAsUser: 1001050000
-      runAsGroup: 1001050000 
+      runAsGroup: 1001050000
   tempo:
+    podSecurityContext:
+      fsGroup: 1001050000
     securityContext:
       runAsUser: 1001050000
       runAsGroup: 1001050000

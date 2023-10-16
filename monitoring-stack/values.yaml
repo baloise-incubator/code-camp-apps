@@ -125,6 +125,8 @@ pyroscope:
         requests:
           memory: 8Gi
           cpu: 1
+  rbac:
+    create: false
   agent:
     enabled: false
   minio:

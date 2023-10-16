@@ -18,6 +18,19 @@ thanosQuerier:
   enableLocalClusterMonitoring: true
   clusterTargets: {}
 
+# Loki
+ingress:
+  enabled: true
+  host: loki-monitoring-stack.apps.baloise.dev
+storage: 
+  minio:
+    enabled: true
+monitoring:
+  selfMonitoring:
+    enabled: true
+    grafanaAgent:
+      installOperator: false
+
 tempo-distributed:
   minio:
     enabled: false
@@ -27,3 +40,4 @@ tempo-distributed:
     securityContext:
       runAsUser: 1001050000
       runAsGroup: 1001050000
+

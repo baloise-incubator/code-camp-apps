@@ -9,3 +9,6 @@ dependencies:
   version: 1.0.0-0ff032708f1b9a9d2c8517b8449e5968f8f28b69
   import-values:
   - defaults
+- name: loki
+  version: 2.9.1
+  repository: https://grafana.github.io/helm-charts

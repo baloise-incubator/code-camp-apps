@@ -17,3 +17,16 @@ alertmanager:
 thanosQuerier:
   enableLocalClusterMonitoring: true
   clusterTargets: {}
+
+# Loki
+ingress:
+  enabled: true
+  host: loki-monitoring-stack.apps.baloise.dev
+storage: 
+  minio:
+    enabled: true
+monitoring:
+  selfMonitoring:
+    enabled: true
+    grafanaAgent:
+      installOperator: false

@@ -1,0 +1,12 @@
+apiVersion: v2
+name: address-search
+version: 1.0.0
+dependencies:
+  - name:  generic-chart
+    version: 2.11.0
+    repository: https://baloise-incubator.github.io/generic-chart/
+    alias: address-search-index-test
+  - name:  generic-chart
+    version: 2.11.0
+    repository: https://baloise-incubator.github.io/generic-chart/
+    alias: address-search-client-test

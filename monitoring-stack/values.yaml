@@ -19,25 +19,23 @@ thanosQuerier:
   clusterTargets: {}
 
 # Loki
-loki:
-  ingress:
-    enabled: true
-      #hosts: 
-      #  - loki-monitoring-stack.apps.baloise.dev
-  storage:
-    minio:
-      enabled: true
-  monitoring:
-    selfMonitoring:
-      enabled: true
-      grafanaAgent:
-        installOperator: false
-  podSecurityContext:
-    fsGroup: 1001050000
-  securityContext:
-    runAsUser: 1001050000
-    runAsGroup: 1001050000
-
+loki-distributed:
+  loki:
+    podSecurityContext:
+      fsGroup: 1001050000
+      runAsGroup: 1001050000
+      runAsUser: 1001050000
+    containersecurityContext:
+      runAsUser: 1001050000
+      runAsGroup: 1001050000
+  gateway:
+    podSecurityContext:
+      fsGroup: 1001050000
+      runAsGroup: 1001050000
+      runAsUser: 1001050000
+    containersecurityContext:
+      runAsUser: 1001050000
+      runAsGroup: 1001050000
 
 # Tempo
 tempo-distributed:

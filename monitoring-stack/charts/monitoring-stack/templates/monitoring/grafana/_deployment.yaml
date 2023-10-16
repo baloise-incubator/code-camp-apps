@@ -114,6 +114,8 @@ spec:
               value: "false"
             - name: GF_ALERTING_ENABLED
               value: "false"
+            - name: GF_FEATURE_TOGGLES_ENABLE
+              value: "flameGraph"
           image:  {{ $top.Values.grafana.images.grafana }}
           imagePullPolicy: IfNotPresent
           livenessProbe:

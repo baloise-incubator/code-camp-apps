@@ -20,13 +20,7 @@ thanosQuerier:
 
 tempo-distributed:
   minio:
-    enabled: true
-    containerSecurityContext:
-      enabled: false
-      runAsNonRoot: true
-    podSecurityContext:
-      runAsUser: 1001050000
-      runAsGroup: 1001050000
+    enabled: false
   tempo:
     podSecurityContext:
       fsGroup: 1001050000

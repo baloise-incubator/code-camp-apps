@@ -1,5 +1,5 @@
 apiVersion: v2
-name: gabelstapler
+name: gabelstapler-test
 version: 1.0.0
 dependencies:
   - name:  generic-chart

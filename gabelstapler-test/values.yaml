@@ -1,15 +1,12 @@
 gabelstapler:
-  replicaCount: 2
-  revisionHistoryLimit: 1
   image:
-    repository: example/nginx-sample
+    repository: bitnami/nginx:1.19.1
     tag: latest
-    pullPolicy: IfNotPresent
   network:
     http:
       servicePort: 8080
       ingress:
-        host: example.org
+        host: demo.apps.example.tld
   readinessProbe:
     httpGet:
       path: /

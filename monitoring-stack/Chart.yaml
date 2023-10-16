@@ -12,3 +12,6 @@ dependencies:
 - name: loki-distributed
   version: 0.75.0
   repository: https://grafana.github.io/helm-charts
+- name: jaegertracing
+  version: 0.71.17
+  repository: https://jaegertracing.github.io/helm-charts

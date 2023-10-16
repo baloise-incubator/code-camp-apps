@@ -59,6 +59,7 @@ tempo-distributed:
       runAsUser: 1001050000
       runAsGroup: 1001050000
 
+# Pyroscope micro-services
 pyroscope:
   pyroscope:
     podSecurityContext:
@@ -132,3 +133,7 @@ pyroscope:
     enabled: false
   minio:
     enabled: true
+    podSecurityContext:
+      enabled: false
+    securityContext:
+      enabled: false

@@ -2,9 +2,11 @@ apiVersion: v2
 name: monitoring-stack-cfb-preview
 version: 1.0.1
 dependencies:
+- name: tempo-distributed
+  version: 1.6.10
+  repository: https://grafana.github.io/helm-charts
 - name: monitoring-stack
   version: 1.0.0-0ff032708f1b9a9d2c8517b8449e5968f8f28b69
   repository: https://charts.shapp.os1.balgroupit.com/shared/release/
   import-values:
   - defaults
-

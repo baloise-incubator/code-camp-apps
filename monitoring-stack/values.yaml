@@ -206,5 +206,8 @@ opentelemetry-collector:
         traces:
           receivers:
             - otlp
+          exporters:
+            - logging
+            - jaeger
         metrics: null
         logs: null

@@ -18,3 +18,16 @@ dependencies:
     version: 2.3.0
     repository: https://baloise-incubator.github.io/generic-chart/
     alias: glutton
+
+  - name: generic-chart
+    version: 2.3.0
+    repository: https://baloise-incubator.github.io/generic-chart/
+    alias: gabelstapler-observability-app-1
+  - name: generic-chart
+    version: 2.3.0
+    repository: https://baloise-incubator.github.io/generic-chart/
+    alias: gabelstapler-observability-app-2
+  - name: generic-chart
+    version: 2.3.0
+    repository: https://baloise-incubator.github.io/generic-chart/
+    alias: gabelstapler-observability-app-3

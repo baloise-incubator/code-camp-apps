@@ -45,3 +45,59 @@ glutton:
   volumeMounts:
     - mountPath: /logs
       name: logs
+
+gabelstapler-observability-app-1:
+  image:
+    repository: ghcr.io/baloise-incubator/gablestapler-observability-app
+    tag: main
+    pullPolicy: Always
+  network:
+    http:
+      containerPort: 8080
+      ingress:
+        host: gabelstapler-observability-app-1.apps.baloise.dev
+  env:
+    - name: APP_NAME
+      value: gabelstapler-observability-app-1
+    - name: USE_CASES_ENDPOINT_1
+      value: https://gabelstapler-observability-app-2.apps.baloise.dev
+    - name: USE_CASES_ENDPOINT_2
+      value: https://gabelstapler-observability-app-3.apps.baloise.dev
+    - name: USE_CASES_SCHEDULER_ENDPOINT
+      value: https://gabelstapler-observability-app-1.apps.baloise.dev
+    - name: TRACING_URL
+      value: http://monitoring-stack-tempo-distributor.monitoring-stack.svc:4317
+
+gabelstapler-observability-app-2:
+  image:
+    repository: ghcr.io/baloise-incubator/gablestapler-observability-app
+    tag: main
+    pullPolicy: Always
+  network:
+    http:
+      containerPort: 8080
+      ingress:
+        host: gabelstapler-observability-app-2.apps.baloise.dev
+  env:
+    - name: APP_NAME
+      value: gabelstapler-observability-app-2
+    - name: TRACING_URL
+      value: http://monitoring-stack-tempo-distributor.monitoring-stack.svc:4317
+
+gabelstapler-observability-app-3:
+  image:
+    repository: ghcr.io/baloise-incubator/gablestapler-observability-app
+    tag: main
+    pullPolicy: Always
+  network:
+    http:
+      containerPort: 8080
+      ingress:
+        host: gabelstapler-observability-app-3.apps.baloise.dev
+  env:
+    - name: APP_NAME
+      value: gabelstapler-observability-app-3
+    - name: USE_CASES_ENDPOINT_1
+      value: https://gabelstapler-observability-app-2.apps.baloise.dev
+    - name: TRACING_URL
+      value: http://monitoring-stack-tempo-distributor.monitoring-stack.svc:4317

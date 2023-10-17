@@ -184,7 +184,7 @@ jaeger:
       - --otel-exporter=otlp
     extraEnv:
       - name: OTEL_EXPORTER_OTLP_ENDPOINT
-        value: http://monitoring-stack-opentelemetry-collector.monitoring-stack.svc:4318
+        value: http://monitoring-stack-opentelemetry-collector:4318
 
 # OpenTelemetry Collector
 opentelemetry-collector:
@@ -194,11 +194,11 @@ opentelemetry-collector:
       jaeger:
         protocols:
           grpc:
-            endpoint: monitoring-stack-jaeger-collector.svc:14250
+            endpoint: monitoring-stack-jaeger-collector:14250
           thrift_http:
-            endpoint: monitoring-stack-jaeger-collector.svc:14268
+            endpoint: monitoring-stack-jaeger-collector:14268
           thrift_compact:
-            endpoint: monitoring-stack-jaeger-agent.svc:6831      
+            endpoint: monitoring-stack-jaeger-agent:6831 
       prometheus: null
       zipkin: null
     service:

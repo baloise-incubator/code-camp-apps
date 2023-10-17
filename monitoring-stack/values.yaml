@@ -189,6 +189,13 @@ jaeger:
         http:
           name: otlp-http
           port: 4318
+    exporters:
+      prometheus:
+        endpoint: "0.0.0.0:8889"
+    processors:
+      batch:
+      spanmetrics:
+        metrics_exporter: prometheus
   storage:
     type: elasticsearch
   provisionDataStore:

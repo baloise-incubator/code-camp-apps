@@ -5,3 +5,7 @@ gabelstapler:
   env:
     - name: ENDPOINT
       value: "monitoring-stack-tempo-distributor.monitoring-stack.svc:4317"
+glutton:
+  image:
+    repository: docker.io/ubuntu
+    tag: lunar

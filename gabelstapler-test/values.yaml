@@ -16,6 +16,9 @@ gabelstapler-buggyapp:
       containerPort: 8080
       ingress:
         host: gabelstapler-buggyapp.apps.baloise.dev
+  env:
+    - name: PYROSCOPE_URL
+      value: http://monitoring-stack-pyroscope-distributor:4040
 
 glutton:
   image:

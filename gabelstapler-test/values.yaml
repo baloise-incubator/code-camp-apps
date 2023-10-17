@@ -1,10 +1,18 @@
-gabelstapler:
+gabelstapler-xk6-tempo:
   image:
     repository: ghcr.io/grafana/xk6-client-tracing
     tag: v0.0.2
   env:
     - name: ENDPOINT
       value: "monitoring-stack-tempo-distributor.monitoring-stack.svc:4317"
+
+gabelstapler-xk6-jaeger:
+  image:
+    repository: ghcr.io/grafana/xk6-client-tracing
+    tag: v0.0.2
+  env:
+    - name: ENDPOINT
+      value: "monitoring-stack-jaeger-collector.monitoring-stack.svc:14250"
 
 gabelstapler-buggyapp:
   image:

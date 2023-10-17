@@ -5,7 +5,11 @@ dependencies:
   - name:  generic-chart
     version: 2.3.0
     repository: https://baloise-incubator.github.io/generic-chart/
-    alias: gabelstapler
+    alias: gabelstapler-xk6-tempo
+  - name:  generic-chart
+    version: 2.3.0
+    repository: https://baloise-incubator.github.io/generic-chart/
+    alias: gabelstapler-xk6-jaeger
   - name:  generic-chart
     version: 2.3.0
     repository: https://baloise-incubator.github.io/generic-chart/

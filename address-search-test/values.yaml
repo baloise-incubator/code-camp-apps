@@ -10,8 +10,8 @@ address-search-index-test:
 
 address-search-client-test:
   image:
-    repository: docker.io/library/my-image-name
-    tag: "1697485037"
+    repository: docker.io/gerohoff/address-search-client
+    tag: latest
   network:
     http:
       servicePort: 8080

@@ -1,10 +1,18 @@
-gabelstapler:
+gabelstapler-xk6-tempo:
   image:
     repository: ghcr.io/grafana/xk6-client-tracing
     tag: v0.0.2
   env:
     - name: ENDPOINT
       value: "monitoring-stack-tempo-distributor.monitoring-stack.svc:4317"
+
+gabelstapler-xk6-jaeger:
+  image:
+    repository: ghcr.io/grafana/xk6-client-tracing
+    tag: v0.0.2
+  env:
+    - name: ENDPOINT
+      value: "monitoring-stack-opentelemetry-collector.monitoring-stack.svc:4317"
 
 gabelstapler-buggyapp:
   image:
@@ -20,7 +28,7 @@ gabelstapler-buggyapp:
     - name: PYROSCOPE_URL
       value: http://monitoring-stack-pyroscope-distributor.monitoring-stack.svc:4040
     - name: TRACING_URL
-      value: monitoring-stack-tempo-distributor.monitoring-stack.svc:4317
+      value: http://monitoring-stack-tempo-distributor.monitoring-stack.svc:4317
 
 glutton:
   image:

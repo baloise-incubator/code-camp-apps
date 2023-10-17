@@ -31,6 +31,26 @@ loki-distributed:
     containersecurityContext:
       runAsUser: 1001050000
       runAsGroup: 1001050000
+    schemaConfig:
+      configs:
+      - from: "2020-07-22"
+        store: boltdb-shipper
+        object_store: aws
+        schema: v11
+        index:
+          prefix: loki_index_
+          period: 24h
+  # -- Check https://grafana.com/docs/loki/latest/configuration/#storage_config for more info on how to configure storages
+    storageConfig:
+      aws:
+        # full example: http://loki:supersecret@localhost.:9000
+        s3: http://enterprise-logs:supersecret@minio:9000
+        s3forcepathstyle: true
+      boltdb_shipper:
+        active_index_directory: /loki/boltdb-shipper-active
+        cache_location: /loki/boltdb-shipper-cache
+        cache_ttl: 24h         # Can be increased for faster performance over longer query periods, uses more disk space
+        shared_store: s3
   gateway:
     podSecurityContext:
       fsGroup: 1001050000
@@ -39,27 +59,6 @@ loki-distributed:
     containersecurityContext:
       runAsUser: 1001050000
       runAsGroup: 1001050000
-  storage_config:
-    aws:
-      # full example: http://loki:supersecret@localhost.:9000
-      s3: http://enterprise-logs:supersecret@minio:9000
-      s3forcepathstyle: true
-    boltdb_shipper:
-      active_index_directory: /loki/boltdb-shipper-active
-      cache_location: /loki/boltdb-shipper-cache
-      cache_ttl: 24h         # Can be increased for faster performance over longer query periods, uses more disk space
-      shared_store: s3
-
-  schema_config:
-    configs:
-      - from: 2020-07-01
-        store: boltdb-shipper
-        object_store: aws
-        schema: v11
-        index:
-          prefix: index_
-          period: 24h
-
 
 # Tempo
 tempo-distributed:
@@ -175,8 +174,37 @@ jaeger:
     sysctlInitContainer:
       enabled: false
     securityContext:
-      fsGroup: 1001050000
       runAsUser: 1001050000
     podSecurityContext:
       fsGroup: 1001050000
       runAsUser: 1001050000
+  hotrod:
+    enabled: true
+    extraArgs:
+      - --otel-exporter=otlp
+    extraEnv:
+      - name: OTEL_EXPORTER_OTLP_ENDPOINT
+        value: http://monitoring-stack-opentelemetry-collector:4318
+
+# OpenTelemetry Collector
+opentelemetry-collector:
+  mode: deployment
+  config:
+    receivers:
+      jaeger:
+        protocols:
+          grpc:
+            endpoint: monitoring-stack-jaeger-collector:14250
+          thrift_http:
+            endpoint: monitoring-stack-jaeger-collector:14268
+          thrift_compact:
+            endpoint: monitoring-stack-jaeger-agent:6831 
+      prometheus: null
+      zipkin: null
+    service:
+      pipelines:
+        traces:
+          receivers:
+            - otlp
+        metrics: null
+        logs: null

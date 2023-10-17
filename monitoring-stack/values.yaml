@@ -46,7 +46,7 @@ loki-distributed:
         # full example: http://loki:supersecret@localhost.:9000
         s3: http://enterprise-logs:supersecret@minio:9000
         s3forcepathstyle: true
-        bucket_name: "chunks"
+        bucketnames: "chunks"
         insecure: false
       boltdb_shipper:
         active_index_directory: /data/boltdb-shipper-active

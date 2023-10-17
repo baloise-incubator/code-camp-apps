@@ -12,7 +12,7 @@ gabelstapler-xk6-jaeger:
     tag: v0.0.2
   env:
     - name: ENDPOINT
-      value: http://monitoring-stack-opentelemetry-collector.monitoring-stack.svc:4317
+      value: http://monitoring-stack-jaeger-collector.monitoring-stack.svc:4317
       # value: "monitoring-stack-opentelemetry-collector.monitoring-stack.svc:4317"
 
 gabelstapler-buggyapp:

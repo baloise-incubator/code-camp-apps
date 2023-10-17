@@ -15,3 +15,54 @@ spec:
   selector:
     matchLabels:
       app: gabelstapler-buggyapp
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: gabelstapler-observability-app-1
+spec:
+  endpoints:
+    - interval: 60s
+      port: http
+      scheme: http
+      path: /actuator/prometheus
+  namespaceSelector:
+    matchNames:
+      - gabelstapler-test
+  selector:
+    matchLabels:
+      app: gabelstapler-observability-app-1
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: gabelstapler-observability-app-2
+spec:
+  endpoints:
+    - interval: 60s
+      port: http
+      scheme: http
+      path: /actuator/prometheus
+  namespaceSelector:
+    matchNames:
+      - gabelstapler-test
+  selector:
+    matchLabels:
+      app: gabelstapler-observability-app-2
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: gabelstapler-observability-app-3
+spec:
+  endpoints:
+    - interval: 60s
+      port: http
+      scheme: http
+      path: /actuator/prometheus
+  namespaceSelector:
+    matchNames:
+      - gabelstapler-test
+  selector:
+    matchLabels:
+      app: gabelstapler-observability-app-3

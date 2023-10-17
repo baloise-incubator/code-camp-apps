@@ -215,14 +215,8 @@ opentelemetry-collector:
         endpoint: "0.0.0.0:8889"
     processors:
       batch:
-      spanmetrics:
-        metrics_exporter: prometheus
     receivers:
-      jaeger:
-        protocols:
-          grpc:
-            endpoint: monitoring-stack-jaeger-collector:14250
-      otlp/spanmetrics:
+      otlp:
         protocols:
           grpc:
             endpoint: "localhost:65535"
@@ -230,13 +224,14 @@ opentelemetry-collector:
       pipelines:
         traces:
           receivers:
-            - jaeger
+            - otlp
           processors:
-            - spanmetrics
             - batch
-        metrics/spanmetrics:
+          exporters:
+            - otlp/jaeger
+        metrics:
           receivers:
-            - otlp/spanmetrics
+            - otlp
           exporters:
             - prometheus
 

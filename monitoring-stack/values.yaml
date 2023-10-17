@@ -172,7 +172,7 @@ jaeger:
   elasticsearch:
     sysctlInitContainer:
       enabled: false
-    containerSecurityContext:
+    securityContext:
       fsGroup: 1001050000
       runAsUser: 1001050000
     podSecurityContext:

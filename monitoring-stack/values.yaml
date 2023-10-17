@@ -241,8 +241,6 @@ opentelemetry-collector:
           processors:
             - spanmetrics
             - batch
-          exporters:
-            - jaeger
         metrics/spanmetrics:
           receivers:
             - otlp/spanmetrics

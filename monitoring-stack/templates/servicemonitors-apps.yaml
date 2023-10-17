@@ -1,0 +1,17 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: gabelstapler-buggyapp
+spec:
+  endpoints:
+    - interval: 60s
+      port: http
+      scheme: http
+      path: /actuator/prometheus
+  namespaceSelector:
+    matchNames:
+      - gabelstapler-test
+  selector:
+    matchLabels:
+      app: gabelstapler-buggyapp

@@ -59,7 +59,7 @@ loki-distributed:
         index:
           prefix: index_
           period: 24h
-  
+
 
 # Tempo
 tempo-distributed:
@@ -163,3 +163,9 @@ pyroscope:
     enabled: false
   minio:
     enabled: false
+
+# jaeger
+jaeger:
+  provisionDataStore:
+    cassandra: false
+    elasticsearch: true

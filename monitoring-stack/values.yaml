@@ -181,6 +181,8 @@ pyroscope:
 # jaeger
 jaeger:
   collector:
+    serviceMonitor:
+      enabled: true
     service:
       otlp:
         grpc:

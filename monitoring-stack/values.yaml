@@ -179,6 +179,13 @@ jaeger:
     podSecurityContext:
       fsGroup: 1001050000
       runAsUser: 1001050000
+  hotrod:
+    enabled: true
+    extraArgs:
+      - --otel-exporter=otlp
+    extraEnv:
+      - name: OTEL_EXPORTER_OTLP_ENDPOINT
+        value: monitoring-stack-opentelemetry-collector.monitoring-stack.svc:4318
 
 # OpenTelemetry Collector
 opentelemetry-collector:

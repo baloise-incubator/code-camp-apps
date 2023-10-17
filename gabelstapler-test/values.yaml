@@ -18,7 +18,7 @@ gabelstapler-buggyapp:
         host: gabelstapler-buggyapp.apps.baloise.dev
   env:
     - name: PYROSCOPE_URL
-      value: http://monitoring-stack-pyroscope-distributor.monitoring-stack.svc::4040
+      value: http://monitoring-stack-pyroscope-distributor.monitoring-stack.svc:4040
 
 glutton:
   image:

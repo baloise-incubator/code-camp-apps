@@ -15,9 +15,6 @@ dependencies:
 - name: jaeger
   version: 0.71.17
   repository: https://jaegertracing.github.io/helm-charts
-- name: opentelemetry-collector
-  version: 0.72.0
-  repository: https://open-telemetry.github.io/opentelemetry-helm-charts
 - name: pyroscope
   version: 1.1.0
   repository: https://grafana.github.io/helm-charts

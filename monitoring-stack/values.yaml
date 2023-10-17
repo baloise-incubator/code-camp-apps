@@ -228,7 +228,7 @@ opentelemetry-collector:
       jaeger:
         protocols:
           grpc:
-            endpoint: monitoring-stack-jaeger-collector:14250
+            endpoint: monitoring-stack-jaeger-collector:4317
       otlp/spanmetrics:
         protocols:
           grpc:

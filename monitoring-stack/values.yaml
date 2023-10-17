@@ -180,7 +180,7 @@ pyroscope:
 
 # jaeger
 jaeger:
-  tag: 1.46
+  tag: 1.49
   collector:
     serviceMonitor:
       enabled: true

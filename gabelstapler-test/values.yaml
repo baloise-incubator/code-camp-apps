@@ -26,3 +26,8 @@ glutton:
     tag: lunar
   command: [ "/bin/bash", "-c", "--" ]
   args: [ "while true; do sleep 30; done;" ]
+  persistence:
+    enabled: true
+    accessModes: ReadWriteMany
+    size: 5Gi
+    volumeMount: /logs

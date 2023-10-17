@@ -47,8 +47,8 @@ loki-distributed:
         s3: http://enterprise-logs:supersecret@minio:9000
         s3forcepathstyle: true
       boltdb_shipper:
-        active_index_directory: /loki/boltdb-shipper-active
-        cache_location: /loki/boltdb-shipper-cache
+        active_index_directory: /boltdb/boltdb-shipper-active
+        cache_location: /boldtb/boltdb-shipper-cache
         cache_ttl: 24h         # Can be increased for faster performance over longer query periods, uses more disk space
         shared_store: s3
   gateway:
@@ -59,6 +59,13 @@ loki-distributed:
     containersecurityContext:
       runAsUser: 1001050000
       runAsGroup: 1001050000
+  ingester:
+    extraVolumes:
+    - name: bolt-db
+      emptyDir: {}
+    extraVolumeMounts:
+    - name: bolt-db
+      mountPath: /boltdb
 
 # Tempo
 tempo-distributed:

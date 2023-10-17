@@ -12,7 +12,7 @@ gabelstapler-xk6-jaeger:
     tag: v0.0.2
   env:
     - name: ENDPOINT
-      value: "monitoring-stack-jaeger-collector.monitoring-stack.svc:14250"
+      value: "monitoring-stack-jaeger-collector.monitoring-stack.svc:14268"
 
 gabelstapler-buggyapp:
   image:

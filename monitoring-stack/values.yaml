@@ -31,6 +31,25 @@ loki-distributed:
     containersecurityContext:
       runAsUser: 1001050000
       runAsGroup: 1001050000
+    storage_config:
+      aws:
+        # full example: http://loki:supersecret@localhost.:9000
+        s3: http://enterprise-logs:supersecret@minio:9000
+        s3forcepathstyle: true
+      boltdb_shipper:
+        active_index_directory: /loki/boltdb-shipper-active
+        cache_location: /loki/boltdb-shipper-cache
+        cache_ttl: 24h         # Can be increased for faster performance over longer query periods, uses more disk space
+        shared_store: s3
+    schema_config:
+      configs:
+        - from: 2020-07-01
+          store: boltdb-shipper
+          object_store: aws
+          schema: v11
+          index:
+            prefix: index_
+            period: 24h
   gateway:
     podSecurityContext:
       fsGroup: 1001050000
@@ -39,27 +58,6 @@ loki-distributed:
     containersecurityContext:
       runAsUser: 1001050000
       runAsGroup: 1001050000
-  storage_config:
-    aws:
-      # full example: http://loki:supersecret@localhost.:9000
-      s3: http://enterprise-logs:supersecret@minio:9000
-      s3forcepathstyle: true
-    boltdb_shipper:
-      active_index_directory: /loki/boltdb-shipper-active
-      cache_location: /loki/boltdb-shipper-cache
-      cache_ttl: 24h         # Can be increased for faster performance over longer query periods, uses more disk space
-      shared_store: s3
-
-  schema_config:
-    configs:
-      - from: 2020-07-01
-        store: boltdb-shipper
-        object_store: aws
-        schema: v11
-        index:
-          prefix: index_
-          period: 24h
-
 
 # Tempo
 tempo-distributed:

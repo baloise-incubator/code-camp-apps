@@ -220,10 +220,6 @@ opentelemetry-collector:
     exporters:
       prometheus:
         endpoint: "0.0.0.0:8889"
-      jaeger:
-        endpoint: "monitoring-stack-jaeger-collector:14250"
-        tls:
-          insecure: true
     processors:
       batch:
       spanmetrics:

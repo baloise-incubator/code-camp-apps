@@ -9,3 +9,5 @@ glutton:
   image:
     repository: docker.io/ubuntu
     tag: lunar
+  command: [ "/bin/bash", "-c", "--" ]
+  args: [ "while true; do sleep 30; done;" ]

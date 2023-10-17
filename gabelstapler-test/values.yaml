@@ -67,6 +67,8 @@ gabelstapler-observability-app-1:
       value: https://gabelstapler-observability-app-1.apps.baloise.dev
     - name: TRACING_URL
       value: http://monitoring-stack-tempo-distributor.monitoring-stack.svc:4317
+    - name: LOKI_URL
+      value: http://monitoring-stack-loki-distributed-distributor.monitoring-stack.svc:3100/loki/api/v1/push
 
 gabelstapler-observability-app-2:
   image:
@@ -83,6 +85,8 @@ gabelstapler-observability-app-2:
       value: gabelstapler-observability-app-2
     - name: TRACING_URL
       value: http://monitoring-stack-tempo-distributor.monitoring-stack.svc:4317
+    - name: LOKI_URL
+      value: http://monitoring-stack-loki-distributed-distributor.monitoring-stack.svc:3100/loki/api/v1/push
 
 gabelstapler-observability-app-3:
   image:
@@ -101,3 +105,5 @@ gabelstapler-observability-app-3:
       value: https://gabelstapler-observability-app-2.apps.baloise.dev
     - name: TRACING_URL
       value: http://monitoring-stack-tempo-distributor.monitoring-stack.svc:4317
+    - name: LOKI_URL
+      value: http://monitoring-stack-loki-distributed-distributor.monitoring-stack.svc:3100/loki/api/v1/push

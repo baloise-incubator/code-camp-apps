@@ -213,3 +213,24 @@ jaeger:
       - name: OTEL_EXPORTER_OTLP_ENDPOINT
         value: http://monitoring-stack-jaeger-collector:4318
 
+# OpenTelemetry Collector
+opentelemetry-collector:
+  mode: deployment
+  config:
+    receivers:
+      jaeger:
+        protocols:
+          grpc:
+            endpoint: monitoring-stack-jaeger-collector:14250
+          thrift_http:
+            endpoint: monitoring-stack-jaeger-collector:14268
+          thrift_compact:
+            endpoint: monitoring-stack-jaeger-agent:6831
+    service:
+      pipelines:
+        traces:
+          receivers:
+            - otlp
+          exporters:
+            - logging
+            - jaeger

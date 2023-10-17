@@ -200,7 +200,7 @@ jaeger:
       - --otel-exporter=otlp
     extraEnv:
       - name: OTEL_EXPORTER_OTLP_ENDPOINT
-        value: http://monitoring-stack-jaeger-collector:4318
+        value: http://monitoring-stack-opentelemetry-collector:4318
 
 # OpenTelemetry Collector
 opentelemetry-collector:

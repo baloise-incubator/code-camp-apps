@@ -170,6 +170,8 @@ jaeger:
     cassandra: false
     elasticsearch: true
   elasticsearch:
+    sysctlInitContainer:
+      enabled: false
     containerSecurityContext:
       fsGroup: 1001050000
       runAsUser: 1001050000

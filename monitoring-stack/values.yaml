@@ -166,6 +166,8 @@ pyroscope:
 
 # jaeger
 jaeger:
+  storage:
+    type: elasticsearch
   provisionDataStore:
     cassandra: false
     elasticsearch: true

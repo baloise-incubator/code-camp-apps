@@ -191,6 +191,7 @@ jaeger:
 
 # OpenTelemetry Collector
 opentelemetry-collector:
+  mode: deployment
   config:
     receivers:
       jaeger: null

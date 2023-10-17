@@ -35,7 +35,7 @@ loki-distributed:
       configs:
       - from: "2020-07-22"
         store: boltdb-shipper
-        object_store: filesystem
+        object_store: aws
         schema: v11
         index:
           prefix: loki_index_
@@ -51,15 +51,6 @@ loki-distributed:
         cache_location: /loki/boltdb-shipper-cache
         cache_ttl: 24h         # Can be increased for faster performance over longer query periods, uses more disk space
         shared_store: s3
-    schema_config:
-      configs:
-        - from: 2020-07-01
-          store: boltdb-shipper
-          object_store: aws
-          schema: v11
-          index:
-            prefix: index_
-            period: 24h
   gateway:
     podSecurityContext:
       fsGroup: 1001050000

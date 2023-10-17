@@ -16,6 +16,8 @@ metadata:
   name: prometheus
   namespace: {{ $namespace }}
 spec:
+  enableFeatures:
+    - exemplar-storage
   podMetadata:
     labels:
       app.kubernetes.io/part-of: bdop

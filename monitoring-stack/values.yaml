@@ -31,7 +31,17 @@ loki-distributed:
     containersecurityContext:
       runAsUser: 1001050000
       runAsGroup: 1001050000
-    storage_config:
+    schemaConfig:
+      configs:
+        - from: 2020-07-22
+        store: boltdb-shipper
+        object_store: filesystem
+        schema: v11
+        index:
+          prefix: loki_index_
+          period: 24h
+  # -- Check https://grafana.com/docs/loki/latest/configuration/#storage_config for more info on how to configure storages
+    storageConfig:
       aws:
         # full example: http://loki:supersecret@localhost.:9000
         s3: http://enterprise-logs:supersecret@minio:9000

@@ -12,6 +12,7 @@ address-search-client-test:
   image:
     repository: docker.io/gerohoff/address-search-client
     tag: latest
+    imagePullPolicy: Always
   network:
     http:
       servicePort: 8080

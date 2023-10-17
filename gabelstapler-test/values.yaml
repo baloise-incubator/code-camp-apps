@@ -20,7 +20,7 @@ gabelstapler-buggyapp:
     - name: PYROSCOPE_URL
       value: http://monitoring-stack-pyroscope-distributor.monitoring-stack.svc:4040
     - name: TRACING_URL
-      value: http://monitoring-stack-tempo-distributor.monitoring-stack.svc:4317
+      value: monitoring-stack-tempo-distributor.monitoring-stack.svc:4317
 
 glutton:
   image:

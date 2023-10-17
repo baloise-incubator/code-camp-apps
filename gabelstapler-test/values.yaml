@@ -27,7 +27,10 @@ glutton:
   command: [ "/bin/bash", "-c", "--" ]
   args: [ "while true; do sleep 30; done;" ]
   persistence:
+    name: logs
     enabled: true
     accessModes: ReadWriteMany
     size: 5Gi
-    volumeMount: /logs
+  volumeMounts:
+    - mountPath: /logs
+      name: logs

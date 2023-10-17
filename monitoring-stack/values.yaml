@@ -33,12 +33,12 @@ loki-distributed:
       runAsGroup: 1001050000
     schemaConfig:
       configs:
-      - from: "2020-07-22"
+      - from: "2020-07-01"
         store: boltdb-shipper
         object_store: aws
         schema: v11
         index:
-          prefix: loki_index_
+          prefix: index_
           period: 24h
   # -- Check https://grafana.com/docs/loki/latest/configuration/#storage_config for more info on how to configure storages
     storageConfig:
@@ -47,8 +47,8 @@ loki-distributed:
         s3: http://enterprise-logs:supersecret@minio:9000
         s3forcepathstyle: true
       boltdb_shipper:
-        active_index_directory: /var/loki/boltdb-shipper-active
-        cache_location: /var/loki/boltdb-shipper-cache
+        active_index_directory: /loki/boltdb-shipper-active
+        cache_location: /loki/boltdb-shipper-cache
         cache_ttl: 24h         # Can be increased for faster performance over longer query periods, uses more disk space
         shared_store: s3
   gateway:

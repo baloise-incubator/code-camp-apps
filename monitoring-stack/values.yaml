@@ -198,9 +198,7 @@ opentelemetry-collector:
           thrift_http:
             endpoint: monitoring-stack-jaeger-collector:14268
           thrift_compact:
-            endpoint: monitoring-stack-jaeger-agent:6831 
-      prometheus: null
-      zipkin: null
+            endpoint: monitoring-stack-jaeger-agent:6831
     service:
       pipelines:
         traces:
@@ -209,5 +207,3 @@ opentelemetry-collector:
           exporters:
             - logging
             - jaeger
-        metrics: null
-        logs: null

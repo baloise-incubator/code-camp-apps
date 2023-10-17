@@ -181,17 +181,6 @@ pyroscope:
 # jaeger
 jaeger:
   tag: 1.49
-  collector:
-    serviceMonitor:
-      enabled: true
-    service:
-      otlp:
-        grpc:
-          name: otlp-grpc
-          port: 4317
-        http:
-          name: otlp-http
-          port: 4318
   storage:
     type: elasticsearch
   provisionDataStore:
@@ -228,7 +217,7 @@ opentelemetry-collector:
       jaeger:
         protocols:
           grpc:
-            endpoint: monitoring-stack-jaeger-collector:4317
+            endpoint: monitoring-stack-jaeger-collector:14250
       otlp/spanmetrics:
         protocols:
           grpc:

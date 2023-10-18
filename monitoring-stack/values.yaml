@@ -280,6 +280,7 @@ promtail:
             labels:
               job: containerlogs
               __path__: /var/lib/docker/containers/*/*log
+    expand-env: true
   extraVolumes:
     - name: posit
       emptyDir: {}

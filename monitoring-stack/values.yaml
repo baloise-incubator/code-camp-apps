@@ -273,3 +273,6 @@ promtail:
       mountPath: "/tmp/promtail"
   rbac:
     create: false
+  podSecurityContext:
+    privileged: true
+  containerSecurityContext: {}

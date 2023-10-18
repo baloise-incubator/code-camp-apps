@@ -3,6 +3,7 @@ kind: SecurityContextConstraints
 metadata:
   name: monitoring-stack-promtail-scc
 allowPrivilegeEscalation: true
+allowHostDirVolumePlugin: true
 allowPrivilegedContainer: true
 allowedCapabilities:
   - SYS_ADMIN
@@ -11,7 +12,7 @@ defaultAddCapabilities:
 fsGroup:
   type: RunAsAny
 groups: []
-priority: null
+priority: 1
 readOnlyRootFilesystem: false
 requiredDropCapabilities:
   - KILL

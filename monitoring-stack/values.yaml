@@ -232,6 +232,8 @@ opentelemetry-collector:
         metrics:
           receivers:
             - otlp
+          processors:
+            - batch
           exporters:
             - prometheus
 

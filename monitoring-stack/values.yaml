@@ -273,7 +273,7 @@ promtail:
               - localhost
             labels:
               job: containerlogs
-              __path__: /var/lib/docker/containers/*/*log
+              __path__: /var/log/pods/gabelstapler*/*/*.log
   extraVolumes:
     - name: posit
       emptyDir: {}

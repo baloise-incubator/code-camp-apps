@@ -184,6 +184,8 @@ pyroscope:
     enabled: true
     hosts:
       - pyroscope-monitoring-stack.apps.baloise.dev
+    annotations:
+      route.openshift.io/termination: "edge"
 
 # jaeger
 jaeger:

@@ -275,4 +275,5 @@ promtail:
     create: false
   podSecurityContext:
     privileged: true
-  containerSecurityContext: {}
+  containerSecurityContext:
+    privileged: true

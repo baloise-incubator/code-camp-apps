@@ -44,10 +44,12 @@ loki-distributed:
     storageConfig:
       aws:
         # full example: http://loki:supersecret@localhost.:9000
-        s3: http://enterprise-logs:supersecret@minio:9000
-        s3forcepathstyle: true
-        bucketnames: "chunks"
-        insecure: false
+        s3: 
+          endpoint: "minio:9000"
+          bucket_name: "chunks"
+          access_key_id: "Z6pMmr58iXDAKVqelHFe"
+          secret_access_key: "uoqRcKpfJX0r2GMbiSrqtwJtNsLifeMhqcCJrEcu"
+          insecure: true
       boltdb_shipper:
         active_index_directory: /data/boltdb-shipper-active
         cache_location: /data/boltdb-shipper-cache

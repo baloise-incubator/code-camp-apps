@@ -1,0 +1,33 @@
+apiVersion: security.openshift.io/v1
+kind: SecurityContextConstraints
+metadata:
+  name: monitoring-stack-promtail-scc
+allowPrivilegeEscalation: true
+allowPrivilegedContainer: true
+allowedCapabilities:
+  - SYS_ADMIN
+defaultAddCapabilities:
+  - SYS_ADMIN
+fsGroup:
+  type: RunAsAny
+groups: []
+priority: null
+readOnlyRootFilesystem: false
+requiredDropCapabilities:
+  - KILL
+  - MKNOD
+runAsUser:
+  type: RunAsAny
+seLinuxContext:
+  type: RunAsAny
+supplementalGroups:
+  type: RunAsAny
+users:
+  - system:serviceaccount:monitoring-stack:monitoring-stack-promtail
+volumes:
+  - configMap
+  - emptyDir
+  - persistentVolumeClaim
+  - downwardAPI
+  - secret
+  - hostPath

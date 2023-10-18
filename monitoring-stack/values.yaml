@@ -267,6 +267,15 @@ promtail:
       - url: http://monitoring-stack-loki-distributed-distributor.monitoring-stack.svc:3100/loki/api/v1/push
     positions:
       filename: "/tmp/promtail/positions.yaml"
+    snippets:
+      extraScrapeConfigs:
+        - job_name: containers
+          static_configs:
+            targets:
+              - localhost
+            labels:
+              job: containerlogs
+              __path__: /var/lib/docker/containers/*/*log
   extraVolumes:
     - name: posit
       emptyDir: {}
@@ -282,11 +291,3 @@ promtail:
     runAsGroup: 1001050000
   rbac:
     create: false
-  extraScrapeConfigs:
-    - job_name: containers
-      static_configs:
-        targets:
-          - localhost
-        labels:
-          job: containerlogs
-          __path__: /var/lib/docker/containers/*/*log

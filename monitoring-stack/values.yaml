@@ -180,6 +180,8 @@ pyroscope:
     enabled: false
   minio:
     enabled: false
+  ingress:
+    enabled: true
 
 # jaeger
 jaeger:

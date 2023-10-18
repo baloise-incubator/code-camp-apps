@@ -247,3 +247,5 @@ promtail:
   containersecurityContext:
     runAsUser: 1001050000
     runAsGroup: 1001050000
+  rbac:
+    create: false

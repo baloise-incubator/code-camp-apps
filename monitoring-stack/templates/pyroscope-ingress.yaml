@@ -14,22 +14,29 @@ spec:
               name: monitoring-stack-pyroscope-query-frontend
               port:
                 number: 4040
-          path: /querier.v1.QuerierService/
+          path: /
           pathType: Prefix
-        - backend:
-            service:
-              name: monitoring-stack-pyroscope-query-frontend
-              port:
-                number: 4040
-          path: /render
-          pathType: Prefix
-        - backend:
-            service:
-              name: monitoring-stack-pyroscope-query-frontend
-              port:
-                number: 4040
-          path: /render-diff
-          pathType: Prefix
+#        - backend:
+#            service:
+#              name: monitoring-stack-pyroscope-query-frontend
+#              port:
+#                number: 4040
+#          path: /querier.v1.QuerierService/
+#          pathType: Prefix
+#        - backend:
+#            service:
+#              name: monitoring-stack-pyroscope-query-frontend
+#              port:
+#                number: 4040
+#          path: /render
+#          pathType: Prefix
+#        - backend:
+#            service:
+#              name: monitoring-stack-pyroscope-query-frontend
+#              port:
+#                number: 4040
+#          path: /render-diff
+#          pathType: Prefix
         - backend:
             service:
               name: monitoring-stack-pyroscope-distributor

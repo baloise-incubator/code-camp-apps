@@ -280,7 +280,7 @@ promtail:
     runAsGroup: 1001050000
   rbac:
     create: false
-  scrape_configs:
+  extraScrapeConfigs:
     - job_name: containers
       static_configs:
         targets:

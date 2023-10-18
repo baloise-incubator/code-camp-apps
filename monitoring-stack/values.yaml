@@ -181,6 +181,10 @@ pyroscope:
 # jaeger
 jaeger:
   tag: 1.46
+  collector:
+    extraEnv:
+      - name: COLLECTOR_OTLP_ENABLED
+        value: 'true'
   storage:
     type: elasticsearch
   provisionDataStore:
@@ -204,6 +208,8 @@ jaeger:
 
 # OpenTelemetry Collector
 opentelemetry-collector:
+  image:
+    tag: 0.80
   mode: deployment
   serviceMonitor:
     enabled: true

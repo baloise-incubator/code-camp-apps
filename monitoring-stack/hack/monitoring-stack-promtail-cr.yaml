@@ -1,0 +1,27 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  creationTimestamp: "2023-10-17T12:36:19Z"
+  labels:
+    app.kubernetes.io/instance: monitoring-stack
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: promtail
+    app.kubernetes.io/version: 2.9.1
+    argocd.argoproj.io/instance: monitoring-stack
+    helm.sh/chart: promtail-6.15.2
+  name: monitoring-stack-promtail
+  resourceVersion: "71489148"
+  uid: 69c8a052-b581-4562-96e3-ea37a0c25501
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  - nodes/proxy
+  - services
+  - endpoints
+  - pods
+  verbs:
+  - get
+  - watch
+  - list

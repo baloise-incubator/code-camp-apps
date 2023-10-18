@@ -209,7 +209,7 @@ jaeger:
 # OpenTelemetry Collector
 opentelemetry-collector:
   image:
-    tag: 0.80
+    tag: "0.80"
   mode: deployment
   serviceMonitor:
     enabled: true

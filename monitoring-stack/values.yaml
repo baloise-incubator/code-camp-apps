@@ -205,6 +205,11 @@ jaeger:
 # OpenTelemetry Collector
 opentelemetry-collector:
   mode: deployment
+  serviceMonitor:
+    enabled: true
+    metricsEndpoints:
+      - ports: metics
+      - ports: 8889
   config:
     exporters:
       otlp/jaeger:
@@ -232,6 +237,8 @@ opentelemetry-collector:
         metrics:
           receivers:
             - otlp
+          processors:
+            - batch
           exporters:
             - prometheus
 

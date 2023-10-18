@@ -265,27 +265,11 @@ promtail:
       - url: http://monitoring-stack-loki-distributed-distributor.monitoring-stack.svc:3100/loki/api/v1/push
     positions:
       filename: "/tmp/promtail/positions.yaml"
-    snippets:
-      scrapeConfigs: |
-        - job_name: containers
-          static_configs:
-          - targets:
-              - localhost
-            labels:
-              job: containerlogs
-              __path__: /var/log/pods/gabelstapler*/*/*.log
   extraVolumes:
     - name: posit
       emptyDir: {}
   extraVolumeMounts:
     - name: posit
       mountPath: "/tmp/promtail"
-  podSecurityContext:
-    fsGroup: 1001050000
-    runAsGroup: 1001050000
-    runAsUser: 1001050000
-  containerSecurityContext:
-    runAsUser: 1001050000
-    runAsGroup: 1001050000
   rbac:
     create: false

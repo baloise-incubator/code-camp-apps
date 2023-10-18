@@ -265,6 +265,12 @@ promtail:
       - url: http://monitoring-stack-loki-distributed-distributor.monitoring-stack.svc:3100/loki/api/v1/push
     positions:
       filename: "/tmp/promtail/positions.yaml"
+  extraVolumes:
+    - name: posit
+      emptyDir: {}
+  extraVolumeMounts:
+    - name: posit
+      mountPath: "/tmp/promtail"
   podSecurityContext:
     fsGroup: 1001050000
     runAsGroup: 1001050000

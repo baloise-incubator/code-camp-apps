@@ -272,6 +272,10 @@ promtail:
     runAsGroup: 1001050000
   rbac:
     create: false
+  defaultVolumeMounts:
+    - name: run
+      mountPath: /run/promtail
+      readOnly: false
   scrape_configs:
     - job_name: containers
       static_configs:

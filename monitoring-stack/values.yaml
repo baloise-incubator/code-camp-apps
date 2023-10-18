@@ -270,7 +270,7 @@ promtail:
     positions:
       filename: "/tmp/promtail/positions.yaml"
     snippets:
-      extraScrapeConfigs:
+      extraScrapeConfigs: |
         - job_name: containers
           static_configs:
             targets:

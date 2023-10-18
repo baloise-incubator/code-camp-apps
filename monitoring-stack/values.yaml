@@ -212,7 +212,7 @@ opentelemetry-collector:
       - ports: 8889
   config:
     exporters:
-      jaeger:
+      otlp/jaeger:
         endpoint: "http://monitoring-stack-jaeger-collector:14250"
         tls:
           insecure: true
@@ -242,7 +242,7 @@ opentelemetry-collector:
             - spanmetrics
             - batch
           exporters:
-            - jaeger
+            - otlp/jaeger
         metrics:
           receivers:
             - otlp/spanmetrics

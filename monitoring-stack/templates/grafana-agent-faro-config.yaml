@@ -58,7 +58,7 @@ data:
             - http://localhost:5173
             - https://gabelstapler-frontend-app.apps.baloise.dev
         logs_labels: # labels to add to loki log record
-          app: frontend # static value
+          app: # static value
           kind: # value will be taken from log items. exception, log, measurement, etc
         logs_send_timeout: 5000
         sourcemaps:

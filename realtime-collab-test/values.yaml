@@ -8,3 +8,16 @@ realtime-springboot-client-test:
       servicePort: 8080
       ingress:
         host: realtimecollab-client-test.apps.baloise.dev
+realtime-frontend-test:
+  image:
+    repository: docker.io/lukasbre/realtimecollab-frontend
+    tag: latest
+    pullPolicy: Always
+  network:
+    http:
+      servicePort: 80
+      ingress:
+        host: realtimecollab-frontend-test.apps.baloise.dev
+  env:
+    - name: SPRING_BACKEND
+      value: https://realtimecollab-client-test.apps.baloise.dev/

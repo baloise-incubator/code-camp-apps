@@ -329,3 +329,30 @@ grafana-agent-faro:
         name: grafana-agent-faro-config
     - name: grafana-agent-faro-logs
       emptyDir: {}
+
+oncall:
+  base_url: monitroing-stack-oncall.apps.baloise.dev
+  ingress:
+    enabled: true
+    annotations:
+      route.openshift.io/termination: "edge"
+  ingress-nginx:
+    enabled: false
+  cert-manager:
+    enabled: false
+  service:
+    enabled: true
+    type: NodePort
+    port: 8080
+    nodePort: 30001
+  grafana:
+    enabled: false
+  externalGrafana:
+    url: http://grafana:9093
+  database:
+    # can be either mysql or postgresql
+    type: postgresql
+  mariadb:
+    enabled: false
+  postgresql:
+    enabled: true

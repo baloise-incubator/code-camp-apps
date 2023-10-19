@@ -355,7 +355,31 @@ oncall:
   mariadb:
     enabled: false
   postgresql:
-    enabled: true
+    enabled: false
+  externalPostgresql:
+    host: aa
+    port: 5432
+    db_name: oncall
+    user: oncall
+    password: "oncall-password"
+  rabbitmq:
+    enabled: false
+  externalRabbitmq:
+    host:
+    port:
+    user:
+    password:
+    protocol:
+    vhost:
+  redis:
+    enabled: false
+  externalRedis:
+    protocol:
+    host:
+    port:
+    database:
+    username:
+    password:
   ui:
     enabled: true
   securityContext:
@@ -363,3 +387,15 @@ oncall:
   podSecurityContext:
     fsGroup: 1001050000
     runAsUser: 1001050000
+postgresql:
+  auth:
+    postgresPassword: "oncall-password-admin"
+    username: "oncall"
+    password: "oncall-password"
+    database: "oncall"
+  primary:
+    persistence:
+      enabled: true
+    podSecurityContext:
+      fsGroup: 1001050000
+      runAsUser: 1001050000

@@ -375,6 +375,8 @@ oncall:
     host: monitoring-stack-redis-master
     port: 6379
     password: oncall-password
+    existingSecret: monitoring-stack-redis
+    passwordKey: redis-password
   ui:
     enabled: true
   securityContext:

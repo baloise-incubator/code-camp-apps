@@ -378,8 +378,8 @@ oncall:
     host: aa
     port: aa
     database: aa
-    username: aa
-    password: aa
+    username: redis
+    password: oncall-password
   ui:
     enabled: true
   securityContext:
@@ -410,6 +410,13 @@ redis:
   auth:
     password: "oncall-password"
   master:
+    podSecurityContext:
+      enabled: false
+      fsGroup: ""
+    containerSecurityContext:
+      enabled: false
+      runAsUser: "auto"
+  replica:
     podSecurityContext:
       enabled: false
       fsGroup: ""

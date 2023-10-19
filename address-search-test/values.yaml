@@ -18,3 +18,17 @@ address-search-client-test:
       servicePort: 8080
       ingress:
         host: address-search-client-test.apps.baloise.dev
+
+address-search-index-bitnami-test:
+  image:
+    repository: bitnami/solr:latest
+    tag: latest
+  network:
+    http:
+      servicePort: 8983
+      ingress:
+        host: address-search-index-bitnami-test.apps.baloise.dev
+  env:
+    - name: SOLR_CORES
+      value: "addresses_core"
+

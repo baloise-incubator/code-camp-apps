@@ -5,10 +5,6 @@ dependencies:
   - name:  generic-chart
     version: 2.3.0
     repository: https://baloise-incubator.github.io/generic-chart/
-    alias: address-search-index-test
-  - name:  generic-chart
-    version: 2.3.0
-    repository: https://baloise-incubator.github.io/generic-chart/
     alias: address-search-client-test
   - name:  generic-chart
     version: 2.3.0

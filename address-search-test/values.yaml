@@ -1,13 +1,3 @@
-address-search-index-test:
-  image:
-    repository: docker.io/library/solr
-    tag: latest
-  network:
-    http:
-      servicePort: 8983
-      ingress:
-        host: address-search-index-test.apps.baloise.dev
-
 address-search-client-test:
   image:
     repository: docker.io/gerohoff/address-search-client
@@ -27,7 +17,7 @@ address-search-index-bitnami-test:
     http:
       servicePort: 8983
       ingress:
-        host: address-search-index-bitnami-test.apps.baloise.dev
+        host: address-search-index-test.apps.baloise.dev
   env:
     - name: SOLR_CORES
       value: "addresses_core"

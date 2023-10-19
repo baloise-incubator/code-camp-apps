@@ -121,8 +121,8 @@ gabelstapler-frontend-app:
       ingress:
         host: gabelstapler-frontend-app.apps.baloise.dev
   volumeMounts:
-    - mountPath: /var/cache/nginx/client_temp
-      name: client-temp
+    - mountPath: /var/cache/nginx
+      name: cache-nginx
   volumes:
-    - name: client-temp
+    - name: cache-nginx
       emptyDir: { }

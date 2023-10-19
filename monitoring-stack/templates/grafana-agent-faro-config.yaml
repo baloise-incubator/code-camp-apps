@@ -46,12 +46,12 @@ data:
         autoscrape:
           enable: true
           metrics_instance: 'default'
-        instance: 'default'
+        instance: 'frontend'
         logs_instance: 'default'
         traces_instance: 'default'
         server:
           host: '0.0.0.0'
-          port: 12345
+          port: 8027
           api_key: 'secret'
           cors_allowed_origins:
             - http://localhost:5173

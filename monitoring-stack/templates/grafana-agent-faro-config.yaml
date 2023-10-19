@@ -60,6 +60,7 @@ data:
         logs_labels: # labels to add to loki log record
           app: frontend # static value
           kind: # value will be taken from log items. exception, log, measurement, etc
+          app_name: 
         logs_send_timeout: 5000
         sourcemaps:
           download: true

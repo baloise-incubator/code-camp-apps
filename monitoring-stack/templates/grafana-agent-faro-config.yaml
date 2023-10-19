@@ -1,0 +1,81 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: grafana-agent-faro-config
+  namespace: monitoring-stack
+data:
+  agent.yaml: |
+    server:
+      log_level: 'debug'
+    
+    metrics:
+      wal_directory: '/tmp/agent/wal'
+      global:
+        scrape_interval: '60s'
+        remote_write:
+          - url: 'http://pushgateway.monitoring-stack.svc:9091/api/prom/push'
+      configs:
+        - name: '@grafana/faro-demo'
+          scrape_configs:
+            - job_name: '@grafana/faro-demo-server'
+              static_configs:
+                - targets:
+                    - 'demo:5173' # Wrong
+    
+    logs:
+      configs:
+        - name: '@grafana/faro-demo-client'
+          clients:
+            - url: 'http://monitoring-stack-loki-distributed-distributor.monitoring-stack.svc:3100/loki/api/v1/push'
+          positions:
+            filename: '/tmp/positions-client.yaml'
+        - name: '@grafana/faro-demo-server'
+          clients:
+            - url: 'http://monitoring-stack-loki-distributed-distributor.monitoring-stack.svc:3100/loki/api/v1/push'
+          positions:
+            filename: '/tmp/positions-server.yaml'
+          scrape_configs:
+            - job_name: '@grafana/faro-demo-server'
+              static_configs:
+                - targets:
+                    - 'localhost'
+                  labels:
+                    app: '@grafana/faro-demo-server'
+                    __path__: '/var/log/server.log'
+    
+    traces:
+      configs:
+        - name: '@grafana/faro-demo'
+          remote_write:
+            - endpoint: 'monitoring-stack-tempo-distributor.monitoring-stack.svc:4317'
+              insecure: true
+          receivers:
+            otlp:
+              protocols:
+                grpc:
+    
+    integrations:
+      app_agent_receiver:
+        autoscrape:
+          enable: true
+          metrics_instance: '@grafana/faro-demo'
+        instance: '@grafana/faro-demo'
+        logs_instance: '@grafana/faro-demo-client'
+        logs_labels:
+          app: '@grafana/faro-demo-client'
+          kind: ''
+        logs_send_timeout: '5s'
+        server:
+          api_key: 'api_key'
+          cors_allowed_origins:
+            - '*'
+          host: '0.0.0.0'
+          max_allowed_payload_size: 5e+07
+          port: 8027
+          rate_limiting:
+            burstiness: 100
+            enabled: true
+            rps: 100
+        sourcemaps:
+          download: true
+        traces_instance: '@grafana/faro-demo'

@@ -289,3 +289,39 @@ perses:
         name: perses-config
     - name: perses-storage
       emptyDir: {}
+
+# Grafana agent Faro
+grafana-agent-faro:
+  image:
+    repository: grafana/agent
+    tag: main
+  args:
+    - '/bin/grafana-agent'
+    - '-config.file=/etc/agent-config/agent.yaml'
+    - '-config.expand-env'
+    - '-config.enable-read-api'
+    - '-enable-features=integrations-next'
+  network:
+    agent:
+      containerPort: 12345
+      ingress:
+        host: monitroing-stack-faro-agent.apps.baloise.dev
+    appReceiver:
+      containerPort: 8027
+      ingress:
+        host: monitroing-stack-faro-agent-app-receiver.apps.baloise.dev
+    otelReceiver:
+      containerPort: 4317
+      ingress:
+        host: monitroing-stack-faro-agent-otel-receiver.apps.baloise.dev
+  volumeMounts:
+    - mountPath: /var/log
+      name: grafana-agent-faro-logs
+    - mountPath: /etc/agent-config
+      name: grafana-agent-faro-config
+  volumes:
+    - name: grafana-agent-faro-config
+      configMap:
+        name: grafana-agent-faro-config
+    - name: grafana-agent-faro-logs
+      emptyDir: {}

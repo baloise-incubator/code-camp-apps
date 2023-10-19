@@ -365,21 +365,21 @@ oncall:
   rabbitmq:
     enabled: false
   externalRabbitmq:
-    host:
-    port:
-    user:
-    password:
-    protocol:
-    vhost:
+    host: aa
+    port: aa
+    user: aa
+    password: aa
+    protocol: aa
+    vhost: aa
   redis:
     enabled: false
   externalRedis:
-    protocol:
-    host:
-    port:
-    database:
-    username:
-    password:
+    protocol: aa
+    host: aa
+    port: aa
+    database: aa
+    username: aa
+    password: aa
   ui:
     enabled: true
   securityContext:

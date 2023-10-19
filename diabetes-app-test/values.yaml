@@ -45,3 +45,4 @@ keycloak:
     enabled: false
   podSecurityContext:
     enabled: false
+  postgresql:

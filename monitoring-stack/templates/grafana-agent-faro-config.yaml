@@ -46,7 +46,7 @@ data:
         autoscrape:
           enable: true
           metrics_instance: 'default'
-        instance: 'frontend'
+        instance: 'default'
         logs_instance: 'default'
         traces_instance: 'default'
         server:

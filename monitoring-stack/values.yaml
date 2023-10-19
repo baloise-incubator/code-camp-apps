@@ -367,10 +367,8 @@ oncall:
   externalRabbitmq:
     host: aa
     port: aa
-    user: aa
-    password: aa
-    protocol: aa
-    vhost: aa
+    user: oncall
+    password: "oncall-password"
   redis:
     enabled: false
   externalRedis:
@@ -420,6 +418,21 @@ redis:
     containerSecurityContext:
       enabled: false
       runAsUser: "auto"
+  volumePermissions:
+    enabled: false
+    containerSecurityContext:
+      runAsUser: auto
+      runAsGroup: ""
+rabbitmq:
+  auth:
+    username: oncall
+    password: "oncall-password"
+  podSecurityContext:
+    enabled: false
+    fsGroup: ""
+  containerSecurityContext:
+    enabled: false
+    runAsUser: "auto"
   volumePermissions:
     enabled: false
     containerSecurityContext:

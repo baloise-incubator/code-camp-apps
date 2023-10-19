@@ -13,7 +13,7 @@ data:
       global:
         scrape_interval: '60s'
         remote_write:
-          - url: 'http://prometheus.monitoring-stack.svc:9093/api/v1/write'
+          - url: 'http://prometheus-operated.monitoring-stack.svc:9090/api/v1/write'
       configs:
         - name: '@grafana/faro-demo'
           scrape_configs:

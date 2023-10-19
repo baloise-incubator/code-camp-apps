@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-properties
+data:
+  application.properties: |
+    spring.datasource.url=jdbc:postgresql://postgres:5432/postgres
+    spring.datasource.username=postgres
+    spring.datasource.password=postgres
+    ## keycloak
+    spring.security.oauth2.resourceserver.jwt.issuer-uri:http://keycloak:8081/realms/baloise-code-camp
+    spring.security.oauth2.resourceserver.jwt.jwk-set-uri:http://keycloak:8081/realms/baloise-code-camp/protocol/openid-connect/certs
+    spring.liquibase.enabled=true
+    spring.liquibase.change-log=classpath:db/changelog/db.changelog-master.xml

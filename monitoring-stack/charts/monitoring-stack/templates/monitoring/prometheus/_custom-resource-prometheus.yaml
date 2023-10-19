@@ -18,6 +18,7 @@ metadata:
 spec:
   enableFeatures:
     - exemplar-storage
+  enableRemoteWriteReceiver: "true"
   podMetadata:
     labels:
       app.kubernetes.io/part-of: bdop

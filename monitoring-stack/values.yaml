@@ -280,7 +280,7 @@ perses:
     - -config=/perses/config.yaml
   volumeMounts:
     - mountPath: /perses/storage
-      name: storage
+      name: perses-storage
     - mountPath: /perses/config.yaml
       name: perses-config
       subPath: config.yaml

@@ -399,3 +399,6 @@ postgresql:
     podSecurityContext:
       fsGroup: 1001050000
       runAsUser: 1001050000
+    containerSecurityContext:
+      runAsUser: 1001050000
+      runAsGroup: 1001050000

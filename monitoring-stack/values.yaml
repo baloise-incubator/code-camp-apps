@@ -309,10 +309,12 @@ grafana-agent-faro:
         host: monitroing-stack-faro-agent.apps.baloise.dev
     appreceiver:
       containerPort: 8027
+      servicePort: 8027
       ingress:
         host: monitroing-stack-faro-agent-app-receiver.apps.baloise.dev
     otelreceiver:
       containerPort: 4317
+      servicePort: 4317
       ingress:
         host: monitroing-stack-faro-agent-otel-receiver.apps.baloise.dev
   volumeMounts:

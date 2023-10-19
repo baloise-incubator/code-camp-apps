@@ -374,11 +374,8 @@ oncall:
   redis:
     enabled: false
   externalRedis:
-    protocol: aa
-    host: aa
-    port: aa
-    database: aa
-    username: redis
+    host: monitoring-stack-redis-master
+    port: 6379
     password: oncall-password
   ui:
     enabled: true

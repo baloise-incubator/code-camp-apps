@@ -120,8 +120,3 @@ gabelstapler-frontend-app:
       containerPort: 8080
       ingress:
         host: gabelstapler-frontend-app.apps.baloise.dev
-  securityContext:
-    runAsUser: 1001050000
-  podSecurityContext:
-    fsGroup: 1001050000
-    runAsUser: 1001050000

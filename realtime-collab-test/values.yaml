@@ -20,4 +20,4 @@ realtime-frontend-test:
         host: realtimecollab-frontend-test.apps.baloise.dev
   env:
     - name: SPRING_BACKEND
-      value: https://realtimecollab-client-test.apps.baloise.dev
+      value: https://realtimecollab-client-test.apps.baloise.dev:443

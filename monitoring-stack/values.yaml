@@ -406,3 +406,18 @@ postgresql:
     containerSecurityContext:
       runAsUser: auto
       runAsGroup: ""
+redis:
+  auth:
+    password: "oncall-password"
+  master:
+    podSecurityContext:
+      enabled: false
+      fsGroup: ""
+    containerSecurityContext:
+      enabled: false
+      runAsUser: "auto"
+  volumePermissions:
+    enabled: false
+    containerSecurityContext:
+      runAsUser: auto
+      runAsGroup: ""

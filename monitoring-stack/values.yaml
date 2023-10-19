@@ -28,7 +28,7 @@ loki-distributed:
       fsGroup: 1001050000
       runAsGroup: 1001050000
       runAsUser: 1001050000
-    containersecurityContext:
+    containerSecurityContext:
       runAsUser: 1001050000
       runAsGroup: 1001050000
     schemaConfig:
@@ -61,7 +61,7 @@ loki-distributed:
       fsGroup: 1001050000
       runAsGroup: 1001050000
       runAsUser: 1001050000
-    containersecurityContext:
+    containerSecurityContext:
       runAsUser: 1001050000
       runAsGroup: 1001050000
   ingester:

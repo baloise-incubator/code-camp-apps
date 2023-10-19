@@ -273,6 +273,21 @@ promtail:
 
 # perses
 perses:
- image:
-  repository: persesdev/perses 
-  tag: latest
+  image:
+    repository: persesdev/perses
+    tag: latest
+  args:
+    - -config=/perses/config.yaml
+  volumeMounts:
+    - mountPath: /perses/storage
+      name: storage
+    - mountPath: /perses/config.yaml
+      name: perses-config
+      subPath: config.yaml
+  volumes:
+    - name: perses-config
+      configMap:
+        name: perses-config
+    - name: perses-storage
+      configMap:
+        name: perses-storage

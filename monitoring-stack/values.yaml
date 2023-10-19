@@ -356,3 +356,5 @@ oncall:
     enabled: false
   postgresql:
     enabled: true
+  ui:
+    enabled: true

@@ -17,6 +17,12 @@
 
 ### Tempo vs otel collector / jaeger
 
+![tracing](docs/tracing2.png)
+
+---
+![tracing](docs/tracing3.png)
+
+
 * backend
   * Jaeger
     * ElasticSearch

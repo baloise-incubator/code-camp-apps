@@ -122,7 +122,7 @@ gabelstapler-frontend-app:
         host: gabelstapler-frontend-app.apps.baloise.dev
   volumeMounts:
     - mountPath: /var/cache/nginx/client_temp
-      name: client_temp
+      name: client-temp
   volumes:
-    - name: client_temp
+    - name: client-temp
       emptyDir: { }

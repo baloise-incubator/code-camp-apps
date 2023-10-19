@@ -1,0 +1,19 @@
+apiVersion: v2
+name: diabetes-app-test
+version: 1.0.0
+dependencies:
+  - name:  postgresql
+    version: 13.1.5
+    repository: https://charts.bitnami.com/bitnami
+    alias: postgres-test
+  - name:  keycloak
+    version: 17.1.1
+    repository: https://charts.bitnami.com/bitnami
+  - name:  generic-chart
+    version: 2.3.0
+    repository: https://baloise-incubator.github.io/generic-chart/
+    alias: diabetes-app-test
+  - name:  generic-chart
+    version: 2.3.0
+    repository: https://baloise-incubator.github.io/generic-chart/
+    alias: diabetes-backend-test

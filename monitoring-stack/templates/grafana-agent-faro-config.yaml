@@ -22,6 +22,8 @@ data:
           scrape_configs: []
           clients:
             - url: 'http://monitoring-stack-loki-distributed-distributor.monitoring-stack.svc:3100/loki/api/v1/push'
+          positions:
+            filename: '/tmp/positions-client.yaml'
     traces:
       configs:
         - name: 'default'

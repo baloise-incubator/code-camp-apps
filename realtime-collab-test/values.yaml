@@ -1,0 +1,10 @@
+realtime-springboot-client-test:
+  image:
+    repository: docker.io/lukasbre/realtimecollab-client
+    tag: latest
+    pullPolicy: Always
+  network:
+    http:
+      servicePort: 8080
+      ingress:
+        host: realtimecollab-client-test.apps.baloise.dev

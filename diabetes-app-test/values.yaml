@@ -32,7 +32,7 @@ diabetes-backend:
     - /app.jar
     - --spring.config.location=/opt/app/application.properties
 
-postgresql:
+postgresql-app:
   auth:
     password: "postgres"
   primary:
@@ -46,3 +46,9 @@ keycloak:
   podSecurityContext:
     enabled: false
   postgresql:
+    primary:
+      podSecurityContext:
+        enabled: false
+      containerSecurityContext:
+        enabled: false
+

@@ -279,14 +279,9 @@ perses:
   args:
     - -config=/perses/config/config.yaml
   volumeMounts:
-    - mountPath: /perses/storage
-      name: perses-storage
     - mountPath: /perses/config
       name: perses-config
   volumes:
     - name: perses-config
       configMap:
         name: perses-config
-    - name: perses-storage
-      configMap:
-        name: perses-storage

@@ -304,7 +304,7 @@ grafana-agent-faro:
   network:
     agent:
       containerPort: 12345
-      servicePort: agent
+      servicePort: 12345
       ingress:
         host: monitroing-stack-faro-agent.apps.baloise.dev
     appreceiver:

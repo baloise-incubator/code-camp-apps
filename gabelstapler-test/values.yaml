@@ -109,3 +109,14 @@ gabelstapler-observability-app-3:
       value: http://monitoring-stack-tempo-distributor.monitoring-stack.svc:4317
     - name: LOKI_URL
       value: http://monitoring-stack-loki-distributed-distributor.monitoring-stack.svc:3100/loki/api/v1/push
+
+gabelstapler-frontend-app:
+  image:
+    repository: ghcr.io/baloise-incubator/gablestapler-frontend-app
+    tag: main
+    pullPolicy: Always
+  network:
+    http:
+      containerPort: 8080
+      ingress:
+        host: gabelstapler-frontend-app.apps.baloise.dev

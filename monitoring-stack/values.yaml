@@ -295,7 +295,7 @@ grafana-agent-faro:
   image:
     repository: grafana/agent
     tag: main
-  args:
+  command:
     - '/bin/grafana-agent'
     - '-config.file=/etc/agent-config/agent.yaml'
     - '-config.expand-env'

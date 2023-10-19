@@ -19,3 +19,4 @@ realtime-frontend-test:
       servicePort: 8080
       ingress:
         host: realtimecollab-test.apps.baloise.dev
+        path: /

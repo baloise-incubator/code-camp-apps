@@ -15,7 +15,7 @@ realtime-frontend-test:
     pullPolicy: Always
   network:
     http:
-      servicePort: 80
+      servicePort: 8080
       ingress:
         host: realtimecollab-frontend-test.apps.baloise.dev
   env:

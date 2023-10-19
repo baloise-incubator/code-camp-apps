@@ -1,4 +1,4 @@
-diabetes-app-test:
+diabetes-frontend:
   image:
     repository: ghcr.io/baloise-incubator/cc2023_diabetes_angular
     tag: main
@@ -8,7 +8,7 @@ diabetes-app-test:
       servicePort: 8080
       ingress:
         host: diabetes-app-test.apps.baloise.dev
-diabetes-backend-test:
+diabetes-backend:
   image:
     repository: ghcr.io/baloise-incubator/cc2023_diabetes_springboot
     tag: master
@@ -19,7 +19,7 @@ diabetes-backend-test:
       ingress:
         host: diabetes-app-test.apps.baloise.dev
         path: /api
-postgres-test:
+postgres:
   global:
     postgresql:
       auth:
@@ -28,12 +28,3 @@ postgres-test:
       service:
         ports:
           postgresql: "5432:5432"
-postgres-keycloak-test:
-  global:
-    postgresql:
-      auth:
-        username: "postgres"
-        password: "postgres"
-      service:
-        ports:
-          postgresql: "5433:5433"

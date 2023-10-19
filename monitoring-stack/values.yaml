@@ -277,13 +277,12 @@ perses:
     repository: persesdev/perses
     tag: latest
   args:
-    - -config=/perses/config.yaml
+    - -config=/perses/config/config.yaml
   volumeMounts:
     - mountPath: /perses/storage
       name: perses-storage
-    - mountPath: /perses/config.yaml
+    - mountPath: /perses/config
       name: perses-config
-      subPath: config.yaml
   volumes:
     - name: perses-config
       configMap:

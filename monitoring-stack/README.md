@@ -47,6 +47,8 @@
 
 # Alternative to Grafana dashboards
 
+![perses](docs/perses.png)
+
 ## perses
 <https://github.com/perses/perses>
 

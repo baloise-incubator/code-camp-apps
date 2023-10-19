@@ -21,7 +21,7 @@ address-search-client-test:
 
 address-search-index-bitnami-test:
   image:
-    repository: bitnami/solr:latest
+    repository: docker.io/bitnami/solr:latest
     tag: latest
   network:
     http:

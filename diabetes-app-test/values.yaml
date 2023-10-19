@@ -32,12 +32,6 @@ diabetes-backend:
     - /app.jar
     - --spring.config.location=/opt/app/application.properties
 
-postgres:
-  global:
-    postgresql:
-      auth:
-        username: "postgres"
-        password: "postgres"
-      service:
-        ports:
-          postgresql: "5432:5432"
+postgresql:
+  auth:
+    password: "postgres"

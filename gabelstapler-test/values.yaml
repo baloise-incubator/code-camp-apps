@@ -112,7 +112,7 @@ gabelstapler-observability-app-3:
 
 gabelstapler-frontend-app:
   image:
-    repository: ghcr.io/baloise-incubator/gablestapler-frontend-app
+    repository: ghcr.io/baloise-incubator/gabelstapler-frontend-app
     tag: main
     pullPolicy: Always
   network:

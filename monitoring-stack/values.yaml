@@ -216,7 +216,6 @@ opentelemetry-collector:
     enabled: true
     metricsEndpoints:
     - ports: metrics
-    - ports: 8889
   config:
     exporters:
       jaeger:

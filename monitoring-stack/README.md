@@ -12,7 +12,7 @@
 
 Setup:
 
-![tracing](/docs/tracing.jpg)
+![tracing](docs/tracing.jpg)
 
 Exemplars:
 * metric / trace correlation

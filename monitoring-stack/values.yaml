@@ -389,7 +389,6 @@ oncall:
     runAsUser: 1001050000
 postgresql:
   auth:
-    postgresPassword: "oncall-password-admin"
     username: "oncall"
     password: "oncall-password"
     database: "oncall"
@@ -404,8 +403,6 @@ postgresql:
       runAsUser: "auto"
   volumePermissions:
     enabled: false
-    securityContext:
-      runAsUser: "auto"
     containerSecurityContext:
       runAsUser: auto
       runAsGroup: ""

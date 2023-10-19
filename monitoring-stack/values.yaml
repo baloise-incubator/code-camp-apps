@@ -302,6 +302,10 @@ grafana-agent-faro:
     - '-config.enable-read-api'
     - '-enable-features=integrations-next'
   network:
+    http:
+      containerPort: 8080
+      ingress:
+        host: monitroing-stack-faro-http.apps.baloise.dev
     agent:
       containerPort: 12345
       servicePort: 12345

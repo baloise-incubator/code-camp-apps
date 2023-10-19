@@ -357,7 +357,7 @@ oncall:
   postgresql:
     enabled: false
   externalPostgresql:
-    host: aa
+    host: monitoring-stack-postgresql
     port: 5432
     db_name: oncall
     user: oncall
@@ -396,6 +396,12 @@ postgresql:
   primary:
     persistence:
       enabled: true
+    podSecurityContext:
+      fsGroup: 1001050000
+      runAsUser: 1001050000
+    containerSecurityContext:
+      runAsUser: 1001050000
+      runAsGroup: 1001050000
   volumePermissions:
     enabled: false
     securityContext:

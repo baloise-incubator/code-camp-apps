@@ -24,3 +24,7 @@ dependencies:
 - name: promtail
   version: 6.15.2
   repository: https://grafana.github.io/helm-charts
+- name: generic-chart
+  version: 2.3.0
+  repository: https://baloise-incubator.github.io/generic-chart/
+  alias: perses

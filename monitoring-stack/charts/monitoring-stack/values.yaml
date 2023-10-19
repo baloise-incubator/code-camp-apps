@@ -18,7 +18,7 @@ exports:
         oauthProxy: registry.redhat.io/openshift4/ose-oauth-proxy:v4.11.0
         thanos: quay.io/thanos/thanos:v0.31.0
         sidecar: quay.io/kiwigrid/k8s-sidecar:1.24.4
-      listenLocal: true
+      listenLocal: false
       replicas: 1
       resources:
         prometheus:

@@ -10,11 +10,32 @@
 
 ## Opentelemetry collector / Jaeger
 
-Setup:
+### Setup:
 
 ![tracing](docs/tracing.jpg)
 
-Exemplars:
+
+### Tempo vs otel collector / jaeger
+
+* backend
+  * Jaeger
+    * ElasticSearch
+    * Cassandra
+    * kafka
+  * Grafana Tempo
+    * S3
+    * GCS Object storage
+    * Azure Blob Storage
+* frontend
+  * Grafana Tempo
+    * Grafana
+  * Jaeger
+    * Jaeger
+    * Grafana
+
+### Exemplars
+
+[Exemplars](https://grafana.com/docs/grafana/latest/fundamentals/exemplars/):
 * metric / trace correlation
 * cardinality issues
   * part of OpenMetrics standard

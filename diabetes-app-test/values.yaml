@@ -40,3 +40,8 @@ postgresql:
       enabled: false
     containerSecurityContext:
       enabled: false
+keycloak: 
+  containerSecurityContext: 
+    enabled: false
+  podSecurityContext:
+    enabled: false

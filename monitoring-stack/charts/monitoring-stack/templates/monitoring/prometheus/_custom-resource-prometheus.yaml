@@ -18,6 +18,7 @@ metadata:
 spec:
   enableFeatures:
     - exemplar-storage
+    - remote-write-receiver
   enableRemoteWriteReceiver: true
   podMetadata:
     labels:

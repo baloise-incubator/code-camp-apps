@@ -35,3 +35,8 @@ diabetes-backend:
 postgresql:
   auth:
     password: "postgres"
+  primary:
+    podSecurityContext:
+      enabled: false
+    containerSecurityContext:
+      enabled: false

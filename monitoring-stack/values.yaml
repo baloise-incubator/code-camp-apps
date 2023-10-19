@@ -397,13 +397,15 @@ postgresql:
     persistence:
       enabled: true
     podSecurityContext:
-      fsGroup: 1001050000
-      runAsUser: 1001050000
+      enabled: false
+      fsGroup: ""
     containerSecurityContext:
-      runAsUser: 1001050000
-      runAsGroup: 1001050000
+      enabled: false
+      runAsUser: "auto"
   volumePermissions:
-    enabled: true
+    enabled: false
+    securityContext:
+      runAsUser: "auto"
     containerSecurityContext:
-      runAsUser: 1001050000
-      runAsGroup: 1001050000
+      runAsUser: auto
+      runAsGroup: ""

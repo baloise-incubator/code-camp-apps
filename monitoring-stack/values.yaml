@@ -365,8 +365,8 @@ oncall:
   rabbitmq:
     enabled: false
   externalRabbitmq:
-    host: aa
-    port: aa
+    host: monitoring-stack-rabbitmq
+    port: 5672
     user: oncall
     password: "oncall-password"
   redis:

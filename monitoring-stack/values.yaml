@@ -306,11 +306,11 @@ grafana-agent-faro:
       containerPort: 12345
       ingress:
         host: monitroing-stack-faro-agent.apps.baloise.dev
-    appReceiver:
+    appreceiver:
       containerPort: 8027
       ingress:
         host: monitroing-stack-faro-agent-app-receiver.apps.baloise.dev
-    otelReceiver:
+    otelreceiver:
       containerPort: 4317
       ingress:
         host: monitroing-stack-faro-agent-otel-receiver.apps.baloise.dev

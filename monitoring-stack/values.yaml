@@ -214,8 +214,6 @@ opentelemetry-collector:
   mode: deployment
   serviceMonitor:
     enabled: true
-    metricsEndpoints:
-    - ports: metrics
   config:
     exporters:
       jaeger:

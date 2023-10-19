@@ -369,6 +369,7 @@ oncall:
     port: 5672
     user: oncall
     password: "oncall-password"
+    vhost: "/"
   redis:
     enabled: false
   externalRedis:

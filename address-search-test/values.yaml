@@ -22,7 +22,7 @@ address-search-index-test:
     - args:
         - -provider=openshift
         - -https-address=
-        - -http-address=9999
+        - -http-address=:9999
         - -email-domain=*
         - -upstream=http://localhost:8983
         - -openshift-service-account=address-search-index-test

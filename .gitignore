@@ -1,4 +1,6 @@
 .idea/
 Chart.lock
 *.drawio.bkp
+*.drawio.svg.bkp
 *.drawio.dtmp
+*.drawio.svg.dtmp

@@ -61,6 +61,8 @@ process_cpu:cpu:nanoseconds:cpu:nanoseconds{service_name="gabelstrapler-buggs-ap
 
 ![loki](docs/loki-logo.png)
 
+![loki](docs/loki.drawio.svg)
+
 ## Loki
 ### tl;dr
 

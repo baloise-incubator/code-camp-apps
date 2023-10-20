@@ -47,7 +47,7 @@ address-search-index-test:
   volumes:
     - name: secret-cookie-session-secret
       secret:
-        name: solr-extern-secret
+        secretName: solr-extern-secret
   env:
     - name: SOLR_CORES
       value: "addresses_core"

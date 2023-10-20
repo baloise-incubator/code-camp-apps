@@ -103,6 +103,30 @@ process_cpu:cpu:nanoseconds:cpu:nanoseconds{service_name="gabelstrapler-buggs-ap
 ![loki](docs/loki.drawio.svg)
 
 ## Loki
+
+### Beat-Log
+Ziel wäre es gewesen, dass wir eine Matrix oder ein Feld haben, wo den Status von einem Stream gem. Beat-Log ausgiebt.
+Das setzt voraus, dass im Log der Wert "StartPoint" und der "EndPoint" auf completed steht.
+
+StartPoint	->	Nicht vorhanden		= Stream nicht angelaufen (Grau)
+StartPoint	->	Completed			= Stream Running (Gelb)
+EndPoint	->	Nicht vorhanden		= Stream Running (Gelb)
+EndPoint	->	Completed			= Stream Completed (Grün)
+
+Beim Auslesen der Beats Logdaten ist uns aufgefallen, dass das komplette Beat-Log unhandlich ist.
+Es gibt Zeilen, welche alte Laufdaten bereinigen oder logische Resourcen zuweisen oder entfernen.
+Diese Informationen, welche ebenfalls auf dem StartPoint liegen, verkompliziert die Auswertung.
+Die daraus resultierenden doppelte Einträge waren der Leserlichkeit und und unserem Goal ein Hinderniss
+Um das Query in Grafana handlicher zu halten, wäre es besser, wenn wir auf Streamworks die Beat-Auswertung reduzieren würden. Es müssen nicht alle Events gelogt werden. 
+
+In der Promtail Definition musste der Wert zum Einlesen der Logs von "tail" auf "cat" gesetzt werden.
+Das Beat-Log wird pro Tag kontinuierlich befüllt. Wieviele Logs kann Loki einlesen bevor es zu Performanceeinbussen kommt?
+
+Das Query um den Status der *Point (data_jobName) auszulisten konnte von Patrick erstellt werden.
+Leider hatten wir nicht die Zeit um die Auswertung in einer übersichtlichen Matrix darstellen zu können.
+Eine Query über dem Status der einzelnen Jobs über data_returnCode und data_jobName konnten wir zeitlich nicht erstellen.
+
+
 ### tl;dr
 Loki's streght lies in the flawless integration in the Baloise monitoring stack by adding the capability to correlate metrics and logfile entries as well as integrating in the "Grafana Eco System".
 Loki can be seeen as a valable substitution to Splunk, concerning logfile monitoring of application running on OpenShift.

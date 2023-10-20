@@ -136,14 +136,16 @@ A coexsistence of Splunk and Loki is envisionable.
    Parsing of the logdata can be challaging but LogQL offers a few good parsing functioons
 
   * For efficency, setting usefull labels is key ( tenantid, cluster, source, app or "Busines service", environment ...)
-
-  * Integration with Grafana is flawless	
   
   * Uses scrape configs to get data in combination with ServiceDiscovery --> simple setup similar to prometheus servicediscovery (get definitons from Kubernetes , enhance with MetaData ... )
  
   * Input/Output to storage seems to be very effective/efficient concerning compressing and reading. 
   
-  * multiple and simple ways to push data
+  * multiple and simple ways to push data.
+
+  * Integration with Grafana is flawless by adding a Loki Datastore. 
+    Data can then also be viewed with the explorer see screenshot:
+    ![grafana](docs/loki-data.png) 	
 
 
 # Tracing

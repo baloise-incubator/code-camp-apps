@@ -308,7 +308,6 @@ data:
           "security-admin-console": [],
           "admin-cli": [],
           "account-console": [],
-          "frontend-client": [],
           "broker": [
             {
               "id": "b444adcc-98e7-45bd-b0b2-736914aaeb80",
@@ -407,7 +406,8 @@ data:
               "containerId": "5a77106a-92c8-4e9c-8b60-05d9c971a9e7",
               "attributes": {}
             }
-          ]
+          ],
+          "frontend-client": []
         }
       },
       "groups": [],
@@ -430,9 +430,9 @@ data:
       "otpPolicyPeriod": 30,
       "otpPolicyCodeReusable": false,
       "otpSupportedApplications": [
+        "totpAppMicrosoftAuthenticatorName",
         "totpAppFreeOTPName",
-        "totpAppGoogleName",
-        "totpAppMicrosoftAuthenticatorName"
+        "totpAppGoogleName"
       ],
       "webAuthnPolicyRpEntityName": "keycloak",
       "webAuthnPolicySignatureAlgorithms": [
@@ -846,7 +846,7 @@ data:
           "protocol": "openid-connect",
           "attributes": {
             "oidc.ciba.grant.enabled": "false",
-            "client.secret.creation.time": "1697531543",
+            "client.secret.creation.time": "1697794199",
             "backchannel.logout.session.required": "true",
             "post.logout.redirect.uris": "*",
             "oauth2.device.authorization.grant.enabled": "false",
@@ -1400,7 +1400,7 @@ data:
         "referrerPolicy": "no-referrer",
         "xRobotsTag": "none",
         "xFrameOptions": "SAMEORIGIN",
-        "contentSecurityPolicy": "frame-src 'self'; frame-ancestors 'self'; object-src 'none';",
+        "contentSecurityPolicy": " frame-src 'self'; frame-ancestors 'self' http://diabetes-app-keycloak.apps.baloise.dev; object-src 'none';",
         "xXSSProtection": "1; mode=block",
         "strictTransportSecurity": "max-age=31536000; includeSubDomains"
       },
@@ -1448,14 +1448,14 @@ data:
             "subComponents": {},
             "config": {
               "allowed-protocol-mapper-types": [
-                "oidc-usermodel-attribute-mapper",
-                "oidc-sha256-pairwise-sub-mapper",
-                "saml-user-property-mapper",
-                "oidc-address-mapper",
-                "saml-user-attribute-mapper",
                 "oidc-full-name-mapper",
+                "oidc-sha256-pairwise-sub-mapper",
+                "oidc-usermodel-attribute-mapper",
+                "saml-role-list-mapper",
                 "oidc-usermodel-property-mapper",
-                "saml-role-list-mapper"
+                "oidc-address-mapper",
+                "saml-user-property-mapper",
+                "saml-user-attribute-mapper"
               ]
             }
           },
@@ -1468,12 +1468,12 @@ data:
             "config": {
               "allowed-protocol-mapper-types": [
                 "oidc-usermodel-attribute-mapper",
-                "oidc-sha256-pairwise-sub-mapper",
                 "saml-user-property-mapper",
-                "oidc-full-name-mapper",
                 "saml-role-list-mapper",
                 "oidc-usermodel-property-mapper",
+                "oidc-full-name-mapper",
                 "saml-user-attribute-mapper",
+                "oidc-sha256-pairwise-sub-mapper",
                 "oidc-address-mapper"
               ]
             }
@@ -1522,6 +1522,14 @@ data:
             "name": "Full Scope Disabled",
             "providerId": "scope",
             "subType": "anonymous",
+            "subComponents": {},
+            "config": {}
+          }
+        ],
+        "org.keycloak.userprofile.UserProfileProvider": [
+          {
+            "id": "01929796-9015-4ed8-b8c3-0474385dc475",
+            "providerId": "declarative-user-profile",
             "subComponents": {},
             "config": {}
           }

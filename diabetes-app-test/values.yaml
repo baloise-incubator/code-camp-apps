@@ -19,7 +19,7 @@ diabetes-backend:
       servicePort: 8080
       ingress:
         host: diabetes-app-test.apps.baloise.dev
-        path: /api
+        path: /spring
   volumes:
     - name: app-properties
       configMap:

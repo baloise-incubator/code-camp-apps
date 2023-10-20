@@ -22,7 +22,7 @@ address-search-index-test:
     - args:
         - -provider=openshift
         - -https-address=
-        - -http-address=8090
+        - -http-address=9999
         - -email-domain=*
         - -upstream=http://localhost:8983
         - -openshift-service-account=address-search-index-test
@@ -32,7 +32,7 @@ address-search-index-test:
       image: registry.redhat.io/openshift4/ose-oauth-proxy:v4.11.0
       name: solr-proxy
       ports:
-        - containerPort: 8090
+        - containerPort: 9999
           name: solr-extern
       resources:
         requests:

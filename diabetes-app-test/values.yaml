@@ -58,10 +58,10 @@ keycloak:
       password: "password"
   extraEnvVars:
     - name: KEYCLOAK_EXTRA_ARGS
-      value: "-Dkeycloak.import=/config/realm.json"
+      value: "-Dkeycloak.import=/opt/bitnami/keycloak/data/import//realm.json"
   extraVolumeMounts:
     - name: config
-      mountPath: "/config"
+      mountPath: "/opt/bitnami/keycloak/data/import/"
       readOnly: true
   extraVolumes:
     - name: config

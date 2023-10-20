@@ -108,21 +108,16 @@ Loki's streght lies in the flawless integration in the Baloise monitoring stack 
 Loki can be seeen as a valable substitution to Splunk, concerning logfile monitoring of application running on OpenShift.
 A coexsistence of Splunk and Loki is envisionable.
   
-* Installation:
+### Installation:
   
   * using https://github.com/grafana/helm-charts/tree/main/charts/loki-distributed
   * set podSecurtityContext & containersecurtityContex on all "components" (loki, gateway,ingester,querier)
     for ingester & querier  "fsGroup: 1001050000" would be enough ( migth ommit extraVolumes then) --> could not be tested due to dependencies
   * used Minio ( https://grafana.com/docs/loki/latest/storage/) as storage.
-
-* Findings
-  
-  * Input/Output to storage seems to be very effective/efficient concerning compressing and reading. 
-  * multiple and simple ways to push data
   
 ## Promtail
 
-* Installation:
+### Installation:
 
   * using https://github.com/grafana/helm-charts/tree/main/charts/promtail.
   * create Service Account, ClusterRole & ClusterRoleBinding manually ( set promtail.rbac.create: false ).
@@ -131,19 +126,26 @@ A coexsistence of Splunk and Loki is envisionable.
     *  set priority > 0 to ensure the definitions to be used by promtail
   * set podSecurtityContext & containersecurtityContex
 
-* Findings
+## Findings
 
   * Tenancy capability https://itnext.io/multi-tenancy-with-loki-promtail-and-grafana-demystified-e93a2a314473
       * implies the use of a dedicated label (e.g.: tenant_id) on promtail side usomg pipelines. Actually using a label on all "senders" to Loki should be best practice.
 	  * for grafana there will be a Loki-datasource per tenant_id
 	  
   * Data can be viewed by using LogQL (see https://grafana.com/docs/loki/latest/query/log_queries/) which is very close /similar to PromQL and shares a lot of syntax and functions.
-    For efficency, setting usefull labels is key ( tenantid, cluster, source, app or "Busines service", environment ...)
-	Parsing of the logdata can be challaging but LogQL offers a few good parsing functioons
+   Parsing of the logdata can be challaging but LogQL offers a few good parsing functioons
 
-  * Integration with Grafana is flawless	
+  * For efficency, setting usefull labels is key ( tenantid, cluster, source, app or "Busines service", environment ...)
   
   * Uses scrape configs to get data in combination with ServiceDiscovery --> simple setup similar to prometheus servicediscovery (get definitons from Kubernetes , enhance with MetaData ... )
+ 
+  * Input/Output to storage seems to be very effective/efficient concerning compressing and reading. 
+  
+  * multiple and simple ways to push data.
+
+  * Integration with Grafana is flawless by adding a Loki Datastore. 
+    Data can then also be viewed with the explorer see screenshot:
+    ![grafana](docs/loki-data.png) 	
 
 
 # Tracing

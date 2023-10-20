@@ -1,0 +1,463 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 2,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "loki-1"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "color-text"
+            },
+            "inspect": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "completed"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "text",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "time"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 270
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 0,
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "Time"
+          }
+        ]
+      },
+      "pluginVersion": "10.1.5",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki-1"
+          },
+          "editorMode": "code",
+          "expr": "{container=\"glutton\"} |= \"$SBU\" | json | data_jobName=\"StartPoint\" and data_returnCode=\"0\"",
+          "legendFormat": "Startpoints",
+          "queryType": "range",
+          "refId": "Startpoint"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki-1"
+          },
+          "editorMode": "code",
+          "expr": "{container=\"glutton\"} |= \"$SBU\" | json | data_jobName=\"EndPoint\" and data_returnCode=\"0\"",
+          "hide": false,
+          "legendFormat": "Endpoints",
+          "queryType": "range",
+          "refId": "Endpoint"
+        }
+      ],
+      "title": "Streams status ",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "jsonPaths": [
+              {
+                "path": "mandator"
+              },
+              {
+                "alias": "Jobname",
+                "path": "data.jobName"
+              },
+              {
+                "alias": "Streamname",
+                "path": "data.streamName"
+              },
+              {
+                "alias": "RC",
+                "path": "data.returnCode"
+              }
+            ],
+            "keepTime": false,
+            "replace": false,
+            "source": "Line"
+          }
+        },
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "Time",
+                "mandator",
+                "Jobname",
+                "RC",
+                "Streamname"
+              ]
+            }
+          }
+        },
+        {
+          "id": "merge",
+          "options": {}
+        }
+      ],
+      "transparent": true,
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "loki-1"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "color-text"
+            },
+            "inspect": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "completed"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "text",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Plandatum"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 125
+              },
+              {
+                "id": "custom.filterable",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "JobRunTime"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 246
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Streamname"
+            },
+            "properties": [
+              {
+                "id": "custom.filterable",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "RC"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 24,
+        "x": 0,
+        "y": 14
+      },
+      "id": 2,
+      "interval": "15m",
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 0,
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "JobRunTime"
+          }
+        ]
+      },
+      "pluginVersion": "10.1.5",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki-1"
+          },
+          "editorMode": "code",
+          "expr": "{container=\"glutton\"} |= `$SBU` | json | data_jobName =~ `.*Point` |  data_returnCode = `0`",
+          "legendFormat": "",
+          "queryType": "range",
+          "refId": "Startpoint"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki-1"
+          },
+          "editorMode": "code",
+          "expr": "{container=\"glutton\"} |= \"$SBU\" | json | data_jobName=\"EndPoint\" and data_returnCode=\"0\"",
+          "hide": true,
+          "legendFormat": "",
+          "queryType": "range",
+          "refId": "Endpoint"
+        }
+      ],
+      "title": "Streams status bei Plandatum",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "jsonPaths": [
+              {
+                "path": "mandator"
+              },
+              {
+                "alias": "Jobname",
+                "path": "data.jobName"
+              },
+              {
+                "alias": "Streamname",
+                "path": "data.streamName"
+              },
+              {
+                "alias": "RC",
+                "path": "data.returnCode"
+              },
+              {
+                "alias": "Plandatum",
+                "path": "data.planDate"
+              },
+              {
+                "alias": "JobRunTime",
+                "path": "time"
+              }
+            ],
+            "keepTime": false,
+            "replace": false,
+            "source": "Line"
+          }
+        },
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "mandator",
+                "Jobname",
+                "Streamname",
+                "RC",
+                "Plandatum",
+                "JobRunTime"
+              ]
+            }
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": false
+            },
+            "indexByName": {
+              "JobRunTime": 2,
+              "Jobname": 4,
+              "Plandatum": 1,
+              "RC": 5,
+              "Streamname": 3,
+              "Time": 6,
+              "mandator": 0
+            },
+            "renameByName": {
+              "Plandatum": ""
+            }
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "table"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allValue": ".",
+        "current": {
+          "selected": true,
+          "text": "Schweiz",
+          "value": "Schweiz"
+        },
+        "hide": 0,
+        "includeAll": true,
+        "label": "SBU",
+        "multi": false,
+        "name": "SBU",
+        "options": [
+          {
+            "selected": false,
+            "text": "All",
+            "value": "$__all"
+          },
+          {
+            "selected": true,
+            "text": "Schweiz",
+            "value": "Schweiz"
+          },
+          {
+            "selected": false,
+            "text": "Deutschland",
+            "value": "Deutschland"
+          },
+          {
+            "selected": false,
+            "text": "Belgium",
+            "value": "Belgium"
+          }
+        ],
+        "query": "Schweiz, Deutschland, Belgium",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Streamwork Stream Status",
+  "uid": "eb22cde2-a893-4860-b64d-c68e6f4030ad",
+  "version": 2,
+  "weekStart": ""
+}

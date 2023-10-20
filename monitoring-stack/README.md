@@ -10,9 +10,26 @@ which seams not like an out-of-the-box solution.
 
 ![rum](docs/rum.drawio.svg)
 
-### Setup
+### tl;dr
 
-* 
+[Official docs](https://grafana.com/docs/grafana-cloud/monitor-applications/frontend-observability/?pg=oss-faro&plcmt=hero-btn-3)
+
+* Real user monitoring (RUM) for frontend applications
+* Reports metrics, logs and traces
+* Requires installation of [Grafana Agent](https://grafana.com/docs/agent/latest/)
+
+### Instrumentation
+
+The [gabelstapler-frontend-app](https://github.com/baloise-incubator/gabelstapler-frontend-app) was used to test various
+use cases.
+
+![gabelstapler-frontend-app](docs/gabelstapler-frontend-app.png)
+
+The instrumentation if fairly easy with https://github.com/baloise-incubator/gabelstapler-frontend-app/blob/main/main.js#L24-L44.
+
+You can find some default dashboards in `docs`.
+
+![gabelstapler-frontend-grafana](docs/gabelstapler-frontend-grafana.png)
 
 # Profiling
 ## Pyroscope
@@ -22,7 +39,10 @@ which seams not like an out-of-the-box solution.
 ![profiling](docs/profiling.drawio.svg)
 
 ### tl;dr
-* continuous profiling at scale
+
+[Official docs](https://grafana.com/docs/pyroscope/latest/)
+
+* Continuous profiling at scale
 * Merge of Grafana Phlare and Pyroscope
 * Supports push and pull of profiles
 * Backend

@@ -113,8 +113,8 @@ pyroscope:
           limits:
             memory: 1Gi
           requests:
-            memory: 256Mi
-            cpu: 1
+            memory: 128mi
+            cpu: 100m
       query-frontend:
         kind: Deployment
         replicaCount: 2
@@ -150,8 +150,8 @@ pyroscope:
           limits:
             memory: 16Gi
           requests:
-            memory: 8Gi
-            cpu: 1
+            memory: 128mi
+            cpu: 100m
       store-gateway:
         kind: StatefulSet
         replicaCount: 3
@@ -163,8 +163,8 @@ pyroscope:
           limits:
             memory: 16Gi
           requests:
-            memory: 8Gi
-            cpu: 1
+            memory: 128mi
+            cpu: 100m
     rbac:
       create: false
     config: |

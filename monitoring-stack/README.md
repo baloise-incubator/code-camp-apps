@@ -17,6 +17,9 @@ which seams not like an out-of-the-box solution.
 * Real user monitoring (RUM) for frontend applications
 * Reports metrics, logs and traces
 * Requires installation of [Grafana Agent](https://grafana.com/docs/agent/latest/)
+* A great start for RUM but still in it's early stages, specially regarding integration in other tools like tracing
+  * Delivers the basics as you can see in the print screens but lacks compared to something like Dynatrace
+  * Easy to setup for Baloise but client access security has to be clarified, specially for public clients
 
 ### Instrumentation
 
@@ -44,6 +47,7 @@ You can find some default dashboards in `docs`.
 
 * Continuous profiling at scale
 * Merge of Grafana Phlare and Pyroscope
+  * Recently in 2023 so still movement and bugs
 * Supports push and pull of profiles
 * Backend
   * S3
@@ -52,6 +56,12 @@ You can find some default dashboards in `docs`.
 * Frontend
   * Pyroscope UI
   * Grafana data source (in early stages)
+* A great start for analysing CPU and memory but still early stage
+  * Delivers the basics as you can see in the print screens but lacks compared to something like Dynatrace
+  * Java is still in early stages and it's expected to enhance greatly in the future
+  * Java only supports push
+  * OTel tracing integration still lacking but basic linking would be here
+  * Easy to setup for Baloise
 
 
 [Java Flight Recorder integration](https://github.com/grafana/pyroscope/blob/main/docs/sources/configure-server/about-server-api.md#jfr-format)
@@ -135,6 +145,14 @@ Eine Query über dem Status der einzelnen Jobs über data_returnCode und data_jo
 Loki's streght lies in the flawless integration in the Baloise monitoring stack by adding the capability to correlate metrics and logfile entries as well as integrating in the "Grafana Eco System".
 Loki can be seeen as a valable substitution to Splunk, concerning logfile monitoring of application running on OpenShift.
 A coexsistence of Splunk and Loki is envisionable.
+
+* Loki delivers on it's promises
+  * It's simple to setup
+  * We could replace Splunk
+    * Query language seams mighty enough
+    * Tooling (e.g. forwarder) and integration (e.g. log formats) is stable and has a lot of possibilities
+    * Would be bigger migration from Splunk because of alerts, dashboards. Tooling and setup migration would be rather easy
+  * It's memory and storage efficient
   
 ### Installation:
   

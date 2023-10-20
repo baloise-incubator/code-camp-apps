@@ -51,4 +51,12 @@ keycloak:
         enabled: false
       containerSecurityContext:
         enabled: false
-
+  extraVolumeMounts:
+    volumeMounts:
+      - mountPath: /opt/bitnami/keycloak/data/import
+        name: realmCfMap
+        subPath: code-camp-realm.json
+  extraVolumes:
+    - name: realmCfMap
+      configMap:
+        name: realm-cm

@@ -23,6 +23,10 @@
 [Java Flight Recorder integration](https://github.com/grafana/pyroscope/blob/main/docs/sources/configure-server/about-server-api.md#jfr-format)
 
 
+* alloc_in_new_tlab_objects/bytes (inside TLAB)
+* alloc_outside_tlab_objects/bytes (outside TLAB)
+* cpu
+
 ### Example
 
 ![pyroscope](docs/pyroscope.png)

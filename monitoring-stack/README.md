@@ -1,22 +1,28 @@
 # Tempo
 
 
+# Real user Monitoring
+## Grafana Faro
+### tl;dr
+
 # Profiling
 ## Pyroscope
+### tl;dr
 
+# Logging
 ## Loki
+### tl;dr
+
 
 # Tracing
-
 ## Opentelemetry collector / Jaeger
+### tl;dr
 
-### Setup:
-
+#### Setup:
 ![tracing](docs/tracing.jpg)
 
 
-### Tempo vs otel collector / jaeger
-
+#### Tempo vs otel collector / jaeger
 
 * backend
   * Jaeger
@@ -36,7 +42,6 @@
 
 ### Exemplars
 
-#### tl;dr
 [Exemplars](https://grafana.com/docs/grafana/latest/fundamentals/exemplars/):
 * metric / trace correlation
 * cardinality issues

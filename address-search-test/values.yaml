@@ -13,6 +13,11 @@ address-search-index-test:
   image:
     repository: docker.io/bitnami/solr
     tag: latest
+  serviceAccount:
+    annotations:
+      serviceaccounts.openshift.io/oauth-redirectreference.address-search-index-test: >-
+        {"kind":"OAuthRedirectReference","apiVersion":"v1","reference":{"kind":"Route","name":"address-search-index-test"}}
+    automountServiceAccountToken: true
   additionalContainers:
     - args:
         - -provider=openshift

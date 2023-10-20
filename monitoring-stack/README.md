@@ -104,7 +104,7 @@ process_cpu:cpu:nanoseconds:cpu:nanoseconds{service_name="gabelstrapler-buggs-ap
 
 ## Loki
 
-### Beat-Log
+### Streamworks Beat-Log
 Ziel wäre es gewesen, dass wir eine Matrix oder ein Feld haben, wo den Status von einem Stream gem. Beat-Log ausgiebt.
 Das setzt voraus, dass im Log der Wert "StartPoint" und der "EndPoint" auf completed steht.
 

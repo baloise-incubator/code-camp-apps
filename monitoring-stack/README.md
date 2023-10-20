@@ -1,12 +1,15 @@
-# Tempo
-
-
 # Real user Monitoring
 ## Grafana Faro
+
+![faro](docs/faro-logo.png)
+
 ### tl;dr
 
 # Profiling
 ## Pyroscope
+
+![pyroscope](docs/pyroscope-logo.png)
+
 ### tl;dr
 * backend
   * S3
@@ -37,11 +40,18 @@ process_cpu:cpu:nanoseconds:cpu:nanoseconds{service_name="gabelstrapler-buggs-ap
 
 
 # Logging
+
+![loki](docs/loki-logo.png)
+
 ## Loki
 ### tl;dr
 
 
 # Tracing
+
+![tempo](docs/tempo-logo.png)
+![jaeger](docs/jaeger-logo.png)
+
 ## Opentelemetry collector / Jaeger
 ### tl;dr
 

@@ -45,6 +45,8 @@ postgresql-app:
 keycloak: 
   containerSecurityContext: 
     enabled: false
+  tls:
+    enabled: true
   ingress:
     enabled: true
     hostname: diabetes-app-keycloak.apps.baloise.dev

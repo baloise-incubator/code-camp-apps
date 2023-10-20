@@ -11,6 +11,9 @@
 ![pyroscope](docs/pyroscope-logo.png)
 
 ### tl;dr
+* continuous profiling at scale
+* Merge of Grafana Phlare and Pyroscope
+* supports push and pull of profiles
 * backend
   * S3
   * GCS Object storage
@@ -22,6 +25,10 @@
 
 [Java Flight Recorder integration](https://github.com/grafana/pyroscope/blob/main/docs/sources/configure-server/about-server-api.md#jfr-format)
 
+
+* alloc_in_new_tlab_objects/bytes (inside TLAB)
+* alloc_outside_tlab_objects/bytes (outside TLAB)
+* cpu
 
 ### Example
 

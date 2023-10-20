@@ -13,11 +13,41 @@ address-search-index-test:
   image:
     repository: docker.io/bitnami/solr
     tag: latest
+  additionalContainers:
+    - args:
+        - -provider=openshift
+        - -https-address=
+        - -http-address=8090
+        - -email-domain=*
+        - -upstream=http://localhost:8983
+        - -openshift-service-account=address-search-index-test
+        - '-openshift-delegate-urls={"/": {"resource": "services", "verb": "get", "name": "address-search-index-test", "namespace": "address-search-test"}}'
+        - -client-secret-file=/var/run/secrets/kubernetes.io/serviceaccount/token
+        - -cookie-secret-file=/etc/proxy/secrets/session_secret
+      image: registry.redhat.io/openshift4/ose-oauth-proxy:v4.11.0
+      name: solr-proxy
+      ports:
+        - containerPort: 8090
+          name: solr-extern
+      resources:
+        requests:
+          cpu: 1m
+          memory: 20Mi
+        limits:
+          memory: 64Mi
+          cpu: 250m
+      volumeMounts:
+        - mountPath: /etc/proxy/secrets
+          name: secret-cookie-session-secret
   network:
     http:
       servicePort: 8983
       ingress:
         host: address-search-index-test.apps.baloise.dev
+  volumes:
+    - name: secret-cookie-session-secret
+      secret:
+        name: solr-extern-secret
   env:
     - name: SOLR_CORES
       value: "addresses_core"

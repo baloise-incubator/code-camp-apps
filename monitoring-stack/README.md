@@ -11,6 +11,9 @@
 ![pyroscope](docs/pyroscope-logo.png)
 
 ### tl;dr
+* continuous profiling at scale
+* Merge of Grafana Phlare and Pyroscope
+* supports push and pull of profiles
 * backend
   * S3
   * GCS Object storage

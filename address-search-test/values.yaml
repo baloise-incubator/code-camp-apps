@@ -13,11 +13,16 @@ address-search-index-test:
   image:
     repository: docker.io/bitnami/solr
     tag: latest
+  serviceAccount:
+    annotations:
+      serviceaccounts.openshift.io/oauth-redirectreference.address-search-index-test: >-
+        {"kind":"OAuthRedirectReference","apiVersion":"v1","reference":{"kind":"Route","name":"address-search-index-test-oauth-proxy"}}
+    automountServiceAccountToken: true
   additionalContainers:
     - args:
         - -provider=openshift
         - -https-address=
-        - -http-address=8090
+        - -http-address=:9999
         - -email-domain=*
         - -upstream=http://localhost:8983
         - -openshift-service-account=address-search-index-test
@@ -27,7 +32,7 @@ address-search-index-test:
       image: registry.redhat.io/openshift4/ose-oauth-proxy:v4.11.0
       name: solr-proxy
       ports:
-        - containerPort: 8090
+        - containerPort: 9999
           name: solr-extern
       resources:
         requests:
@@ -42,6 +47,8 @@ address-search-index-test:
   network:
     http:
       servicePort: 8983
+    oauth-proxy:
+      servicePort: 9999
       ingress:
         host: address-search-index-test.apps.baloise.dev
   volumes:

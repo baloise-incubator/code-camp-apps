@@ -104,8 +104,9 @@ process_cpu:cpu:nanoseconds:cpu:nanoseconds{service_name="gabelstrapler-buggs-ap
 
 ## Loki
 
-### Beat-Log
-Ziel wäre es gewesen, dass wir eine Matrix oder ein Feld haben, wo den Status von einem Stream gem. Beat-Log ausgiebt.
+### Die (Heart-)Beat-Logs von Streamworks mittels Loki auf Grafana darstellen
+
+Ziel ist es, dass wir eine Matrix oder ein Feld haben, wo den Status von einem Stream gem. Beat-Log ausgiebt.
 Das setzt voraus, dass im Log der Wert "StartPoint" und der "EndPoint" auf completed steht.
 
 StartPoint	->	Nicht vorhanden		= Stream nicht angelaufen (Grau)

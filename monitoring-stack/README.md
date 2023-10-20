@@ -109,9 +109,12 @@ Ziel wäre es gewesen, dass wir eine Matrix oder ein Feld haben, wo den Status v
 Das setzt voraus, dass im Log der Wert "StartPoint" und der "EndPoint" auf completed steht.
 
 StartPoint	->	Nicht vorhanden		= Stream nicht angelaufen (Grau)
-StartPoint	->	Completed			= Stream Running (Gelb)
+
+StartPoint	->	Completed		= Stream Running (Gelb)
+
 EndPoint	->	Nicht vorhanden		= Stream Running (Gelb)
-EndPoint	->	Completed			= Stream Completed (Grün)
+
+EndPoint	->	Completed		= Stream Completed (Grün)
 
 Beim Auslesen der Beats Logdaten ist uns aufgefallen, dass das komplette Beat-Log unhandlich ist.
 Es gibt Zeilen, welche alte Laufdaten bereinigen oder logische Resourcen zuweisen oder entfernen.

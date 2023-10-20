@@ -113,7 +113,7 @@ pyroscope:
           limits:
             memory: 1Gi
           requests:
-            memory: 128mi
+            memory: 128Mi
             cpu: 100m
       query-frontend:
         kind: Deployment
@@ -150,7 +150,7 @@ pyroscope:
           limits:
             memory: 16Gi
           requests:
-            memory: 128mi
+            memory: 128Mi
             cpu: 100m
       store-gateway:
         kind: StatefulSet
@@ -163,7 +163,7 @@ pyroscope:
           limits:
             memory: 16Gi
           requests:
-            memory: 128mi
+            memory: 128Mi
             cpu: 100m
     rbac:
       create: false
@@ -258,6 +258,11 @@ opentelemetry-collector:
 #Promtail
 promtail:
   config:
+    snippets:
+      pipelineStages:
+        - drop:
+            source: "namespace"
+            expression: "(monitoring-stack|gabelstapler-test)"
     clients:
       - url: http://monitoring-stack-loki-distributed-distributor.monitoring-stack.svc:3100/loki/api/v1/push
 

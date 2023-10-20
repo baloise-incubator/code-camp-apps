@@ -1,14 +1,25 @@
 # Real user Monitoring
+
+There aren't much OSS solutions available on the marked.  
+One is [Boomerang](https://calendar.perfplanet.com/2018/open-source-backend-rum-tool-wait-what/)
+which seams not like an out-of-the-box solution.
+
 ## Grafana Faro
 
 ![faro](docs/faro-logo.png)
 
-### tl;dr
+![rum](docs/rum.drawio.svg)
+
+### Setup
+
+* 
 
 # Profiling
 ## Pyroscope
 
 ![pyroscope](docs/pyroscope-logo.png)
+
+![profiling](docs/profiling.drawio.svg)
 
 ### tl;dr
 * continuous profiling at scale
@@ -50,6 +61,8 @@ process_cpu:cpu:nanoseconds:cpu:nanoseconds{service_name="gabelstrapler-buggs-ap
 
 ![loki](docs/loki-logo.png)
 
+![loki](docs/loki.drawio.svg)
+
 ## Loki
 ### tl;dr
 
@@ -63,7 +76,7 @@ process_cpu:cpu:nanoseconds:cpu:nanoseconds{service_name="gabelstrapler-buggs-ap
 ### tl;dr
 
 #### Setup:
-![tracing](docs/tracing.jpg)
+![tracing](docs/tracing.drawio.svg)
 
 
 #### Tempo vs otel collector / jaeger

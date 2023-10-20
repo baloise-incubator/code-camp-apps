@@ -24,12 +24,12 @@ which seams not like an out-of-the-box solution.
 ### tl;dr
 * continuous profiling at scale
 * Merge of Grafana Phlare and Pyroscope
-* supports push and pull of profiles
-* backend
+* Supports push and pull of profiles
+* Backend
   * S3
   * GCS Object storage
   * Azure Blob Storage
-* frontend
+* Frontend
   * Pyroscope UI
   * Grafana data source (in early stages)
 
@@ -40,6 +40,25 @@ which seams not like an out-of-the-box solution.
 * alloc_in_new_tlab_objects/bytes (inside TLAB)
 * alloc_outside_tlab_objects/bytes (outside TLAB)
 * cpu
+
+### Instrumenting
+
+The [gabelstapler-buggyapp](https://github.com/baloise-incubator/gabelstapler-buggyapp), was used to test various use cases.
+The app exposes the following endpoints:
+ * /example => normal fast request
+ * /example/long => request with 15s sleep
+ * /example/cpu => causing CPU spike for 15s
+ * /example/memory => causing memory spike, > 2 GB
+
+There are to [instrumentation](https://grafana.com/docs/pyroscope/latest/configure-client/language-sdks/java/) approaches:
+
+* Auto
+  * https://github.com/baloise-incubator/gabelstapler-buggyapp/blob/main/Dockerfile#L4-L5
+* Manual
+  * https://github.com/baloise-incubator/gabelstapler-buggyapp/blob/main/src/main/java/ch/baloise/observability/gabelstaplerbuggyapp/OtlpConfiguration.java
+
+Additionally, the otel exporter has been enhanced with profiling information but this doesn't work yet.
+https://github.com/baloise-incubator/gabelstapler-buggyapp/blob/main/src/main/java/ch/baloise/observability/gabelstaplerbuggyapp/OtlpConfiguration.java#L60-L67
 
 ### Example
 

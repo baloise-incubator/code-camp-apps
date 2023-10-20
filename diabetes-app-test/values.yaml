@@ -48,6 +48,8 @@ keycloak:
   ingress:
     enabled: true
     hostname: diabetes-app-keycloak.apps.baloise.dev
+    annotations:
+      route.openshift.io/termination: "edge"
   podSecurityContext:
     enabled: false
   postgresql:

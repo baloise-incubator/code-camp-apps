@@ -56,9 +56,9 @@ keycloak:
     auth:
       username: "bn_keycloak"
       password: "password"
-  extraEnvVars:
-    - name: KEYCLOAK_EXTRA_ARGS
-      value: "-Dkeycloak.import=/opt/bitnami/keycloak/data/import//realm.json"
+ # extraEnvVars:
+ #   - name: KEYCLOAK_EXTRA_ARGS
+ #     value: "-Dkeycloak.import=/opt/bitnami/keycloak/data/import//realm.json"
   extraVolumeMounts:
     - name: config
       mountPath: "/opt/bitnami/keycloak/data/import/"

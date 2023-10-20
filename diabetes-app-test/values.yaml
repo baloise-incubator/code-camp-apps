@@ -46,8 +46,8 @@ keycloak:
   containerSecurityContext: 
     enabled: false
   ingress:
-    host: diabetes-app-test.apps.baloise.dev
-    path: /keycloak
+    enabled: true
+    hostname: diabetes-app-keycloak.apps.baloise.dev
   podSecurityContext:
     enabled: false
   postgresql:

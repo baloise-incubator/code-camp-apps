@@ -196,3 +196,6 @@ To enable gRPC you have to do the following [instruction](https://github.com/bal
     * Stat panels (single value with sparkline).
     * Markdown panels (as an alternative to the Text panel)
 
+# Flipchart drawing
+
+![flipchart](docs/flipchart.jpeg)

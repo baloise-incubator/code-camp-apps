@@ -17,11 +17,6 @@
 
 ### Tempo vs otel collector / jaeger
 
-![tracing](docs/tracing2.png)
-
----
-![tracing](docs/tracing3.png)
-
 
 * backend
   * Jaeger
@@ -41,6 +36,7 @@
 
 ### Exemplars
 
+#### tl;dr
 [Exemplars](https://grafana.com/docs/grafana/latest/fundamentals/exemplars/):
 * metric / trace correlation
 * cardinality issues
@@ -50,6 +46,24 @@
 * LTS
   * exemplars are stored in-memory
   * increase buffe size can increase retention - will be short-lived
+
+#### example
+
+* Enable Exemplars on Prometheus side
+```
+extraArgs:
+  enable-feature: exemplar-storage
+```
+* configure tempo/jaeger datasource
+* Instrument app with prometheus client library
+* Select request metrics
+
+```promql
+histogram_quantile(0.95, sum(rate(http_server_requests_seconds_bucket[5m]))by (le))
+```
+
+![tracing](docs/tracing2.png)
+
 
 # Alternative to Grafana dashboards
 

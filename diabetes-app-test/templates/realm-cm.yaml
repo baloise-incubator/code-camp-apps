@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: realm-cm
+  name: keycloak-realm
 data:
-  code-camp-realm.json: |
+  realm.json: |
     {
       "id": "1eff2c94-bd9f-4664-bd52-44ef130d8ef4",
       "realm": "baloise-code-camp",

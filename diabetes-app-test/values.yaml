@@ -8,6 +8,7 @@ diabetes-frontend:
       servicePort: 8080
       ingress:
         host: diabetes-app-test.apps.baloise.dev
+
 diabetes-backend:
   image:
     repository: ghcr.io/baloise-incubator/cc2023_diabetes_springboot
@@ -40,6 +41,7 @@ postgresql-app:
       enabled: false
     containerSecurityContext:
       enabled: false
+
 keycloak: 
   containerSecurityContext: 
     enabled: false
@@ -51,12 +53,17 @@ keycloak:
         enabled: false
       containerSecurityContext:
         enabled: false
+  extraEnvVars:
+    - name: KEYCLOAK_EXTRA_ARGS
+      value: "-Dkeycloak.import=/config/realm.json"
   extraVolumeMounts:
-    volumeMounts:
-      - mountPath: /opt/bitnami/keycloak/data/import
-        name: realmCfMap
-        subPath: code-camp-realm.json
+    - name: config
+      mountPath: "/config"
+      readOnly: true
   extraVolumes:
-    - name: realmCfMap
+    - name: config
       configMap:
-        name: realm-cm
+        name: keycloak-realm
+        items:
+          - key: "realm.json"
+            path: "realm.json"

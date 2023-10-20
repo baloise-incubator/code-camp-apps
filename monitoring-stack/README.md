@@ -165,6 +165,15 @@ histogram_quantile(0.95, sum(rate(http_server_requests_seconds_bucket[5m]))by (l
 
 ![tracing](docs/tracing2.png)
 
+### Instrumenting
+
+The [gablestapler-observability-app](https://github.com/baloise-incubator/gablestapler-observability-app) was used to test
+various use cases.
+
+The app is deployed multiple times and executes a call sequence.
+
+To enable gRPC you have to do the following [instruction](https://github.com/baloise-incubator/gablestapler-observability-app/blob/main/src/main/java/ch/baloise/observability/gabelstaplerobservabilityapp/OtlpConfiguration.java).
+
 
 # Alternative to Grafana dashboards
 

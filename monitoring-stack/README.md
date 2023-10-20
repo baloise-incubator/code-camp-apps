@@ -108,19 +108,22 @@ Loki's streght lies in the flawless integration in the Baloise monitoring stack 
 Loki can be seeen as a valable substitution to Splunk, concerning logfile monitoring of application running on OpenShift.
 A coexsistence of Splunk and Loki is envisionable.
   
-
 * Installation:
+  
   * using https://github.com/grafana/helm-charts/tree/main/charts/loki-distributed
   * set podSecurtityContext & containersecurtityContex on all "components" (loki, gateway,ingester,querier)
     for ingester & querier  "fsGroup: 1001050000" would be enough ( migth ommit extraVolumes then) --> could not be tested due to dependencies
   * used Minio ( https://grafana.com/docs/loki/latest/storage/) as storage.
 
 * Findings
+  
   * Input/Output to storage seems to be very effective/efficient concerning compressing and reading. 
   * multiple and simple ways to push data
   
 ## Promtail
+
 * Installation:
+
   * using https://github.com/grafana/helm-charts/tree/main/charts/promtail.
   * create Service Account, ClusterRole & ClusterRoleBinding manually ( set promtail.rbac.create: false ).
   * create Cluster SecurityContextConstraints
@@ -129,6 +132,7 @@ A coexsistence of Splunk and Loki is envisionable.
   * set podSecurtityContext & containersecurtityContex
 
 * Findings
+
   * Tenancy capability https://itnext.io/multi-tenancy-with-loki-promtail-and-grafana-demystified-e93a2a314473
       * implies the use of a dedicated label (e.g.: tenant_id) on promtail side usomg pipelines. Actually using a label on all "senders" to Loki should be best practice.
 	  * for grafana there will be a Loki-datasource per tenant_id

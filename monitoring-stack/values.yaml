@@ -258,6 +258,11 @@ opentelemetry-collector:
 #Promtail
 promtail:
   config:
+    snippets:
+      pipelineStages:
+        - drop:
+            source: "namespace"
+            expression: "(monitoring-stack|gabelstapler-test)"
     clients:
       - url: http://monitoring-stack-loki-distributed-distributor.monitoring-stack.svc:3100/loki/api/v1/push
 

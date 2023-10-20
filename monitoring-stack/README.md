@@ -10,9 +10,26 @@ which seams not like an out-of-the-box solution.
 
 ![rum](docs/rum.drawio.svg)
 
-### Setup
+### tl;dr
 
-* 
+[Official docs](https://grafana.com/docs/grafana-cloud/monitor-applications/frontend-observability/?pg=oss-faro&plcmt=hero-btn-3)
+
+* Real user monitoring (RUM) for frontend applications
+* Reports metrics, logs and traces
+* Requires installation of [Grafana Agent](https://grafana.com/docs/agent/latest/)
+
+### Instrumentation
+
+The [gabelstapler-frontend-app](https://github.com/baloise-incubator/gabelstapler-frontend-app) was used to test various
+use cases.
+
+![gabelstapler-frontend-app](docs/gabelstapler-frontend-app.png)
+
+The instrumentation if fairly easy with https://github.com/baloise-incubator/gabelstapler-frontend-app/blob/main/main.js#L24-L44.
+
+You can find some default dashboards in `docs`.
+
+![gabelstapler-frontend-grafana](docs/gabelstapler-frontend-grafana.png)
 
 # Profiling
 ## Pyroscope
@@ -22,14 +39,17 @@ which seams not like an out-of-the-box solution.
 ![profiling](docs/profiling.drawio.svg)
 
 ### tl;dr
-* continuous profiling at scale
+
+[Official docs](https://grafana.com/docs/pyroscope/latest/)
+
+* Continuous profiling at scale
 * Merge of Grafana Phlare and Pyroscope
-* supports push and pull of profiles
-* backend
+* Supports push and pull of profiles
+* Backend
   * S3
   * GCS Object storage
   * Azure Blob Storage
-* frontend
+* Frontend
   * Pyroscope UI
   * Grafana data source (in early stages)
 
@@ -40,6 +60,25 @@ which seams not like an out-of-the-box solution.
 * alloc_in_new_tlab_objects/bytes (inside TLAB)
 * alloc_outside_tlab_objects/bytes (outside TLAB)
 * cpu
+
+### Instrumenting
+
+The [gabelstapler-buggyapp](https://github.com/baloise-incubator/gabelstapler-buggyapp), was used to test various use cases.
+The app exposes the following endpoints:
+ * /example => normal fast request
+ * /example/long => request with 15s sleep
+ * /example/cpu => causing CPU spike for 15s
+ * /example/memory => causing memory spike, > 2 GB
+
+There are to [instrumentation](https://grafana.com/docs/pyroscope/latest/configure-client/language-sdks/java/) approaches:
+
+* Auto
+  * https://github.com/baloise-incubator/gabelstapler-buggyapp/blob/main/Dockerfile#L4-L5
+* Manual
+  * https://github.com/baloise-incubator/gabelstapler-buggyapp/blob/main/src/main/java/ch/baloise/observability/gabelstaplerbuggyapp/OtlpConfiguration.java
+
+Additionally, the otel exporter has been enhanced with profiling information but this doesn't work yet.
+https://github.com/baloise-incubator/gabelstapler-buggyapp/blob/main/src/main/java/ch/baloise/observability/gabelstaplerbuggyapp/OtlpConfiguration.java#L60-L67
 
 ### Example
 
@@ -65,6 +104,46 @@ process_cpu:cpu:nanoseconds:cpu:nanoseconds{service_name="gabelstrapler-buggs-ap
 
 ## Loki
 ### tl;dr
+Loki's streght lies in the flawless integration in the Baloise monitoring stack by adding the capability to correlate metrics and logfile entries as well as integrating in the "Grafana Eco System".
+Loki can be seeen as a valable substitution to Splunk, concerning logfile monitoring of application running on OpenShift.
+A coexsistence of Splunk and Loki is envisionable.
+  
+* Installation:
+  
+  * using https://github.com/grafana/helm-charts/tree/main/charts/loki-distributed
+  * set podSecurtityContext & containersecurtityContex on all "components" (loki, gateway,ingester,querier)
+    for ingester & querier  "fsGroup: 1001050000" would be enough ( migth ommit extraVolumes then) --> could not be tested due to dependencies
+  * used Minio ( https://grafana.com/docs/loki/latest/storage/) as storage.
+
+* Findings
+  
+  * Input/Output to storage seems to be very effective/efficient concerning compressing and reading. 
+  * multiple and simple ways to push data
+  
+## Promtail
+
+* Installation:
+
+  * using https://github.com/grafana/helm-charts/tree/main/charts/promtail.
+  * create Service Account, ClusterRole & ClusterRoleBinding manually ( set promtail.rbac.create: false ).
+  * create Cluster SecurityContextConstraints
+    *  include "configMap" in volumes
+    *  set priority > 0 to ensure the definitions to be used by promtail
+  * set podSecurtityContext & containersecurtityContex
+
+* Findings
+
+  * Tenancy capability https://itnext.io/multi-tenancy-with-loki-promtail-and-grafana-demystified-e93a2a314473
+      * implies the use of a dedicated label (e.g.: tenant_id) on promtail side usomg pipelines. Actually using a label on all "senders" to Loki should be best practice.
+	  * for grafana there will be a Loki-datasource per tenant_id
+	  
+  * Data can be viewed by using LogQL (see https://grafana.com/docs/loki/latest/query/log_queries/) which is very close /similar to PromQL and shares a lot of syntax and functions.
+    For efficency, setting usefull labels is key ( tenantid, cluster, source, app or "Busines service", environment ...)
+	Parsing of the logdata can be challaging but LogQL offers a few good parsing functioons
+
+  * Integration with Grafana is flawless	
+  
+  * Uses scrape configs to get data in combination with ServiceDiscovery --> simple setup similar to prometheus servicediscovery (get definitons from Kubernetes , enhance with MetaData ... )
 
 
 # Tracing
@@ -126,6 +205,15 @@ histogram_quantile(0.95, sum(rate(http_server_requests_seconds_bucket[5m]))by (l
 
 ![tracing](docs/tracing2.png)
 
+### Instrumenting
+
+The [gablestapler-observability-app](https://github.com/baloise-incubator/gablestapler-observability-app) was used to test
+various use cases.
+
+The app is deployed multiple times and executes a call sequence.
+
+To enable gRPC you have to do the following [instruction](https://github.com/baloise-incubator/gablestapler-observability-app/blob/main/src/main/java/ch/baloise/observability/gabelstaplerobservabilityapp/OtlpConfiguration.java).
+
 
 # Alternative to Grafana dashboards
 
@@ -148,3 +236,6 @@ histogram_quantile(0.95, sum(rate(http_server_requests_seconds_bucket[5m]))by (l
     * Stat panels (single value with sparkline).
     * Markdown panels (as an alternative to the Text panel)
 
+# Flipchart drawing
+
+![flipchart](docs/flipchart.jpeg)

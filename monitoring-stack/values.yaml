@@ -48,8 +48,8 @@ loki-distributed:
         s3forcepathstyle: true
         endpoint: "minio:9000"
         bucketnames: "chunks"
-        access_key_id: "Z6pMmr58iXDAKVqelHFe"
-        secret_access_key: "uoqRcKpfJX0r2GMbiSrqtwJtNsLifeMhqcCJrEcu"
+        access_key_id: "fixmenow"
+        secret_access_key: "fixmenow"
         insecure: true
       boltdb_shipper:
         active_index_directory: /data/boltdb-shipper-active
@@ -173,8 +173,8 @@ pyroscope:
         s3:
           endpoint: "minio:9000"
           bucket_name: "grafana-pyroscope-data"
-          access_key_id: "Z6pMmr58iXDAKVqelHFe"
-          secret_access_key: "uoqRcKpfJX0r2GMbiSrqtwJtNsLifeMhqcCJrEcu"
+          access_key_id: "fixmenow"
+          secret_access_key: "fixmenow"
           insecure: true
   agent:
     enabled: false

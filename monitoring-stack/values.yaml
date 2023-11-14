@@ -25,12 +25,12 @@ loki-distributed:
     dnsNamespace: openshift-dns
   loki:
     podSecurityContext:
-      fsGroup: 1001050000
-      runAsGroup: 1001050000
-      runAsUser: 1001050000
+      fsGroup: 1000900000
+      runAsGroup: 1000900000
+      runAsUser: 1000900000
     containerSecurityContext:
-      runAsUser: 1001050000
-      runAsGroup: 1001050000
+      runAsUser: 1000900000
+      runAsGroup: 1000900000
     schemaConfig:
       configs:
       - from: "2020-07-01"
@@ -58,12 +58,12 @@ loki-distributed:
         shared_store: s3
   gateway:
     podSecurityContext:
-      fsGroup: 1001050000
-      runAsGroup: 1001050000
-      runAsUser: 1001050000
+      fsGroup: 1000900000
+      runAsGroup: 1000900000
+      runAsUser: 1000900000
     containerSecurityContext:
-      runAsUser: 1001050000
-      runAsGroup: 1001050000
+      runAsUser: 1000900000
+      runAsGroup: 1000900000
   ingester:
     extraVolumes:
     - name: bolt-db
@@ -92,19 +92,19 @@ tempo-distributed:
       enabled: false
   tempo:
     podSecurityContext:
-      fsGroup: 1001050000
+      fsGroup: 1000900000
     securityContext:
-      runAsUser: 1001050000
-      runAsGroup: 1001050000
+      runAsUser: 1000900000
+      runAsGroup: 1000900000
 
 # Pyroscope micro-services
 pyroscope:
   pyroscope:
     podSecurityContext:
-      fsGroup: 1001050000
+      fsGroup: 1000900000
     securityContext:
-      runAsUser: 1001050000
-      runAsGroup: 1001050000
+      runAsUser: 1000900000
+      runAsGroup: 1000900000
     components:
       querier:
         kind: Deployment
@@ -197,10 +197,10 @@ jaeger:
     sysctlInitContainer:
       enabled: false
     securityContext:
-      runAsUser: 1001050000
+      runAsUser: 1000900000
     podSecurityContext:
-      fsGroup: 1001050000
-      runAsUser: 1001050000
+      fsGroup: 1000900000
+      runAsUser: 1000900000
   hotrod:
     enabled: true
     extraArgs:
@@ -386,10 +386,10 @@ oncall:
   ui:
     enabled: true
   securityContext:
-    runAsUser: 1001050000
+    runAsUser: 1000900000
   podSecurityContext:
-    fsGroup: 1001050000
-    runAsUser: 1001050000
+    fsGroup: 1000900000
+    runAsUser: 1000900000
 postgresql:
   auth:
     username: "oncall"

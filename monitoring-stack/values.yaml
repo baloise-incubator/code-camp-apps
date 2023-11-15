@@ -369,20 +369,8 @@ oncall:
     password: "oncall-password"
   rabbitmq:
     enabled: false
-  externalRabbitmq:
-    host: monitoring-stack-rabbitmq
-    port: 5672
-    user: oncall
-    password: "oncall-password"
-    vhost: "/"
   redis:
     enabled: false
-  externalRedis:
-    host: monitoring-stack-redis-master
-    port: 6379
-    password: oncall-password
-    existingSecret: monitoring-stack-redis
-    passwordKey: redis-password
   ui:
     enabled: true
   securityContext:

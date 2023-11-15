@@ -369,6 +369,8 @@ oncall:
     password: "oncall-password"
   rabbitmq:
     enabled: false
+  broker:
+    type: redis
   redis:
     enabled: false
   externalRedis:

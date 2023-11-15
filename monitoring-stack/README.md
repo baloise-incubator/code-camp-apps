@@ -294,3 +294,14 @@ histogram_quantile(0.95, sum(rate(http_server_requests_seconds_bucket[5m]))by (l
 # Flipchart drawing
 
 ![flipchart](docs/flipchart.jpeg)
+
+# Deploy monitoring-stack (hacky manual steps)
+
+* Deploy Prometheus operator in namespace using OLM
+* Generate prometheus-htpasswd secret
+* Generate thanos-querier-htpasswd secret
+* Generate cookie-session-secret secret
+* Update uid/gid to match newly created namespace or create SCCs
+* Deploy resources in hack/ directory
+* Create MinIO buckets `chunks` and `grafana-pyroscope-data`
+* Create MinIO service account and allow access to buckets

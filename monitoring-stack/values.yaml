@@ -353,7 +353,8 @@ oncall:
   grafana:
     enabled: false
   externalGrafana:
-    url: http://grafana-direct-nginx:8080
+    url: http://grafana:9093
+    #url: http://grafana-direct-nginx:8080
   database:
     # can be either mysql or postgresql
     type: postgresql

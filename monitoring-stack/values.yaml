@@ -372,7 +372,10 @@ oncall:
   redis:
     enabled: false
   externalRedis:
-    host: "dummy"
+    host:
+    password:
+    existingSecret: ""
+    passwordKey: password
   ui:
     enabled: true
   securityContext:

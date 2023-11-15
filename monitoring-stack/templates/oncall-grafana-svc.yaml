@@ -20,6 +20,31 @@ metadata:
   name: grafana-direct
 apiVersion: v1
 data:
+  nginx.conf: |-
+    worker_processes  1;
+    
+    pid /tmp/nginx.pid;
+    
+    events {
+      worker_connections  1024;
+    }
+    
+    http {
+      client_body_temp_path /tmp/client_temp;
+      proxy_temp_path       /tmp/proxy_temp_path;
+      fastcgi_temp_path     /tmp/fastcgi_temp;
+      uwsgi_temp_path       /tmp/uwsgi_temp;
+      scgi_temp_path        /tmp/scgi_temp;
+    
+      server {
+        listen 8080;
+    
+        location / {
+          proxy_set_header  X-Forwarded-User dweber019;
+          proxy_pass        http://grafana-direct:3000;
+        }
+      }
+    }
   default.conf: |
     # /etc/nginx/conf.d/default.conf
     # default config for single-page apps
@@ -55,18 +80,27 @@ spec:
     spec:
       containers:
         - name:  grafana-direct
-          image: nginx:1.19-alpine
+          image: nginx:1.23-alpine
           ports:
             - name:  http
               containerPort: 8080
               protocol: TCP
           volumeMounts:
-            - name: nginx-conf
-              mountPath: /etc/nginx/conf.d
+#            - name: nginx-conf
+#              mountPath: /etc/nginx/conf.d
+            - mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+              name: nginx-conf-volume
       volumes:
         - name: nginx-conf
           configMap:
             name: grafana-direct
+        - configMap:
+            items:
+              - key: nginx.conf
+                path: nginx.conf
+            name: grafana-direct
+          name: nginx-conf-volume
 ---
 apiVersion: v1
 kind: Service

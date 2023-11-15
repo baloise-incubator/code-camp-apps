@@ -353,7 +353,7 @@ oncall:
   grafana:
     enabled: false
   externalGrafana:
-    url: http://grafana:9093
+    url: http://grafana-direct:3000
   database:
     # can be either mysql or postgresql
     type: postgresql

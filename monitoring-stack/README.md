@@ -300,7 +300,10 @@ histogram_quantile(0.95, sum(rate(http_server_requests_seconds_bucket[5m]))by (l
 * Deploy Prometheus operator in namespace using OLM
 * Generate prometheus-htpasswd secret
 * Generate thanos-querier-htpasswd secret
+* Generate thanos-ruler-htpasswd secret
 * Generate cookie-session-secret secret
+* Create external-exporters secret with key external-exporters.yaml
+* Create node-exporter-generic secret
 * Update uid/gid to match newly created namespace or create SCCs
 * Deploy resources in hack/ directory
 * Create MinIO buckets `chunks` and `grafana-pyroscope-data`

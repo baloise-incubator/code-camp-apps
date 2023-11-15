@@ -35,9 +35,15 @@ data:
       fastcgi_temp_path     /tmp/fastcgi_temp;
       uwsgi_temp_path       /tmp/uwsgi_temp;
       scgi_temp_path        /tmp/scgi_temp;
+      error_log /dev/stdout "info";
+      log_format custom '$remote_addr - $remote_user [$time_local] '
+                           '"$request" $status $body_bytes_sent '
+                           '"$http_referer" "$http_user_agent" "$gzip_ratio"';
     
       server {
         listen 8080;
+    
+        access_log /dev/stdout custom;
     
         location / {
           proxy_set_header  X-Forwarded-User dweber019;

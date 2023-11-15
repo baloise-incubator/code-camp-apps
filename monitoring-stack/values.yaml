@@ -372,10 +372,11 @@ oncall:
   redis:
     enabled: false
   externalRedis:
-    host:
-    password:
-    existingSecret: ""
-    passwordKey: password
+    host: monitoring-stack-redis-master
+    port: 6379
+    password: oncall-password
+    existingSecret: monitoring-stack-redis
+    passwordKey: redis-password
   ui:
     enabled: true
   securityContext:
@@ -391,6 +392,28 @@ postgresql:
   primary:
     persistence:
       enabled: true
+    podSecurityContext:
+      enabled: false
+      fsGroup: ""
+    containerSecurityContext:
+      enabled: false
+      runAsUser: "auto"
+  volumePermissions:
+    enabled: false
+    containerSecurityContext:
+      runAsUser: auto
+      runAsGroup: ""
+redis:
+  auth:
+    password: "oncall-password"
+  master:
+    podSecurityContext:
+      enabled: false
+      fsGroup: ""
+    containerSecurityContext:
+      enabled: false
+      runAsUser: "auto"
+  replica:
     podSecurityContext:
       enabled: false
       fsGroup: ""

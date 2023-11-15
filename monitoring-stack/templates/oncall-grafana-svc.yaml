@@ -1,0 +1,16 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: grafana-direct
+  labels:
+    argocd.argoproj.io/instance: monitoring-stack
+spec:
+  ports:
+    - name: grafana-http
+      protocol: TCP
+      port: 3000
+      targetPort: grafana-http
+  selector:
+    app.kubernetes.io/component: grafana
+    app.kubernetes.io/name: monitoring-stack
+    app.kubernetes.io/part-of: bdop

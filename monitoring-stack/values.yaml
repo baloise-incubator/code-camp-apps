@@ -353,7 +353,7 @@ oncall:
   grafana:
     enabled: false
   externalGrafana:
-    url: http://grafana-direct:3000
+    url: http://grafana-direct-nginx:8080
   database:
     # can be either mysql or postgresql
     type: postgresql
@@ -379,8 +379,6 @@ oncall:
     password: oncall-password
     existingSecret: monitoring-stack-redis
     passwordKey: redis-password
-  ui:
-    enabled: true
   securityContext:
     runAsUser: 1000900000
   podSecurityContext:

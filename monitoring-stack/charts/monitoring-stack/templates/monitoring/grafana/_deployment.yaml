@@ -116,6 +116,10 @@ spec:
               value: "false"
             - name: GF_FEATURE_TOGGLES_ENABLE
               value: "flameGraph"
+            - name: GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS
+              value: "grafana-oncall-app"
+            - name: GF_INSTALL_PLUGINS
+              value: "grafana-oncall-app"
           image:  {{ $top.Values.grafana.images.grafana }}
           imagePullPolicy: IfNotPresent
           livenessProbe:

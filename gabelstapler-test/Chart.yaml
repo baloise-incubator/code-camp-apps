@@ -2,36 +2,36 @@ apiVersion: v2
 name: gabelstapler-test
 version: 1.0.0
 dependencies:
-  - name:  generic-chart
-    version: 2.3.0
-    repository: https://baloise-incubator.github.io/generic-chart/
-    alias: gabelstapler-xk6-tempo
-  - name:  generic-chart
-    version: 2.3.0
-    repository: https://baloise-incubator.github.io/generic-chart/
-    alias: gabelstapler-xk6-jaeger
-  - name:  generic-chart
-    version: 2.3.0
-    repository: https://baloise-incubator.github.io/generic-chart/
-    alias: gabelstapler-buggyapp
+#  - name:  generic-chart
+#    version: 2.3.0
+#    repository: https://baloise-incubator.github.io/generic-chart/
+#    alias: gabelstapler-xk6-tempo
+#  - name:  generic-chart
+#    version: 2.3.0
+#    repository: https://baloise-incubator.github.io/generic-chart/
+#    alias: gabelstapler-xk6-jaeger
+#  - name:  generic-chart
+#    version: 2.3.0
+#    repository: https://baloise-incubator.github.io/generic-chart/
+#    alias: gabelstapler-buggyapp
   - name:  generic-chart
     version: 2.3.0
     repository: https://baloise-incubator.github.io/generic-chart/
     alias: glutton
 
-  - name: generic-chart
-    version: 2.3.0
-    repository: https://baloise-incubator.github.io/generic-chart/
-    alias: gabelstapler-observability-app-1
-  - name: generic-chart
-    version: 2.3.0
-    repository: https://baloise-incubator.github.io/generic-chart/
-    alias: gabelstapler-observability-app-2
-  - name: generic-chart
-    version: 2.3.0
-    repository: https://baloise-incubator.github.io/generic-chart/
-    alias: gabelstapler-observability-app-3
-  - name: generic-chart
-    version: 2.3.0
-    repository: https://baloise-incubator.github.io/generic-chart/
-    alias: gabelstapler-frontend-app
+#  - name: generic-chart
+#    version: 2.3.0
+#    repository: https://baloise-incubator.github.io/generic-chart/
+#    alias: gabelstapler-observability-app-1
+#  - name: generic-chart
+#    version: 2.3.0
+#    repository: https://baloise-incubator.github.io/generic-chart/
+#    alias: gabelstapler-observability-app-2
+#  - name: generic-chart
+#    version: 2.3.0
+#    repository: https://baloise-incubator.github.io/generic-chart/
+#    alias: gabelstapler-observability-app-3
+#  - name: generic-chart
+#    version: 2.3.0
+#    repository: https://baloise-incubator.github.io/generic-chart/
+#    alias: gabelstapler-frontend-app

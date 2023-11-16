@@ -113,7 +113,7 @@ spec:
             - name: GF_UNIFIED_ALERTING_ENABLED
               value: "false"
             - name: GF_ALERTING_ENABLED
-              value: "false"
+              value: "true"
             - name: GF_FEATURE_TOGGLES_ENABLE
               value: "flameGraph"
             - name: GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS

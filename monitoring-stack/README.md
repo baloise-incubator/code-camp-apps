@@ -309,6 +309,7 @@ histogram_quantile(0.95, sum(rate(http_server_requests_seconds_bucket[5m]))by (l
 * Deploy resources in hack/ directory
 * Create MinIO buckets `chunks` and `grafana-pyroscope-data`
 * Create MinIO service account and allow access to buckets
+* Add monitoring selector label to monitoring-stack
 
 # On call
 

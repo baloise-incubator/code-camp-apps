@@ -266,7 +266,7 @@ extraArgs:
 * Select request metrics
 
 ```promql
-histogram_quantile(0.95, sum(rate(http_server_requests_seconds_bucket[5m]))by (le))
+histogram_quantile(0.95, sum(rate(http_server_requests_seconds_bucket[5m]))by (le, pod))
 ```
 
 ![tracing](docs/tracing2.png)

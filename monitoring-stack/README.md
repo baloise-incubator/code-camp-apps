@@ -206,29 +206,29 @@ A coexsistence of Splunk and Loki is envisionable.
 ![tracing](docs/tracing.drawio.svg)
 
 
-#### Tempo vs otel collector / jaeger
+#### Tempo vs Open Telemetry collector / jaeger collector
 
 * backend
   * Jaeger
     * ElasticSearch
     * Cassandra
-    * kafka
+    * (kafka) as cache
   * Grafana Tempo
-    * S3
+    * AWS S3
     * GCS Object storage
     * Azure Blob Storage
-* frontend
-  * Grafana Tempo
-    * Grafana
+* Frontend
+  * Tempo
+    * Grafana data source
   * Jaeger
     * Jaeger
-    * Grafana
+    * Grafana data source
 
 Verdict
 
-* Setup of Tempo is simpler, no elastic
-* Tempo has a better usability compared to Jeager but there isn't a huge gap
-* We would recommend to use otel setup with collector and Jeager, as for now
+* Setup of Tempo is simpler, no elasticsearch required
+* Tempo seems to be better integrated in Grafana compared to Jeager but there isn't a huge gap
+* We would recommend to use Open Telemetry setup with otel collector and Jeager, as for now (object storage limitations and already existing know-how)
 * Both implement almost the same standard (e.g. endpoints, integration)
 
 ### Instrumenting
@@ -244,14 +244,15 @@ To enable gRPC you have to do the following [instruction](https://github.com/bal
 ### Exemplars
 
 [Exemplars](https://grafana.com/docs/grafana/latest/fundamentals/exemplars/):
-* metric / trace correlation
+* metric / trace correlation basically for free
 * cardinality issues
   * part of OpenMetrics standard
   * adds trace_id to exposed request metrics
   * each scrape get last trace_id
 * LTS (long term storage)
-  * exemplars are stored in-memory
-  * increase buffe size can increase retention - will be short-lived
+  * exemplars are stored in-memory [https://prometheus.io/docs/prometheus/latest/feature_flags/#:~:text=Exemplar%20storage%20is%20implemented%20as,circular%20buffer%20by%20%23%20of%20exemplars](https://prometheus.io/docs/prometheus/latest/feature_flags/#exemplars-storage)
+* use-case might be very limited
+
 
 #### example
 

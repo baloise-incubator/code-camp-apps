@@ -38,7 +38,7 @@ glutton:
     repository: docker.io/ubuntu
     tag: lunar
   command: [ "/bin/bash", "-c", "--" ]
-  args: [ "for i in $(ls /logs/Beat/*); do cat $i && sleep infinity; done" ]
+  args: [ "for i in $(ls /logs/Beat/*); do cat $i && sleep 100; done" ]
   persistence:
     name: logs
     enabled: true

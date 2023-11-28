@@ -1,7 +1,9 @@
-#{{- $namespaceName := $.Release.Name -}}
-#{{- $namespaceConfig := (dict "top" $) -}}
-#{{- $clusterEnvironment := $.Values.clusterEnvironment -}}
-#{{- $appEnvironment := $.Values.appEnvironment -}}
-#{{- $infraCluster := $.Values.infraCluster -}}
-#{{- $configRepoName := trimSuffix "-monitoring" $.Release.Name }}
-#{{ template "monitoring" (dict "top" $ "configRepoName" $configRepoName "namespace" $namespaceName "clusterEnvironment" $clusterEnvironment "appEnvironment" $appEnvironment "namespaceName" $namespaceName "monNsName" $namespaceName "monitoringSelector" $configRepoName "infraCluster" $infraCluster) }}
+{{- /* 
+{{- $namespaceName := $.Release.Name -}}
+{{- $namespaceConfig := (dict "top" $) -}}
+{{- $clusterEnvironment := $.Values.clusterEnvironment -}}
+{{- $appEnvironment := $.Values.appEnvironment -}}
+{{- $infraCluster := $.Values.infraCluster -}}
+{{- $configRepoName := trimSuffix "-monitoring" $.Release.Name }}
+{{ template "monitoring" (dict "top" $ "configRepoName" $configRepoName "namespace" $namespaceName "clusterEnvironment" $clusterEnvironment "appEnvironment" $appEnvironment "namespaceName" $namespaceName "monNsName" $namespaceName "monitoringSelector" $configRepoName "infraCluster" $infraCluster) }}
+*/}}

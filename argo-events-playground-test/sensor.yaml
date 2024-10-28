@@ -54,3 +54,4 @@ spec:
                             key: secretkey
                   container:
                     image: ghrc.io/luechtdiode/sudoku:main
+                    command: ["java", "-cp", ".:app.jar", "ch.seidel.sudoku.Sudoku"]

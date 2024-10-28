@@ -27,7 +27,7 @@ spec:
                   inputs:
                     artifacts:
                       - name: sudoku-input
-                        path: /sudoku/input/sudoku.txt
+                        path: /sudoku/input
                         s3:
                           endpoint: s3.apps.baloise.dev:443
                           bucket: test
@@ -41,7 +41,7 @@ spec:
                   outputs:
                     artifacts:
                       - name: sudoku-output
-                        path: /sudoku/output/sudoku.txt
+                        path: /sudoku/output
                         s3:
                           endpoint: s3.apps.baloise.dev:443
                           bucket: test
@@ -55,4 +55,4 @@ spec:
                   container:
                     image: debian:latest
                     command: [sh, -c]
-                    args: ["mkdir /sudoku/output/ && cp /sudoku/input/sudoku.txt /sudoku/output/sudoku.txt"]
+                    args: ["cp -r /sudoku/input/sudoku.txt /sudoku/output/sudoku.txt"]

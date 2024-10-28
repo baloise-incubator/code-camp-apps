@@ -41,7 +41,8 @@ spec:
                   container:
                     #image: docker/whalesay:latest
                     image: quay.io/toolbx-images/rockylinux-toolbox:9
-                    command: [while true]
+                    command: [ "/bin/bash", "-c", "--" ]
+                    args: [ "while true; do sleep 30; done;" ]
                     #command: [cowsay]
                     #args: ["-f tux < /sudoku/sudoku.txt"]
 

@@ -19,7 +19,7 @@ spec:
               apiVersion: argoproj.io/v1alpha1
               kind: Workflow
               metadata:
-                generateName: minio-
+                generateName: sudoku-
               spec:
                 entrypoint: whalesay
                 templates:
@@ -39,10 +39,7 @@ spec:
                             name: artifacts-minio
                             key: secretkey
                   container:
-                    #image: docker/whalesay:latest
-                    image: quay.io/toolbx-images/rockylinux-toolbox:9
-                    command: [ "/bin/bash", "-c", "--" ]
-                    args: [ "while true; do sleep 30; done;" ]
-                    #command: [cowsay]
-                    #args: ["-f tux < /sudoku/sudoku.txt"]
+                    image: docker/whalesay:latest
+                    command: [cowsay]
+                    args: ["-f tux < /sudoku"]
 

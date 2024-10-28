@@ -34,10 +34,10 @@ spec:
                           key: sudoku.txt
                           accessKeySecret:
                             name: artifacts-minio
-                            key: accessKey
+                            key: accesskey
                           secretKeySecret:
                             name: artifacts-minio
-                            key: secretKey
+                            key: secretkey
                   container:
                     image: docker/whalesay:latest
                     command: [cowsay]

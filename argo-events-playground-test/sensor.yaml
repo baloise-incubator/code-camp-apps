@@ -27,7 +27,7 @@ spec:
                   inputs:
                     artifacts:
                       - name: sudoku-input
-                        path: /sudoku/input/sudoku.txt
+                        path: /sudoku/input/
                         s3:
                           endpoint: s3.apps.baloise.dev:443
                           bucket: test

@@ -5,6 +5,9 @@ metadata:
 spec:
   minio:
     sudoku:
+      filter:
+        prefix: "input"
+        suffix: ".txt"
       # bucket information
       bucket:
         # name of the bucket

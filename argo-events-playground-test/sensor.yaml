@@ -31,7 +31,7 @@ spec:
                         s3:
                           endpoint: s3.apps.baloise.dev:443
                           bucket: test
-                          key: sudoku.txt
+                          key: input
                           accessKeySecret:
                             name: artifacts-minio
                             key: accesskey
@@ -45,7 +45,7 @@ spec:
                         s3:
                           endpoint: s3.apps.baloise.dev:443
                           bucket: test
-                          #key: sudoku-solved.txt
+                          key: output
                           accessKeySecret:
                             name: artifacts-minio
                             key: accesskey

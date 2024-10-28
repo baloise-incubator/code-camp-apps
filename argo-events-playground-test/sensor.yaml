@@ -22,18 +22,24 @@ spec:
                 generateName: minio-
               spec:
                 entrypoint: whalesay
-                arguments:
-                  parameters:
-                  - name: message
-                    # the value will get overridden by event payload from test-dep
-                    value: Sudoku
                 templates:
                 - name: whalesay
                   inputs:
-                    parameters:
-                    - name: message
+                    artifacts:
+                      - name: sudoku
+                        path: /tmp/sudoku
+                        s3:
+                          endpoint: s3.apps.baloise.dev:443
+                          bucket: test
+                          key: sudoku.txt
+                          accessKeySecret:
+                            name: artifacts-minio
+                            key: accessKey
+                          secretKeySecret:
+                            name: artifacts-minio
+                            key: secretKey
                   container:
                     image: docker/whalesay:latest
                     command: [cowsay]
-                    args: ["test"]
+                    args: ["-f tux < /tmp/sudoku/sudoku.txt"]
 

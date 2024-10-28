@@ -10,7 +10,7 @@ spec:
         # name of the bucket
         name: test
       # s3 service endpoint
-      endpoint: myminio-hl.argo-events-playground-test:9000
+      endpoint: minio.argo-events-playground-test
       # list of events to subscribe to
       # Visit https://docs.minio.io/docs/minio-bucket-notification-guide.html
       events:

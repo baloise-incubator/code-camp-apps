@@ -27,7 +27,7 @@ spec:
                   inputs:
                     artifacts:
                       - name: sudoku
-                        path: /sudoku
+                        path: /sudoku/input/sudoku.txt
                         s3:
                           endpoint: s3.apps.baloise.dev:443
                           bucket: test
@@ -41,4 +41,4 @@ spec:
                   container:
                     image: docker/whalesay:latest
                     command: [ "/bin/bash", "-c", "--" ]
-                    args: [ cowsay < /sudoku" ]
+                    args: [ "cowsay < /sudoku/input/sudoku.txt" ]

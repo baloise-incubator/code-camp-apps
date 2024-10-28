@@ -55,4 +55,4 @@ spec:
                   container:
                     image: debian:latest
                     command: [sh, -c]
-                    args: ["cp -r /sudoku/input/sudoku.txt /sudoku/output/sudoku.txt"]
+                    args: ["cp -r /sudoku/input sudoku/output"]

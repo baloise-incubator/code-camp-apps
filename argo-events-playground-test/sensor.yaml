@@ -8,6 +8,7 @@ spec:
   dependencies:
     - name: test-dep
       eventSourceName: minio
+      eventName: sudoku
   triggers:
     - template:
         name: minio-workflow-trigger
@@ -25,7 +26,7 @@ spec:
                   parameters:
                   - name: message
                     # the value will get overridden by event payload from test-dep
-                    value: hello world
+                    value: Sudoku
                 templates:
                 - name: whalesay
                   inputs:

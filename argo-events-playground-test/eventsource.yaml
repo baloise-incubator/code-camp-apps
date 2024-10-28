@@ -4,7 +4,7 @@ metadata:
   name: minio
 spec:
   minio:
-    example:
+    sudoku:
       # bucket information
       bucket:
         # name of the bucket

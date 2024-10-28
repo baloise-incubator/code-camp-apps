@@ -26,12 +26,26 @@ spec:
                 - name: whalesay
                   inputs:
                     artifacts:
-                      - name: sudoku
+                      - name: sudoku-input
                         path: /sudoku/input/sudoku.txt
                         s3:
                           endpoint: s3.apps.baloise.dev:443
                           bucket: test
                           key: sudoku.txt
+                          accessKeySecret:
+                            name: artifacts-minio
+                            key: accesskey
+                          secretKeySecret:
+                            name: artifacts-minio
+                            key: secretkey
+                  outputs:
+                    artifacts:
+                      - name: sudoku-output
+                        path: /sudoku/output/sudoku.txt
+                        s3:
+                          endpoint: s3.apps.baloise.dev:443
+                          bucket: test
+                          key: sudoku-solved.txt
                           accessKeySecret:
                             name: artifacts-minio
                             key: accesskey

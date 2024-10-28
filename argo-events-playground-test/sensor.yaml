@@ -41,5 +41,5 @@ spec:
                   container:
                     image: docker/whalesay:latest
                     command: ["cowsay"]
-                    args: ["< /sudoku"]
+                    args: ["<" "/sudoku"]
 

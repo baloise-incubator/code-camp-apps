@@ -23,7 +23,7 @@ spec:
               spec:
                 entrypoint: whalesay
                 templates:
-                - name: whalesay
+                - name: sudoku
                   inputs:
                     artifacts:
                       - name: sudoku-input
@@ -53,6 +53,6 @@ spec:
                             name: artifacts-minio
                             key: secretkey
                   container:
-                    image: docker/whalesay:latest
-                    command: [ "/bin/bash", "-c", "--" ]
-                    args: [ "cp /sudoku/input/sudoku.txt /sudoku/output/sudoku.txt && cat /sudoku/output/sudoku.txt" ]
+                    image: debian:latest
+                    command: [sh, -c]
+                    args: ["mkdir /sudoku/output/ && cp /sudoku/input/sudoku.txt /sudoku/output/sudoku.txt"]

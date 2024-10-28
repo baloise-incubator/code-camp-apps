@@ -27,10 +27,11 @@ spec:
                   inputs:
                     artifacts:
                       - name: sudoku-input
-                        path: /sudoku/input/
+                        path: /sudoku/input/sudoku.txt
                         s3:
                           endpoint: s3.apps.baloise.dev:443
                           bucket: test
+                          key: sudoku.txt
                           accessKeySecret:
                             name: artifacts-minio
                             key: accesskey
@@ -40,10 +41,11 @@ spec:
                   outputs:
                     artifacts:
                       - name: sudoku-output
-                        path: /sudoku/output/
+                        path: /tmp/sudoku-solved.txt
                         s3:
                           endpoint: s3.apps.baloise.dev:443
                           bucket: test
+                          key: sudoku-solved.txt
                           accessKeySecret:
                             name: artifacts-minio
                             key: accesskey
@@ -53,4 +55,4 @@ spec:
                   container:
                     image: debian:latest
                     command: [sh, -c]
-                    args: ["cp -r /sudoku/input/sudoku.txt /sudoku/output/sudoku-output.txt"]
+                    args: ["cp -r /sudoku/input/sudoku.txt /tmp/sudoku-solved.txt"]

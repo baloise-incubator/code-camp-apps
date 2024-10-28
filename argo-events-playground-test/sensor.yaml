@@ -21,7 +21,7 @@ spec:
               metadata:
                 generateName: sudoku-
               spec:
-                entrypoint: whalesay
+                entrypoint: sudoku
                 templates:
                 - name: sudoku
                   inputs:

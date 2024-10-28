@@ -53,5 +53,5 @@ spec:
                             name: artifacts-minio
                             key: secretkey
                   container:
-                    image: ghcr.io/luechtdiode/sudoku:main
-                    command: ["java", "-cp", ".:app.jar", "ch.seidel.sudoku.Sudoku"]
+                    image: ghcr.io/luechtdiode/sudoku:0.0.1
+                    args: ["/sudoku/input/sudoku.txt"]

@@ -40,6 +40,5 @@ spec:
                             key: secretkey
                   container:
                     image: docker/whalesay:latest
-                    command: ["cowsay"]
-                    args: ["<", "/sudoku"]
+                    command: ["cowsay","<", "/sudoku"]
 

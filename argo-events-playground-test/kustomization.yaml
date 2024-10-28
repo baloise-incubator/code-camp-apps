@@ -3,6 +3,6 @@ kind: Kustomization
 resources:
   - minio-tenant.yaml
   - eventsource.yaml
-  - https://craw.githubusercontent.com/argoproj/argo-events/stable/examples/eventbus/native.yaml
+  - https://raw.githubusercontent.com/argoproj/argo-events/stable/examples/eventbus/native.yaml
   # - storage-configuration.yaml
   # - artifacts-minio.yaml

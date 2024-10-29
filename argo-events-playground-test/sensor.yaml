@@ -29,9 +29,8 @@ spec:
                     value: ""
                 templates:
                 - name: sudoku
-                  templateRef:
+                  workflowTemplateRef:
                     name: workflow-template-sudoku
-                    template: sudoku
                   arguments:
                     parameters:
                     - name: path

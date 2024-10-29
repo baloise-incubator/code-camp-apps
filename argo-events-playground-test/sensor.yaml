@@ -59,6 +59,8 @@ spec:
                           secretKeySecret:
                             name: artifacts-minio
                             key: secretkey
+                        archive:
+                          none: {}
                   container:
                     image: ghcr.io/luechtdiode/sudoku:0.0.2
                     command: ["/bin/sh", "-c"]

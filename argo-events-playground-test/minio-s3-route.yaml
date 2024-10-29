@@ -1,0 +1,58 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: s3
+spec:
+  host: s3.apps.baloise.dev
+  to:
+    kind: Service
+    name: minio
+    weight: 100
+  port:
+    targetPort: https-minio
+  tls:
+    termination: reencrypt
+    destinationCACertificate: |-
+      -----BEGIN CERTIFICATE-----
+      MIIDXTCCAkWgAwIBAgIIfumFSuZz5bUwDQYJKoZIhvcNAQELBQAwUjFQME4GA1UE
+      AwxHb3BlbnNoaWZ0LWt1YmUtY29udHJvbGxlci1tYW5hZ2VyLW9wZXJhdG9yX2Nz
+      ci1zaWduZXItc2lnbmVyQDE3MjcyODM1NDYwHhcNMjQxMDEyMDUwMjAxWhcNMjQx
+      MTExMDUwMjAyWjAmMSQwIgYDVQQDDBtrdWJlLWNzci1zaWduZXJfQDE3Mjg3MDkz
+      MjIwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCtWgQgYnAC4nYMC1l4
+      t9i6HjQNBRmkNxBcdrjZmvD1aL9kclfc18AFfIwlpEJdqKPB6tqJ7OVGjF+hrkr4
+      aogaDbcQnNl51pI+HR1jFs/TnOaHigDfYk/tGpSXL1ZmQ7cm8fe/zW81am/21ljV
+      +tPI371Pbjw0uhuwcf/5FcvPUIjegSqsKBdJCIAwhpnrU7yBvdJlG3hLoEJSYMnE
+      rkLWKKbA/v2es4BYiQWZ9r8RAIHiEXsJPDYNDYMPZUpLK8nUfBBqOy+tAZwsBzym
+      9afz19/OBKs8Jppan0+ZMkFTCMf06MywcFr0f8p3LxUKGSYriT4BGwZtueAcFWA6
+      2VefAgMBAAGjYzBhMA4GA1UdDwEB/wQEAwICpDAPBgNVHRMBAf8EBTADAQH/MB0G
+      A1UdDgQWBBQ4RTBJlsxa8nlgrMFrm00h5pu+DTAfBgNVHSMEGDAWgBQ454aakg7R
+      YRl7amqzyF1oz6sr6TANBgkqhkiG9w0BAQsFAAOCAQEAeebEWPP0paTcfaDzO5VW
+      v3xUwhrtgW24y/0u/MRbSRfF8m+OV4KhewgW+hcyhqOnk6Yyf6iARRRVHcqG87DD
+      ZYtlTt0UeeMTVB4df4WYsq5AM5jjaamg1iOGEsa8icabYbclFUjuzrC+dmpOHWOU
+      pgQmjsR0e5n0Y98CWf3OIbo/1GWo/hbsZarxMDxIvoQJuAg4mQOrav8nHHQdLXbi
+      42iq6s5SNYdpWeF5ir7apWES3pQcqPBFhAD0ike6q8lmZG6SOI1gtvGD2eGANb+6
+      ZxgIqyL2ue3AGjv9DcHs2dUtr9AWQyClxcRuanghm3E5DGjnHOg0yAyzeop1Cegv
+      bQ==
+      -----END CERTIFICATE-----
+      -----BEGIN CERTIFICATE-----
+      MIIDiTCCAnGgAwIBAgIIekl/pWK2rgQwDQYJKoZIhvcNAQELBQAwUjFQME4GA1UE
+      AwxHb3BlbnNoaWZ0LWt1YmUtY29udHJvbGxlci1tYW5hZ2VyLW9wZXJhdG9yX2Nz
+      ci1zaWduZXItc2lnbmVyQDE3MjcyODM1NDYwHhcNMjQwOTI1MTY1OTA1WhcNMjQx
+      MTI0MTY1OTA2WjBSMVAwTgYDVQQDDEdvcGVuc2hpZnQta3ViZS1jb250cm9sbGVy
+      LW1hbmFnZXItb3BlcmF0b3JfY3NyLXNpZ25lci1zaWduZXJAMTcyNzI4MzU0NjCC
+      ASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALnttqCMbCUhxEB4th57sE8F
+      wDAtHB5fCs1Rmare9MY4EgBAxhVVisswYvUZnG2sm4afDkSdN/+C57ETsve02FSh
+      7RwmP6/bWMFc0ZDTReaIiS2X3XvMF/fibksWWrF5WSF37oP9AKM/7/ws536khU0L
+      MZ6GcCTejSFpTvimTk3DvzVuWkcwl3iLwmpfde6ylB1tJ1mdjmDVrxBJ1Tv9T8IS
+      qKbL1dMQlmrNOJ2Kuw3axtESQ456lBqo1xRu/2qpf9VKzKB/msarbhMpCtoTa36w
+      x/boQP7dbNsNv4wl4Pt5uYWwcA57/BUM2kdRBo1Xji0i736BAn0qK7/ezO179eMC
+      AwEAAaNjMGEwDgYDVR0PAQH/BAQDAgKkMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0O
+      BBYEFDjnhpqSDtFhGXtqarPIXWjPqyvpMB8GA1UdIwQYMBaAFDjnhpqSDtFhGXtq
+      arPIXWjPqyvpMA0GCSqGSIb3DQEBCwUAA4IBAQBfs9hP8BHXmzhGJcQvjwIQaqwG
+      IQsrlLsoYlVQSNo+CnsqHZiCANnZDMaUz/2yCp32iIKm3AI2JQJkDigRHYi//3o5
+      NvGCCs0LpK8jcor6e0zfVCEDUS7oEEWeo+uK76wDalXJN/LQHRutjHIwIfB+Hh/k
+      3hAO84lQ8LBQPrsSEWkhX8qZr68+dv+CGCNIlfWG3oa5fiKLBdBbBpNU2vsR7960
+      7Z/8aONR9TcakR/cGISGxIdbL3c2YaBN00ack87hbK8m8OFDi1lio1AJ/hKU63rO
+      a0P7hVoyWrAK+JjK802R0HhpZoh6mQ4+6Bg6nbl5I5xh4RpXueN4kiwFM/sW
+      -----END CERTIFICATE-----
+    insecureEdgeTerminationPolicy: Redirect

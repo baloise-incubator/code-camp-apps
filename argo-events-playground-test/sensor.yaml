@@ -62,7 +62,7 @@ spec:
                         archive:
                           none: {}
                   container:
-                    image: ghcr.io/luechtdiode/sudoku:0.0.2
+                    image: ghcr.io/luechtdiode/sudoku:0.0.3
                     command: ["/bin/sh", "-c"]
                     args: ["java -cp .:app.jar:libs/* ch.seidel.sudoku.Sudoku /sudoku/{{inputs.parameters.path}} /tmp/"]
           # The container args from the workflow are overridden by the s3 notification key

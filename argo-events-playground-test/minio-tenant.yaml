@@ -1,14 +1,7 @@
 kind: Tenant
 apiVersion: minio.min.io/v2
 metadata:
-  annotations:
-    prometheus.io/path: /minio/v2/metrics/cluster
-    prometheus.io/port: '9000'
-    prometheus.io/scrape: 'true'
-  labels:
-    app: minio
   name: myminio
-  namespace: argo-events-playground-test
 spec:
   certConfig: {}
   configuration:
@@ -20,7 +13,7 @@ spec:
   features:
     bucketDNS: false
     domains: {}
-  image: 'quay.io/minio/minio@sha256:f95dc4fc35439654a71300f765b485e114e7a720318dbce24ccd4f324d1475cf'
+  image: 'quay.io/minio/minio@sha256:f95dc4fc35439654a71300f765b485e114e7a720318dbce24ccd4f324d1475cf' # image provided from operator
   imagePullSecret: {}
   mountPath: /export
   podManagementPolicy: Parallel

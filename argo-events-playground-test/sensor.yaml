@@ -48,7 +48,7 @@ spec:
                   outputs:
                     artifacts:
                       - name: sudoku-output
-                        path: /tmp/output
+                        path: /tmp/
                         s3:
                           endpoint: s3.apps.baloise.dev:443
                           bucket: test
@@ -62,4 +62,4 @@ spec:
                   container:
                     image: ghcr.io/luechtdiode/sudoku:0.0.2
                     command: ["/bin/sh", "-c"]
-                    args: ["mkdir /tmp/output && java -cp .:app.jar:libs/* ch.seidel.sudoku.Sudoku {{inputs.parameters.path}}c /tmp/output"]
+                    args: ["java -cp .:app.jar:libs/* ch.seidel.sudoku.Sudoku {{inputs.parameters.path}} /tmp/"]

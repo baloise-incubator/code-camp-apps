@@ -9,5 +9,6 @@ resources:
   - sensor.yaml
   - workflow-rbac.yaml
   - eventbus.yaml
+  - sudoku-wft.yaml
   # - storage-configuration.yaml
   # - artifacts-minio.yaml

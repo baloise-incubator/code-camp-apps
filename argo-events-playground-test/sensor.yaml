@@ -27,14 +27,8 @@ spec:
                   - name: path
                     # the value will get overridden by event payload from test-dep
                     value: ""
-                templates:
-                - name: sudoku
-                  templateRef:
-                    name: workflow-template-sudoku
-                    template: sudoku
-                  inputs:
-                    parameters:
-                    - name: path
+                workflowTemplateRef:
+                  name: workflow-template-sudoku
           # The container args from the workflow are overridden by the s3 notification key
           parameters:
             - src:

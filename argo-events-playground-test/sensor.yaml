@@ -61,5 +61,5 @@ spec:
                             key: secretkey
                   container:
                     image: ghcr.io/luechtdiode/sudoku:0.0.2
-                    command: ["/bin/sh", "-c"]
-                    args: ["mkdir /tmp/output", "java -cp .:app.jar:libs/* ch.seidel.sudoku.Sudoku {{inputs.parameters.path}}c /tmp/output"]
+                    command: ["/bin/bash", "-c"]
+                    args: ["mkdir /tmp/output && java -cp .:app.jar:libs/* ch.seidel.sudoku.Sudoku {{inputs.parameters.path}}c /tmp/output"]

@@ -22,6 +22,11 @@ spec:
                 generateName: sudoku-
               spec:
                 entrypoint: sudoku
+                arguments:
+                  parameters:
+                  - name: path
+                    # the value will get overridden by event payload from test-dep
+                    value: /sudoku/input/sudoku.txt
                 templates:
                 - name: sudoku
                   inputs:
@@ -41,7 +46,7 @@ spec:
                   outputs:
                     artifacts:
                       - name: sudoku-output
-                        path: /sudoku/output
+                        path: /tmp/output
                         s3:
                           endpoint: s3.apps.baloise.dev:443
                           bucket: test
@@ -55,4 +60,4 @@ spec:
                   container:
                     image: ghcr.io/luechtdiode/sudoku:0.0.1
                     command: ["/bin/sh", "-c"]
-                    args: ["java -cp .:app.jar:libs/* ch.seidel.sudoku.Sudoku /sudoku/input/sudoku.txt"]
+                    args: ["java -cp .:app.jar:libs/* ch.seidel.sudoku.Sudoku {{inputs.parameters.message}} /tmp/output"]

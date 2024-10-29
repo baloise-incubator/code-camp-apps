@@ -30,6 +30,8 @@ spec:
                 templates:
                 - name: sudoku
                   inputs:
+                    parameters:
+                    - name: path
                     artifacts:
                       - name: sudoku-input
                         path: /sudoku/input
@@ -60,4 +62,4 @@ spec:
                   container:
                     image: ghcr.io/luechtdiode/sudoku:0.0.1
                     command: ["/bin/sh", "-c"]
-                    args: ["java -cp .:app.jar:libs/* ch.seidel.sudoku.Sudoku {{inputs.parameters.message}} /tmp/output"]
+                    args: ["java -cp .:app.jar:libs/* ch.seidel.sudoku.Sudoku {{inputs.parameters.message}}c /tmp/output"]

@@ -8,6 +8,6 @@ resources:
   - sensor-rbac.yaml
   - sensor.yaml
   - workflow-rbac.yaml
-  #- eventbus.yaml
+  - eventbus.yaml
   # - storage-configuration.yaml
   # - artifacts-minio.yaml

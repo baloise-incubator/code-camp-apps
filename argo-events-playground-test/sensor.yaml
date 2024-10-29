@@ -29,9 +29,10 @@ spec:
                     value: ""
                 templates:
                 - name: sudoku
-                  workflowTemplateRef:
+                  templateRef:
                     name: workflow-template-sudoku
-                  arguments:
+                    template: sudoku
+                  inputs:
                     parameters:
                     - name: path
           # The container args from the workflow are overridden by the s3 notification key

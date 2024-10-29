@@ -18,7 +18,6 @@ spec:
       # Visit https://docs.minio.io/docs/minio-bucket-notification-guide.html
       events:
         - s3:ObjectCreated:Put
-        #- s3:ObjectRemoved:Delete
       # type of the connection
       insecure: false
       # accessKey refers to K8s secret that stores the access key
@@ -33,23 +32,3 @@ spec:
         key: secretkey
         # Name of the K8s secret that contains the secret key
         name: artifacts-minio
-
-#    example-with-filter:
-#      bucket:
-#        name: mybucket
-#      endpoint: minio-service.argo-events:9000
-#      events:
-#        - s3:ObjectCreated:Put
-#      # Filters to apply on the key
-#      # Optional
-#      # e.g. filter for key that starts with "hello-" and ends with ".txt"
-#      filter:
-#        prefix: "hello-"
-#        suffix: ".txt"
-#      insecure: true
-#      accessKey:
-#        key: accesskey
-#        name: artifacts-minio
-#      secretKey:
-#        key: secretkey
-#        name: artifacts-minio

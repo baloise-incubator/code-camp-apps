@@ -57,9 +57,3 @@ spec:
                     entrypoint: []
                     command: ["/bin/sh", "-c"]
                     args: ["java -cp .:app.jar:libs/* ch.seidel.sudoku.Sudoku /sudoku/input/sudoku.txt"]
-                    volumeMounts:
-                      - name: output
-                        mountPath: /sudoku/output/
-                  volumes:
-                     - name: output
-                       emptyDir: { }

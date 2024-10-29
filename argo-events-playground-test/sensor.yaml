@@ -53,5 +53,11 @@ spec:
                             name: artifacts-minio
                             key: secretkey
                   container:
-                    image: ghcr.io/luechtdiode/sudoku:main
+                    image: ghcr.io/luechtdiode/sudoku:0.0.1
                     command: ["java", "-cp", ".:app.jar", "ch.seidel.sudoku.Sudoku"]
+                    volumeMounts:
+                      - name: output
+                        mountPath: /sudoku/output/
+                  volumes:
+                     - name: output
+                       emptyDir: { }

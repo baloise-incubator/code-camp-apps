@@ -54,7 +54,9 @@ spec:
                             key: secretkey
                   container:
                     image: ghcr.io/luechtdiode/sudoku:0.0.1
-                    args: ["/sudoku/input/sudoku.txt"]
+                    entrypoint: []
+                    command: ["/bin/sh", "-c"]
+                    args: ["java -cp .:app.jar:libs/* ch.seidel.sudoku.Sudoku /sudoku/input/sudoku.txt"]
                     volumeMounts:
                       - name: output
                         mountPath: /sudoku/output/

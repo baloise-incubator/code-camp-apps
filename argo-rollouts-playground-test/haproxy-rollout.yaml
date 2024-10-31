@@ -12,7 +12,7 @@ spec:
       - name: rollouts-demo
         image: quay.io/nginx/nginx-unprivileged:stable
         args:
-        - while true; do && sleep 100; done
+        - while true; do sleep 100; done
         command:
         - /bin/sh
         - -c 

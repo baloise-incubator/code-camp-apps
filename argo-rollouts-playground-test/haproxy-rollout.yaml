@@ -3,19 +3,20 @@ kind: Rollout
 metadata:
   name: rollouts-haproxy-demo
 spec:
+  selector: 
+    matchLabels:
+      app: rollouts-demo
   template: 
     metadata:
       labels:
         app: rollouts-demo
     spec:
+      volumes:
+      - name: nginx
+        emptyDir: {}
       containers:
       - name: rollouts-demo
         image: quay.io/nginx/nginx-unprivileged:stable
-        args:
-        - while true; do sleep 100; done
-        command:
-        - /bin/sh
-        - -c 
         ports:
         - name: http
           containerPort: 8080
@@ -24,7 +25,9 @@ spec:
           requests:
             memory: 32Mi
             cpu: 5m
-
+        volumeMounts:
+        - mountPath: /usr/share/nginx/html
+          name: nginx
   revisionHistoryLimit: 2
   replicas: 5
   strategy:
@@ -45,7 +48,5 @@ spec:
           args:
           - name: route 
             value: rollouts-demo-route
-  selector: 
-    matchLabels:
-      app: rollouts-demo
+
 

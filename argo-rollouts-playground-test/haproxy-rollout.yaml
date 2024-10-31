@@ -11,11 +11,11 @@ spec:
       containers:
       - name: rollouts-demo
         image: quay.io/nginx/nginx-unprivileged:stable
-        #args:
-        #- while true; do sleep 100; done
-        #command:
-        #- /bin/sh
-        #- -c 
+        args:
+        - while true; do sleep 100; done
+        command:
+        - /bin/sh
+        - -c 
         ports:
         - name: http
           containerPort: 8080

@@ -38,6 +38,7 @@ spec:
               - rollouts-demo-route  
       steps: 
       - setWeight: 30
+      - pause: {}
       - analysis:
           templates:
           - templateName: success-rate

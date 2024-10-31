@@ -1,15 +1,15 @@
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  annotations:
-    argocd.argoproj.io/tracking-id: >-
-      argo-rollouts-playground-test:rbac.authorization.k8s.io/ClusterRoleBinding:argo-rollouts-playground-test/thanos-querier-reader
-  name: thanos-querier-reader
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: cluster-reader
-subjects:
-  - kind: ServiceAccount
-    name: thanos-querier-reader
-    namespace: argo-rollouts-playground-test
+#apiVersion: rbac.authorization.k8s.io/v1
+#kind: ClusterRoleBinding
+#metadata:
+#  annotations:
+#    argocd.argoproj.io/tracking-id: >-
+#      argo-rollouts-playground-test:rbac.authorization.k8s.io/ClusterRoleBinding:argo-rollouts-playground-test/thanos-querier-reader
+#  name: thanos-querier-reader
+#roleRef:
+#  apiGroup: rbac.authorization.k8s.io
+#  kind: ClusterRole
+#  name: cluster-reader
+#subjects:
+#  - kind: ServiceAccount
+#    name: thanos-querier-reader
+#    namespace: argo-rollouts-playground-test

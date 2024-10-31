@@ -25,9 +25,9 @@ spec:
           requests:
             memory: 32Mi
             cpu: 5m
-        volumeMounts:
-        - mountPath: /usr/share/nginx/html
-          name: nginx
+        #volumeMounts:
+        #- mountPath: /usr/share/nginx/html
+        #  name: nginx
   revisionHistoryLimit: 2
   replicas: 5
   strategy:

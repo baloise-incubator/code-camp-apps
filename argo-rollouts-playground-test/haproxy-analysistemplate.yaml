@@ -26,12 +26,12 @@ spec:
         query: >+
           sum(
             rate(
-              haproxy_backend_http_responses_total{exported_namespace="{{ args.route }}",route="rollouts-demo-route",code!~"[4-5].*"}[10s]
+              haproxy_backend_http_responses_total{exported_namespace={{ args.route }},route="rollouts-demo-route",code!~"[4-5].*"}[10s]
             )
           )
           /
           sum(
             rate(
-              haproxy_backend_http_responses_total{exported_namespace="{{ args.route }}",route="rollouts-demo-route"}[10s]
+              haproxy_backend_http_responses_total{exported_namespace={{ args.route }},route="rollouts-demo-route"}[10s]
             )
           )

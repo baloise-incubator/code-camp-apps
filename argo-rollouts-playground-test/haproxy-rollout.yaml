@@ -37,7 +37,7 @@ spec:
           templates:
           - templateName: success-rate
           args:
-          - name: route
+          - name: route 
             value: rollouts-demo-route
   selector: 
     matchLabels:

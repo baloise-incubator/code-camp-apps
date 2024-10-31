@@ -10,7 +10,9 @@ spec:
     spec:
       containers:
       - name: rollouts-demo
-        image: argoproj/rollouts-demo:bad-yellow
+        image: quay.io/nginx/nginx-unprivileged:stable
+        command:
+         
         ports:
         - name: http
           containerPort: 8080

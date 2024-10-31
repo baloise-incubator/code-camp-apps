@@ -1,19 +1,21 @@
-#apiVersion: route.openshift.io/v1
-#kind: Route
-#metadata:
-#  name: rollouts-demo-route
-#spec:
-#  port:
-#    targetPort: http 
-#  tls: 
-#    insecureEdgeTerminationPolicy: Redirect
-#    termination: edge
-#  to:
-#    kind: Service
-#    name: argo-rollouts-stable-service 
-#    weight: 100 
-#
-#  alternateBackends:
-#    - kind: Service
-#      name: argo-rollouts-canary-service 
-#      weight: 0 
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: rollouts-demo-route
+  annotations:
+    haproxy.router.openshift.io/balance: roundrobin
+spec:
+  port:
+    targetPort: http 
+  tls: 
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  to:
+    kind: Service
+    name: argo-rollouts-stable-service 
+    weight: 100 
+
+  alternateBackends:
+    - kind: Service
+      name: argo-rollouts-canary-service 
+      weight: 0 

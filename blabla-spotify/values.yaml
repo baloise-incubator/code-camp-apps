@@ -38,4 +38,4 @@ blabla-spotify-frontend:
     http:
       containerPort: 8080
       ingress:
-        host: blabla-spotify.apps.baloise.dev/
+        host: blabla-spotify.apps.baloise.dev

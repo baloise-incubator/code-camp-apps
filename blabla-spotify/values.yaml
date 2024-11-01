@@ -1,0 +1,40 @@
+blabla-spotify-backend:
+  image:
+    repository: docker pull docker.io/raffaelheinzer248/blabla-spotify-backend
+    tag: latest
+  network:
+    http:
+      containerPort: 8080
+      ingress:
+        host: blabla-spotify.apps.baloise.dev/api
+  env:
+    - name: SRF_CONSUMER_KEY
+      valueFrom:
+        secretKeyRef:
+          name: blabla-secrets
+          key: SRF_CONSUMER_KEY
+    - name: SRF_CONSUMER_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: blabla-secrets
+          key: SRF_CONSUMER_SECRET
+    - name: SPOTIFY_CLIENT_ID
+      valueFrom:
+        secretKeyRef:
+          name: blabla-secrets
+          key: SPOTIFY_CLIENT_ID
+    - name: SPOTIFY_CLIENT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: blabla-secrets
+          key: SPOTIFY_CLIENT_SECRET
+
+blabla-spotify-frontend:
+  image:
+    repository: docker pull docker.io/raffaelheinzer248/blabla-spotify-frontend
+    tag: latest
+  network:
+    http:
+      containerPort: 8080
+      ingress:
+        host: blabla-spotify.apps.baloise.dev/

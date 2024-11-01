@@ -29,12 +29,12 @@ blabla-spotify-backend:
           name: blabla-secrets
           key: SPOTIFY_CLIENT_SECRET
 
-#blabla-spotify-frontend:
-#  image:
-#    repository: docker.io/raffaelheinzer248/blabla-spotify-frontend
-#    tag: latest
-#  network:
-#    http:
-#      containerPort: 8080
-#      ingress:
-#        host: blabla-spotify.apps.baloise.dev/
+blabla-spotify-frontend:
+  image:
+    repository: docker.io/raffaelheinzer248/blabla-spotify-frontend
+    tag: latest
+  network:
+    http:
+      containerPort: 8080
+      ingress:
+        host: blabla-spotify.apps.baloise.dev/

@@ -2,10 +2,10 @@ apiVersion: v1
 name: blabla-spotify
 version: 1.0.0
 dependencies:
-  - name: generic-chart
-    version: 2.3.0
-    repository: https://baloise-incubator.github.io/generic-chart/
-    alias: blabla-spotify-backend
+#  - name: generic-chart
+#    version: 2.3.0
+#    repository: https://baloise-incubator.github.io/generic-chart/
+#    alias: blabla-spotify-backend
 #  - name: generic-chart
 #    version: 2.3.0
 #    repository: https://baloise-incubator.github.io/generic-chart/

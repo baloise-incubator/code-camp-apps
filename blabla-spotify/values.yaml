@@ -1,6 +1,6 @@
 blabla-spotify-backend:
   image:
-    repository: docker pull docker.io/raffaelheinzer248/blabla-spotify-backend
+    repository: docker.io/raffaelheinzer248/blabla-spotify-backend
     tag: latest
   network:
     http:
@@ -31,7 +31,7 @@ blabla-spotify-backend:
 
 #blabla-spotify-frontend:
 #  image:
-#    repository: docker pull docker.io/raffaelheinzer248/blabla-spotify-frontend
+#    repository: docker.io/raffaelheinzer248/blabla-spotify-frontend
 #    tag: latest
 #  network:
 #    http:

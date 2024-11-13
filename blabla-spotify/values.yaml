@@ -6,7 +6,6 @@ blabla-spotify-backend:
     http:
       containerPort: 8080
       ingress:
-        path: "/api"
         host: blabla-spotify.apps.baloise.dev
   env:
     - name: SRF_CONSUMER_KEY

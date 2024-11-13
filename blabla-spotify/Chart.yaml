@@ -6,7 +6,7 @@ dependencies:
     version: 2.3.0
     repository: https://baloise-incubator.github.io/generic-chart/
     alias: blabla-spotify-backend
-  - name: generic-chart
-    version: 2.3.0
-    repository: https://baloise-incubator.github.io/generic-chart/
-    alias: blabla-spotify-frontend
+#  - name: generic-chart
+#    version: 2.3.0
+#    repository: https://baloise-incubator.github.io/generic-chart/
+#    alias: blabla-spotify-frontend

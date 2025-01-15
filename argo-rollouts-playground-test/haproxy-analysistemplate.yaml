@@ -13,7 +13,7 @@ spec:
   metrics:
   - name: success-rate
     interval: 10s
-    failureLimit: 3
+    failureLimit: 5
     count: 10
     successCondition: result[0] > 0.90
     provider:

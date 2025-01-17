@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: success-rate
+spec:
+  args:
+  - name: route
+  - name: token
+    valueFrom:
+      secretKeyRef:
+        name: token
+        key: token
+  metrics:
+  - name: success-rate
+    interval: 10s
+    failureLimit: 5
+    count: 10
+    successCondition: result[0] > 0.90
+    provider:
+      prometheus:
+        address: https://prometheus-k8s.openshift-monitoring.svc:9091
+        insecure: true
+        headers:
+        - key: Authorization
+          value: "{{ args.token }}"
+        query: |
+          sum(
+            rate(
+              haproxy_backend_http_responses_total{route="{{ args.route }}",code!~"[4-5].*"}[10s]
+            )
+          )
+          /
+          sum(
+            rate(
+              haproxy_backend_http_responses_total{route="{{ args.route }}"}[10s]
+            )
+          )

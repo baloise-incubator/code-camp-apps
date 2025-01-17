@@ -1,0 +1,15 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: s3
+spec:
+  host: s3.apps.baloise.dev
+  to:
+    kind: Service
+    name: minio
+    weight: 100
+  port:
+    targetPort: https-minio
+  tls:
+    termination: reencrypt
+    insecureEdgeTerminationPolicy: Redirect

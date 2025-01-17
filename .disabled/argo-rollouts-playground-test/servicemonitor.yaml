@@ -1,0 +1,24 @@
+#apiVersion: monitoring.coreos.com/v1
+#kind: ServiceMonitor
+#metadata:
+#  annotations:
+#    argocd.argoproj.io/tracking-id: >-
+#      argo-rollouts-playground-test:monitoring.coreos.com/ServiceMonitor:openshift-ingress/router-default-tmp
+#  name: router-default-tmp
+#  namespace: openshift-ingress
+#spec:
+#  endpoints:
+#    - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+#      interval: 1s
+#      path: /metrics
+#      port: metrics
+#      scheme: https
+#      tlsConfig:
+#        caFile: /etc/prometheus/configmaps/serving-certs-ca-bundle/service-ca.crt
+#        serverName: router-internal-default.openshift-ingress.svc
+#  namespaceSelector:
+#    matchNames:
+#      - openshift-ingress
+#  selector:
+#    matchLabels:
+#      ingresscontroller.operator.openshift.io/owning-ingresscontroller: default

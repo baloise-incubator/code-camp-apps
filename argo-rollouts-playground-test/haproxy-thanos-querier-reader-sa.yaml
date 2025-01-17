@@ -1,5 +1,0 @@
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: thanos-querier-reader
-  namespace: argo-rollouts-playground-test

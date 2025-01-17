@@ -1,0 +1,15 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: s3-console
+spec:
+  host: s3-console.apps.baloise.dev
+  to:
+    kind: Service
+    name: myminio-console
+    weight: 100
+  port:
+    targetPort: https-console
+  tls:
+    termination: reencrypt
+  wildcardPolicy: None
